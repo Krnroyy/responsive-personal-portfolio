@@ -96,3 +96,42 @@ a{transition:color .15s ease}
  .note-heading{font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){a{transition:none}}
+
+/* Portfolio visual polish v2 */
+.project:last-child .project-evidence {
+    max-width: 460px;
+}
+.project:last-child .evidence-image {
+    max-height: 380px;
+    min-height: 0;
+    padding: 8px;
+}
+.project:last-child .evidence-image img {
+    max-height: 360px;
+}
+.project-evidence figcaption a {
+    display: inline-block;
+    white-space: nowrap;
+}
+@media (max-width: 600px) {
+    .evidence-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .evidence-grid > div {
+        display: grid;
+        grid-template-columns: 120px minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+    }
+    .evidence-grid strong {
+        font-size: 18px;
+        margin: 0;
+    }
+    .evidence-grid span {
+        font-size: 13px;
+    }
+    .project:last-child .project-evidence {
+        max-width: 100%;
+    }
+}
