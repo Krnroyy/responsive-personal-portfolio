@@ -13,13 +13,14 @@
   <link rel="stylesheet" href="style.css">
   <script src="handshake-model.js" defer></script>
   <script src="script.js" defer></script>
+  <script src="crypto-demo.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header wrap">
     <a class="wordmark" href="#home" aria-label="Karan Kumar home">KK<span class="mark-dot"></span></a>
-    <nav id="main-nav" aria-label="Main navigation"><a href="#projects" data-section="projects">Projects</a><a href="#approach" data-section="approach">Approach</a><a href="#about" data-section="about">About</a><a class="nav-github" href="https://github.com/Krnroyy">GitHub <span aria-hidden="true">↗</span></a></nav>
+    <nav id="main-nav" aria-label="Main navigation"><a href="#projects" data-section="projects">Projects</a><a href="#crypto-lab" data-section="crypto-lab">Live lab</a><a href="#approach" data-section="approach">Approach</a><a href="#about" data-section="about">About</a><a class="nav-github" href="https://github.com/Krnroyy">GitHub <span aria-hidden="true">↗</span></a></nav>
     <div class="header-controls"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme" hidden><span class="theme-symbol" aria-hidden="true">◐</span><span id="theme-label">Theme</span></button><button class="menu-toggle" id="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false" hidden>Menu <span aria-hidden="true">☰</span></button></div>
   </header>
   <main id="main">
@@ -63,7 +64,7 @@
           <ul class="facts"><li>Hardware/software co-design</li><li>Independent reference checks</li><li>Documented timing and resource results</li></ul>
           <p class="scope">An engineering research prototype. Results and limitations are documented separately for its baseline and protected-chunk architectures.</p>
           <figure class="project-evidence"><a class="evidence-image" data-lightbox href="assets/aes-dma-throughput.png" target="_blank" rel="noopener" aria-label="Enlarge measured fpga results"><img src="assets/aes-dma-throughput.png" alt="Measured encryption and decryption throughput comparison of the CTR-DMA and GCM-DMA architectures." width="2130" height="1285" loading="lazy" decoding="async"></a><figcaption><span>Measured FPGA results</span>Preserved CTR-DMA and GCM-DMA throughput comparison. The results document explains measurement conditions. <a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption/blob/main/RESULTS.md">Read the source evidence ↗</a></figcaption></figure>
-          <div class="project-links"><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption">Repository ↗</a><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption/blob/main/RESULTS.md">Measured results ↗</a><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption/blob/main/BUILD_AND_RUN.md">Build guide ↗</a></div>
+          <div class="project-links"><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption">Repository ↗</a><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption/blob/main/RESULTS.md">Measured results ↗</a><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption/blob/main/BUILD_AND_RUN.md">Build guide ↗</a><a href="#crypto-lab">Try the browser lab ↓</a></div>
         </div>
       </article>
       <article class="project" data-category="cmos">
@@ -76,6 +77,26 @@
           <div class="project-links"><a href="https://github.com/Krnroyy/cadence-cmos-full-adder">Repository &amp; results ↗</a></div>
         </div>
       </article>
+    </section>
+    <section class="crypto-lab wrap section" id="crypto-lab" aria-labelledby="lab-title">
+      <div class="section-head"><div><p class="eyebrow">EXPLORE THE IDEA</p><h2 id="lab-title">An image. A key. One changed byte.</h2></div><p>Try authenticated encryption, then challenge it. This browser lab is separate from the FPGA implementation and its measurements.</p></div>
+      <div class="lab-shell">
+        <div class="lab-topline"><span class="lab-badge">AES-128-GCM</span><span>Local browser processing · no image upload</span></div>
+        <p class="lab-intro">Choose an image or use the sample. Encrypt its file bytes, recover the original, and flip one ciphertext bit to test authentication.</p>
+        <div id="lab-controls" class="lab-controls" hidden>
+          <label class="lab-file" for="lab-file">Choose image<input id="lab-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
+          <button id="lab-sample" type="button">Use sample</button>
+          <span class="lab-limit">PNG, JPEG or WebP · up to 3 MiB</span>
+        </div>
+        <div class="lab-panes">
+          <div class="lab-pane"><h3><span>01</span> Original</h3><div class="lab-image-slot"><img id="lab-original" alt="Selected original image" hidden><p id="lab-original-empty">Your image starts here.</p></div><p id="lab-file-info" class="lab-pane-note">Nothing selected</p></div>
+          <div class="lab-pane lab-cipher-pane"><h3><span>02</span> Ciphertext + tag</h3><div class="lab-cipher-slot"><pre id="lab-cipher" aria-label="Ciphertext preview">Choose an image, then encrypt.</pre></div><p id="lab-cipher-info" class="lab-pane-note">Bytes shown as hexadecimal</p></div>
+          <div class="lab-pane"><h3><span>03</span> Recovered</h3><div class="lab-image-slot"><img id="lab-recovered" alt="Authenticated and decrypted image" hidden><p id="lab-recovered-empty">Released only after authentication.</p></div><p id="lab-recovered-info" class="lab-pane-note">Awaiting verification</p></div>
+        </div>
+        <div id="lab-actions" class="lab-actions" hidden><button id="lab-encrypt" class="lab-primary" type="button" disabled>Encrypt image</button><button id="lab-decrypt" type="button" disabled>Decrypt &amp; verify</button><button id="lab-tamper" type="button" disabled>Test tampering</button><button id="lab-reset" class="lab-reset" type="button">Reset</button></div>
+        <p id="lab-status" class="lab-status" role="status" aria-live="polite">Enable JavaScript to try the lab. The project evidence above remains available.</p>
+        <details class="lab-details"><summary>What happens under the hood?</summary><p>The Web Crypto API generates a fresh 128-bit AES key and random 96-bit IV for each encryption. GCM appends a 128-bit authentication tag. Decryption must authenticate before this page displays a recovered image. The tampering test flips one ciphertext bit in a copy; the original encrypted bytes stay available for another valid decryption.</p><p>This lab encrypts compressed image file bytes, not the FPGA project's raw pixel stream. Keys and images stay in page memory; resetting clears this lab's references. This is a learning demo, with no key export or persistent storage.</p><dl class="lab-params"><dt>IV</dt><dd id="lab-iv">Not generated</dd><dt>Tag</dt><dd id="lab-tag">Not generated</dd></dl></details>
+      </div>
     </section>
     <section class="approach-section" id="approach" aria-labelledby="approach-title"><div class="wrap section">
       <p class="eyebrow">HOW I APPROACH THE WORK</p><h2 id="approach-title">Make the claim inspectable.</h2>

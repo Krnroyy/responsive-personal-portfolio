@@ -50,3 +50,14 @@ and distinguishes schematic simulation from physical layout validation.
 
 Hardware tests were not rerun for this webpage revision. The publication script
 uses the owner's existing authenticated GitHub CLI and preserves unrelated files.
+
+
+## Browser AES-GCM lab
+
+The Live lab section uses the native Web Crypto API to encrypt selected PNG, JPEG or WebP file bytes locally. It has a built-in sample, authenticated decryption with an exact byte comparison, and a tamper test that flips one ciphertext bit and expects GCM authentication to reject it. No image upload, analytics, key export, or persistent image/key storage is used.
+
+Each encryption generates a fresh, non-extractable 128-bit AES key and a random 96-bit IV; the authentication tag is 128 bits. Reset clears page references and revokes image object URLs. This is a learning demo, separate from the FPGA implementation and throughput measurements. It encrypts image file bytes rather than the FPGA raw-pixel flow.
+
+Requires JavaScript, Web Crypto, and a secure context (the HTTPS GitHub Pages deployment or localhost). Files are limited to 3 MiB and 25 million decoded pixels.
+
+References: [Web Crypto AES-GCM parameters](https://developer.mozilla.org/en-US/docs/Web/API/AesGcmParams), [SubtleCrypto.encrypt](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt).

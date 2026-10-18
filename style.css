@@ -192,3 +192,38 @@ body.dialog-open{overflow:hidden}
  .evidence-grid strong{font-size:18px;margin:0}
  .evidence-grid span{font-size:13px}
 }
+
+/* Browser crypto lab: scoped controls, local assets, responsive evidence panes. */
+.lab-shell{border:1px solid var(--line);background:var(--surface,var(--paper));border-radius:16px;padding:28px;overflow:hidden}
+.lab-topline,.lab-controls,.lab-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.lab-topline{justify-content:space-between;color:var(--muted);font-size:12px}
+.lab-badge{font-size:12px;letter-spacing:.09em;font-weight:750;color:var(--teal);border:1px solid var(--line);padding:7px 10px;border-radius:5px}
+.lab-intro{max-width:760px;color:var(--muted);font-size:15px;line-height:1.7;margin:20px 0}
+.lab-controls button,.lab-file,.lab-actions button{font:inherit;font-size:13px;font-weight:650;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:11px 15px;cursor:pointer;transition:background .15s,border-color .15s}
+.lab-controls button:hover,.lab-file:hover,.lab-actions button:hover{border-color:var(--teal)}
+.lab-file{position:relative;display:inline-flex;align-items:center;overflow:hidden}
+.lab-file input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.lab-file:focus-within{outline:2px solid var(--teal);outline-offset:4px}
+.lab-limit{color:var(--muted);font-size:12px}
+.lab-panes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0}
+.lab-pane{min-width:0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--paper)}
+.lab-pane h3{font-size:14px;padding:14px 15px;margin:0;border-bottom:1px solid var(--line)}
+.lab-pane h3 span{color:var(--teal);font-size:11px;font-family:monospace;margin-right:7px}
+.lab-image-slot,.lab-cipher-slot{height:176px;padding:14px;display:flex;align-items:center;justify-content:center}
+.lab-image-slot img{display:block;max-width:100%;max-height:100%;object-fit:contain;border-radius:3px}
+.lab-image-slot p{font-size:13px;text-align:center;max-width:190px;color:var(--muted);line-height:1.6}
+.lab-cipher-slot{background:#102c36;justify-content:flex-start;overflow:hidden}
+.lab-cipher-slot pre{color:#b8e4d5;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7;font-size:11px;max-width:100%;margin:0;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.lab-pane-note{padding:11px 15px;margin:0;border-top:1px solid var(--line);font-size:11px;color:var(--muted);min-height:40px;overflow-wrap:anywhere}
+.lab-actions button.lab-primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.lab-actions button.lab-reset{margin-left:auto;background:transparent}
+.lab-actions button:disabled,.lab-controls button:disabled{opacity:.45;cursor:default}
+.lab-status{border-left:3px solid var(--teal);padding:12px 15px;margin:20px 0 0;font-size:14px;line-height:1.6;background:var(--soft,var(--paper));min-height:48px}
+.lab-status[data-state="error"]{border-color:#b85c3f}
+.lab-details{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+.lab-details summary{cursor:pointer;font-weight:600;font-size:13px;color:var(--ink)}
+.lab-details p{font-size:13px;line-height:1.7;color:var(--muted);max-width:850px;margin:14px 0}
+.lab-params{display:grid;grid-template-columns:32px minmax(0,1fr);gap:8px;font-size:12px;color:var(--muted)}
+.lab-params dt{font-weight:700}.lab-params dd{margin:0;font-family:monospace;overflow-wrap:anywhere}
+@media(max-width:760px){.lab-shell{padding:20px}.lab-panes{gap:10px}.lab-pane h3{padding:12px 10px;font-size:12px}.lab-pane-note{padding:10px;font-size:10px}.lab-image-slot,.lab-cipher-slot{padding:10px;height:145px}.lab-cipher-slot pre{font-size:9px}}
+@media(max-width:600px){.lab-topline{align-items:flex-start;gap:10px}.lab-shell{padding:18px}.lab-panes{grid-template-columns:1fr;gap:14px}.lab-image-slot,.lab-cipher-slot{height:175px}.lab-cipher-slot pre{font-size:11px}.lab-pane h3{font-size:14px}.lab-pane-note{font-size:12px}.lab-actions{gap:8px}.lab-actions button{flex:1 1 40%;padding:12px 8px;font-size:12px}.lab-actions button.lab-reset{margin-left:0}.lab-limit{flex-basis:100%}.lab-topline>span:last-child{font-size:11px}}
