@@ -1,222 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Personal Portfolio </title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/95e58cbd01.js" crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Karan Kumar's engineering portfolio: RTL design, FPGA development, and simulation and formal verification.">
+  <meta name="theme-color" content="#102c36">
+  <title>Karan Kumar | RTL &amp; FPGA Portfolio</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="header">
-        <div class="container">
-            <nav>
-               <img src="images/logo.png" alt="">
-                 <ul id="sidemenu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
-                 </ul> 
-                 <i class="fa-solid fa-bars" onclick="openmenu()"></i>
-                  </nav>
-                  <div class="header-text">
-                  <p>UI/UX Design</p>
-                 <h1>Hi, I am <span>Karan</span><br> from INDIA</h1>
-             </div>
-         </div>
-     </div>
-<!---------------------------------about-----------------------------> 
-<div id="about">
-    <div class="container">
-        <div class="row">
-            <div class="about-col-1">
-                <img src="images/user.png">
-            </div>
-            <div class="about-col-2">
-                <h1 class="sub-title">About Me</h1>
-                <p>Hello everybody.<br> shshdasncznclshdfoalafhoai,cofhacnz,fhifoawehfjkhfoaifglafafleafaf,zczv
-                    zbz,zzvzfvnbzkvffvefvhfzueif
-                    bcfzf,kuhufhafjfhnfza
-                    jhfvb,fb,zshfkhufa
-                    fcsjlf,bz
-                </p>
-                <div class="tab-titles">
-                <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
-                <p class="tab-links"  onclick="opentab('experience')">Experience</p>
-                <p class="tab-links"  onclick="opentab('education')">Education</p>
-            </div>
-            
-            <div class="tab-contents active-tab" id="skills">
-                <ul>
-                    <li><span>UI/UX</span><br>Designing Web/App interface</li>
-                    <li><span>Web Development</span><br>Web App development</li>
-                    <li><span>App development</span><br>Building Android/ios App</li>
-                </ul>
-            </div>
-            <div class="tab-contents" id="experience">
-                <ul>
-                    <li><span>UIUX</span><br>Designing Web/App interface</li>
-                    <li><span>Web Development</span><br>Web App development</li>
-                    <li><span>App development</span><br>Building Android/ios App</li>
-                </ul>
-            </div>
-            <div class="tab-contents" id="education">
-                <ul>
-                    <li><span>Matric</span><br>Designing Web/App interface</li>
-                    <li><span>Web Development</span><br>Web App development</li>
-                    <li><span>App development</span><br>Building Android/ios App</li>
-                </ul>
-            </div>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="#home" aria-label="Karan Kumar home">KK<span class="mark-dot"></span></a>
+    <nav aria-label="Main navigation"><a href="#projects">Projects</a><a href="#approach">Approach</a><a href="#about">About</a><a class="nav-github" href="https://github.com/Krnroyy">GitHub <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap" id="home" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span> RTL DESIGN · FPGA · VERIFICATION</p>
+        <h1 id="hero-title">Digital hardware.<br><em>Visible evidence.</em></h1>
+        <p class="intro">I'm Karan Kumar, an ECE final-year student at IIIT Bhagalpur. I build digital hardware and investigate its behaviour through simulation, formal safety checks, and FPGA experiments.</p>
+        <div class="hero-actions"><a class="button" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a><a class="text-link" href="https://github.com/Krnroyy">View GitHub <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <aside class="design-note" aria-label="Verification project summary">
+        <div class="note-heading"><span>PROJECT / 01</span><span class="live-label">AXI4-STREAM FIFO</span></div>
+        <h2>A transfer needs<br>both sides ready.</h2>
+        <div class="handshake"><code>VALID</code><span aria-hidden="true">&amp;&amp;</span><code>READY</code><span aria-hidden="true">→</span><code>TRANSFER</code></div>
+        <div class="logic-path" aria-hidden="true"><span>Source</span><i></i><span>FIFO</span><i></i><span>Sink</span></div>
+        <p>When the receiver stalls, the output beat must remain stable until it is accepted or reset.</p>
+        <a href="https://github.com/Krnroyy/axis-packet-fifo#design-contract">Read the design contract <span aria-hidden="true">↗</span></a>
+        <div class="note-footer">A design rule. A test. A property.</div>
+      </aside>
+    </section>
+    <div class="discipline-strip"><div class="wrap"><span>SystemVerilog / Verilog</span><span>Simulation + formal</span><span>FPGA integration</span><span>CMOS fundamentals</span></div></div>
+    <section class="projects wrap section" id="projects" aria-labelledby="projects-title">
+      <div class="section-head"><div><p class="eyebrow">SELECTED ENGINEERING WORK</p><h2 id="projects-title">Three projects. Different layers.</h2></div><p>From transistor-level simulation to RTL verification and a complete FPGA system.</p></div>
+      <article class="project project-featured">
+        <div class="project-number">01 / RTL + VERIFICATION</div>
+        <div class="project-body"><div class="project-title-row"><h3>AXI4-Stream FIFO</h3><span class="project-tag">SystemVerilog</span></div>
+          <p>A parameterized beat FIFO that preserves data, TKEEP, and TLAST. Verification combines an independent scoreboard, directed and random stimulus, and formal safety checks.</p>
+          <div class="evidence-grid"><div><strong>12 runs</strong><span>Simulation regression<br>across four depths</span></div><div><strong>15 assertions</strong><span>Checked with 3 assumptions<br>at 8-bit width, depth 4</span></div><div><strong>Bug injection</strong><span>Pop-without-ready caught<br>by simulation and formal</span></div></div>
+          <p class="scope">Formal scope: the documented configuration and harness assumptions; not every parameter value or full AXI conformance.</p>
+          <div class="project-links"><a href="https://github.com/Krnroyy/axis-packet-fifo">Repository ↗</a><a href="https://github.com/Krnroyy/axis-packet-fifo/blob/master/docs/TEST_PLAN.md">Test plan ↗</a><a href="https://github.com/Krnroyy/axis-packet-fifo/actions/workflows/verify.yml">Live CI ↗</a></div>
         </div>
-    </div>
-</div>
-<!----------------------------------services--------------------------------------------->
-<div id="services"></div>
-<div class="container">
-    <h1 class="sub-title">My services</h1>
-    <div class="service-list">
-        <div>
-            <i class="fa-solid fa-code"></i>
-            <h2> Web Design</h2>
-            <p> iofewroijafjjfrjf</p>
-            <a href="#">learn more</a>
+      </article>
+      <article class="project">
+        <div class="project-number">02 / FPGA SYSTEMS</div>
+        <div class="project-body"><div class="project-title-row"><h3>AES-128-GCM image security</h3><span class="project-tag">ZCU104</span></div>
+          <p>A Verilog accelerator integrated with AXI4-Stream, AXI DMA, and Cortex-A53 software. The project checks FPGA ciphertext and authentication tags against Python AESGCM and tests modified-ciphertext rejection.</p>
+          <ul class="facts"><li>Hardware/software co-design</li><li>Independent reference checks</li><li>Documented timing and resource results</li></ul>
+          <p class="scope">An engineering research prototype. Results and limitations are documented separately for its baseline and protected-chunk architectures.</p>
+          <div class="project-links"><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption">Repository ↗</a><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption/blob/main/RESULTS.md">Measured results ↗</a><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption/blob/main/BUILD_AND_RUN.md">Build guide ↗</a></div>
         </div>
-        <div>
-            <i class="fa-solid fa-crop"></i>   
-            <h2> UI/UX Design</h2>
-            <p> iofewroijafjjfrjf</p>
-            <a href="#">learn more</a>
+      </article>
+      <article class="project">
+        <div class="project-number">03 / CMOS DESIGN</div>
+        <div class="project-body"><div class="project-title-row"><h3>CMOS 1-bit full adder</h3><span class="project-tag">gpdk180</span></div>
+          <p>A hierarchical static CMOS full adder in Cadence Virtuoso, simulated with Spectre. The documentation includes all eight input combinations, waveforms, and output-load characterization.</p>
+          <ul class="facts"><li>180 nm generic process</li><li>1.8 V nominal supply</li><li>Schematic-level simulation</li></ul>
+          <p class="scope">Scope: schematic simulation and characterization. Physical layout, DRC, and LVS are outside this project.</p>
+          <div class="project-links"><a href="https://github.com/Krnroyy/cadence-cmos-full-adder">Repository &amp; results ↗</a></div>
         </div>
-        <div>
-            <i class="fa-brands fa-app-store-ios"></i> 
-            <h2> App Design</h2>
-            <p> iofewroijafjjfrjf</p>
-            <a href="#">learn more</a>
-        </div>
-    </div>
-
-</div>
-<!-- -----------------------------------portfolio------------------------------ -->
- <div id="portfolio">
-    <div class="container">
-        <h1 class="sub-title">My work</h1>
-        <div class="work-list">
-            <div class="work">
-                <img src="images/work-1.png">
-                <div class="layer">
-                   <h3>Social Media App</h3>
-                   <p>hufhweuiofhwqefhq</p>
-                   <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> </a> 
-                </div>
-            </div>
-            <div class="work">
-                <img src="images/work-2.png">
-                <div class="layer">
-                    <h3>Music Media App</h3>
-                    <p>hufhweuiofhwqefhq</p>
-                    <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> </a> 
-                 </div>
-            </div>
-            <div class="work">
-                <img src="images/work-3.png">
-                <div class="layer">
-                    <h3>Online Shopping App</h3>
-                    <p>hufhweuiofhwqefhq</p>
-                    <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> </a> 
-                 </div>
-            </div>
-          
-        </div>
-       
-        </div>
-        <a href="#" class="btn">See more</a>
-    </div>
-
- </div>
-
-<!-- -------------------------------contact--------------------------------- -->
-
-
-<div id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="contact-left">
-                <h1 class="sub-title" > contact me</h1>
-                <p><i class="fa-solid fa-paper-plane"></i>contact karan.com</p>
-                <p><i class="fa-solid fa-phone"></i>0123456789</p>
-                <div class="social-icons">
-                   <a href=""><i class="fa-brands fa-facebook"></i></a>
-                   <a href=""><i class="fa-brands fa-square-instagram"></i></a>
-                   <a href=""><i class="fa-brands fa-youtube"></i></a>
-                   <a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
-                </div>
-                <a href="images/my-cv.pdf" class="btn btn2">Download CV</a>
-            </div>
-            <div class="contact-right">
-                <form name= "submit-to-google-sheet" >
-                    <input type="text" name="Name" placeholder="Your Name" required>
-                    <input type="email" name="Email" placeholder="Your Email" required>
-                    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
-                    <button type="submit" class=" btn btn2">Submit</button>
-
-                </form>
-                <span id="msg"></span>
-
-            </div>
-        </div>
-        <div class="copyright">
-            <p> Copyright @karan. Made with <i class="fa-solid fa-heart"></i> for you.</p>
-        </div>
-    </div>
-</div>
-
-<script>
-    var tablinks = document.getElementsByClassName("tab-links");
-    var tabcontents = document.getElementsByClassName("tab-contents");
-
-    function opentab(tabname){
-        for(tablink of tablinks){
-          tablink.classList.remove("active-link");  
-        }
-        for(tabcontent of tabcontents){
-            tabcontent.classList.remove("active-tab");  
-        }
-        event.currentTarget.classList.add("active-link");
-        document.getElementById(tabname).classList.add("active-tab");
-
-    }
-</script>
-<script>
-     var sidemenu = document.getElementById("sidemenu");
-
-     function openmenu(){
-        sidemenu.style.right= "0"
-     }
-     function closemenu(){
-        sidemenu.style.right= "-200px"
-     }
-</script>
-
-<script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbx-GKC0vNIr1ijLZyfbSl2e-M4YzD7FIgf0RLWIV8sRAD0GESeIiEK8Yz6L6rOVXveBJw/exec'
-    const form = document.forms['submit-to-google-sheet']
-    const msg = document.getElementById("msg")
-  
-    form.addEventListener('submit', e => {
-      e.preventDefault()
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response =>{
-            msg.innerHTML = "Message sent successfully"
-            setTimeout(function(){
-                msg.innerHTML = ""
-            },5000 )
-            form.reset()
-        } )
-        .catch(error => console.error('Error!', error.message))
-    })
-  </script>
+      </article>
+    </section>
+    <section class="approach-section" id="approach" aria-labelledby="approach-title"><div class="wrap section">
+      <p class="eyebrow">HOW I APPROACH THE WORK</p><h2 id="approach-title">Make the claim inspectable.</h2>
+      <div class="approach-grid"><div><span class="step">01</span><h3>Define the contract</h3><p>State transfer rules, reset behaviour, supported parameters, and the assumptions around the design.</p></div><div><span class="step">02</span><h3>Challenge the behaviour</h3><p>Exercise boundary conditions, stalls, and resets. Compare outputs with a separate reference model.</p></div><div><span class="step">03</span><h3>Keep the evidence</h3><p>Link results to test plans, configurations, and scripts so readers can inspect and reproduce the checks.</p></div></div>
+    </div></section>
+    <section class="about wrap section" id="about" aria-labelledby="about-title"><div><p class="eyebrow">ABOUT ME</p><h2 id="about-title">Building depth in<br>digital hardware.</h2><p>My interests span RTL design, functional and formal verification, FPGA acceleration, and secure digital systems. My projects connect digital logic fundamentals with practical tool flows.</p><p class="opportunity">Open to internships, entry-level opportunities, and engineering collaboration.</p><a class="text-link" href="https://github.com/Krnroyy">Find my code on GitHub ↗</a></div><div class="toolbox"><h3>Project toolkit</h3><dl><dt>RTL &amp; verification</dt><dd>SystemVerilog, Verilog, Icarus Verilog, Yosys/SMTBMC, Z3</dd><dt>FPGA development</dt><dd>Vivado, Vitis, AXI4-Stream, AXI4-Lite, AXI DMA</dd><dt>Circuits &amp; software</dt><dd>Cadence Virtuoso, Spectre, Python, C/C++</dd></dl><p>Tools used in the linked projects; project documentation defines the tested scope.</p></div></section>
+  </main>
+  <footer class="wrap footer"><span>Karan Kumar <span aria-hidden="true">/</span> Engineering portfolio</span><a href="https://github.com/Krnroyy">github.com/Krnroyy ↗</a></footer>
 </body>
 </html>

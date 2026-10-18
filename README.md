@@ -1,27 +1,28 @@
-# Personal Portfolio
+# Karan Kumar — Engineering Portfolio
 
-A personal portfolio website built with HTML and CSS.
+A responsive, static portfolio for RTL design, FPGA development, and verification projects.
 
-## Technologies
-- HTML
-- CSS
+## Featured work
 
-## Project Structure
-- `index.html` — webpage markup
-- `style.css` — website styling
-- `README.md` — project documentation
+- AXI4-Stream FIFO: SystemVerilog, scoreboard simulation, and formal safety checks.
+- FPGA AES-128-GCM image security: ZCU104, AXI DMA, and Python reference checks.
+- CMOS 1-bit full adder: Cadence Virtuoso and Spectre characterization.
 
-## Run Locally
+Each project links to its source and documented evidence. Verification results describe the linked projects' recorded scope; this webpage does not run or independently validate the designs.
 
-Clone the repository:
+## Run locally
 
-```bash
-git clone https://github.com/Krnroyy/responsive-personal-portfolio.git
-cd responsive-personal-portfolio
-```
+Clone this repository and open `index.html` in a browser. No build step, package installation, external assets, or server is required.
 
-Open `index.html` in your web browser.
+## Files
 
-## Customize
-Edit `index.html` to update the content and `style.css`
-to change the appearance.
+| File | Purpose |
+| --- | --- |
+| `index.html` | Accessible page content and project links |
+| `style.css` | Responsive layout, typography, and colours |
+
+## Customization
+
+Edit project content in `index.html` and design variables in `style.css`. The only contact destination is the public GitHub profile. Add LinkedIn or another contact method only after verifying the destination. No contact form or analytics service is included.
+
+Keep tool claims, project results, and education details current. Recheck evidence links after renaming a repository or changing its default branch.
