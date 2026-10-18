@@ -1,45 +1,52 @@
-# Karan Kumar — Engineering Portfolio
+# Karan Kumar - Interactive Engineering Portfolio
 
-A responsive, static portfolio for RTL design, FPGA development, and verification projects.
+A responsive portfolio built with HTML, CSS, and vanilla JavaScript. No build
+step, framework, package installation, or backend is required. Open index.html
+locally or serve these files with GitHub Pages.
 
-## Featured work
+## Features
 
-- AXI4-Stream FIFO: SystemVerilog, scoreboard simulation, and formal safety checks.
-- FPGA AES-128-GCM image security: ZCU104, AXI DMA, and Python reference checks.
-- CMOS 1-bit full adder: Cadence Virtuoso and Spectre characterization.
+- Light/dark theme switch; the preference stays in this browser's local storage.
+- Interactive VALID/READY handshake illustration with clock stepping and reset.
+- Project-category filters and an active-section sticky navigation bar.
+- Evidence-image viewer with previous/next controls, arrow keys, Escape, and
+  focus restoration to the triggering image.
+- Mobile navigation, scroll progress, subtle section reveals, and back-to-top.
+- Reduced-motion support and no-JavaScript access to project content and links.
 
-Each project links to its source and documented evidence. Verification results describe the linked projects' recorded scope; this webpage does not run or independently validate the designs.
+The handshake illustration uses an always-valid deterministic source. Each
+clock step advances one rising edge; READY low holds the beat, READY high
+accepts exactly one beat and advances the data. Reset resets this illustration.
+It does not execute the SystemVerilog design or establish any hardware proof.
 
-## Run locally
-
-Clone this repository and open `index.html` in a browser. No build step, package installation, external assets, or server is required.
-
-## Files
+## Source files
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | Accessible page content and project links |
-| `style.css` | Responsive layout, typography, and colours |
+| index.html | Portfolio content and semantic interaction controls |
+| style.css | Responsive layout, light/dark palettes, and motion preferences |
+| handshake-model.js | Small deterministic handshake state model |
+| script.js | Theme, navigation, demo, filters, viewer, and scroll interactions |
+| assets/ | Unmodified evidence images from the project repositories |
 
-## Customization
+The FIFO waveform, AES DMA throughput chart, and Virtuoso full-adder schematic
+link to their source documentation. The page preserves the tested formal scope
+and distinguishes schematic simulation from physical layout validation.
 
-Edit project content in `index.html` and design variables in `style.css`. The only contact destination is the public GitHub profile. Add LinkedIn or another contact method only after verifying the destination. No contact form or analytics service is included.
+## Contact
 
-Keep tool claims, project results, and education details current. Recheck evidence links after renaming a repository or changing its default branch.
+- GitHub: https://github.com/Krnroyy
+- LinkedIn: https://www.linkedin.com/in/krnroyy/
 
+## Validation for this revision
 
-## Evidence gallery and contact links
+- Handshake-model tests: stalls hold data; changing READY alone does not
+  transfer; each ready rising edge accepts exactly one beat.
+- Headless Chromium: theme persistence, demo/reset, category filtering,
+  lightbox arrow/Escape controls and focus return, and mobile menu.
+- Desktop and 390px/320px mobile layouts checked for horizontal overflow.
+- Reduced-motion and JavaScript-disabled content/navigation fallback checked.
+- No JavaScript page errors during these checks.
 
-The project sections display three existing evidence images with source links:
-- FIFO: `assets/fifo-backpressure.png`, from the FIFO simulation documentation.
-- AES-GCM: `assets/aes-dma-throughput.png`, from the recorded CTR/GCM comparison.
-- Full adder: `assets/full-adder-schematic.png`, from the Virtuoso documentation.
-
-Images are unchanged copies of their source assets, loaded lazily, with full-size
-links. The FIFO interpretation is expandable to keep the page compact. The hero,
-About section, and footer link to the verified LinkedIn destination supplied by
-the owner: https://www.linkedin.com/in/krnroyy/.
-
-The handshake description explicitly requires VALID and READY high at a rising
-clock edge. No resume link, graduation year, video, or contribution claims have
-been added without source material from the owner.
+Hardware tests were not rerun for this webpage revision. The publication script
+uses the owner's existing authenticated GitHub CLI and preserves unrelated files.
