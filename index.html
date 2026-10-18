@@ -20,14 +20,14 @@
         <p class="eyebrow"><span class="status-dot"></span> RTL DESIGN · FPGA · VERIFICATION</p>
         <h1 id="hero-title">Digital hardware.<br><em>Visible evidence.</em></h1>
         <p class="intro">I'm Karan Kumar, an ECE final-year student at IIIT Bhagalpur. I build digital hardware and investigate its behaviour through simulation, formal safety checks, and FPGA experiments.</p>
-        <div class="hero-actions"><a class="button" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a><a class="text-link" href="https://github.com/Krnroyy">View GitHub <span aria-hidden="true">↗</span></a></div>
+        <div class="hero-actions"><a class="button" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a><a class="text-link" href="https://www.linkedin.com/in/krnroyy/">Connect on LinkedIn <span aria-hidden="true">↗</span></a></div>
       </div>
       <aside class="design-note" aria-label="Verification project summary">
         <div class="note-heading"><span>PROJECT / 01</span><span class="live-label">AXI4-STREAM FIFO</span></div>
-        <h2>A transfer needs<br>both sides ready.</h2>
+        <h2>VALID and READY<br>at a rising edge.</h2>
         <div class="handshake"><code>VALID</code><span aria-hidden="true">&amp;&amp;</span><code>READY</code><span aria-hidden="true">→</span><code>TRANSFER</code></div>
         <div class="logic-path" aria-hidden="true"><span>Source</span><i></i><span>FIFO</span><i></i><span>Sink</span></div>
-        <p>When the receiver stalls, the output beat must remain stable until it is accepted or reset.</p>
+        <p>A transfer occurs only when VALID and READY are both high at a rising clock edge. During a stall, the output beat stays stable until acceptance or reset.</p>
         <a href="https://github.com/Krnroyy/axis-packet-fifo#design-contract">Read the design contract <span aria-hidden="true">↗</span></a>
         <div class="note-footer">A design rule. A test. A property.</div>
       </aside>
@@ -41,7 +41,8 @@
           <p>A parameterized beat FIFO that preserves data, TKEEP, and TLAST. Verification combines an independent scoreboard, directed and random stimulus, and formal safety checks.</p>
           <div class="evidence-grid"><div><strong>12 runs</strong><span>Simulation regression<br>across four depths</span></div><div><strong>15 assertions</strong><span>Checked with 3 assumptions<br>at 8-bit width, depth 4</span></div><div><strong>Bug injection</strong><span>Pop-without-ready caught<br>by simulation and formal</span></div></div>
           <p class="scope">Formal scope: the documented configuration and harness assumptions; not every parameter value or full AXI conformance.</p>
-          <div class="project-links"><a href="https://github.com/Krnroyy/axis-packet-fifo">Repository ↗</a><a href="https://github.com/Krnroyy/axis-packet-fifo/blob/master/docs/TEST_PLAN.md">Test plan ↗</a><a href="https://github.com/Krnroyy/axis-packet-fifo/actions/workflows/verify.yml">Live CI ↗</a></div>
+          <figure class="project-evidence"><a class="evidence-image" href="assets/fifo-backpressure.png" target="_blank" rel="noopener" aria-label="Open full-size simulation evidence"><img src="assets/fifo-backpressure.png" alt="GTKWave capture showing FIFO output payload held stable during receiver backpressure." width="1919" height="358" loading="lazy" decoding="async"></a><figcaption><span>Simulation evidence</span>Depth 16, seed 1. Output held through a receiver stall, then accepted at the rising clock edge. <a href="https://github.com/Krnroyy/axis-packet-fifo/blob/master/docs/BUG_CASE_STUDY.md">Read the source evidence ↗</a></figcaption></figure><details class="evidence-notes"><summary>Read the waveform</summary><p>Between 25,570 and 25,620 ns, <code>mr=0</code> while <code>mv=1</code>. The payload stays at <code>md=BE750F8E</code>, <code>mk=F</code>, <code>ml=1</code>. READY rises at 25,620 ns; acceptance occurs at the rising edge at 25,625 ns. This is one observed interval, not a proof of all behaviour.</p><p>The signal-list values refer to an old cursor outside this window; the traces show the selected interval.</p></details>
+          <div class="project-links"><a href="https://github.com/Krnroyy/axis-packet-fifo">Repository ↗</a><a href="https://github.com/Krnroyy/axis-packet-fifo/blob/master/docs/TEST_PLAN.md">Test plan ↗</a><a href="https://github.com/Krnroyy/axis-packet-fifo/blob/master/docs/BUG_CASE_STUDY.md">Bug case study ↗</a><a href="https://github.com/Krnroyy/axis-packet-fifo/actions/workflows/verify.yml">Live CI ↗</a></div>
         </div>
       </article>
       <article class="project">
@@ -50,6 +51,7 @@
           <p>A Verilog accelerator integrated with AXI4-Stream, AXI DMA, and Cortex-A53 software. The project checks FPGA ciphertext and authentication tags against Python AESGCM and tests modified-ciphertext rejection.</p>
           <ul class="facts"><li>Hardware/software co-design</li><li>Independent reference checks</li><li>Documented timing and resource results</li></ul>
           <p class="scope">An engineering research prototype. Results and limitations are documented separately for its baseline and protected-chunk architectures.</p>
+          <figure class="project-evidence"><a class="evidence-image" href="assets/aes-dma-throughput.png" target="_blank" rel="noopener" aria-label="Open full-size measured fpga results"><img src="assets/aes-dma-throughput.png" alt="Measured encryption and decryption throughput comparison of the CTR-DMA and GCM-DMA architectures." width="2130" height="1285" loading="lazy" decoding="async"></a><figcaption><span>Measured FPGA results</span>Preserved CTR-DMA and GCM-DMA throughput comparison. The results document explains measurement conditions. <a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption/blob/main/RESULTS.md">Read the source evidence ↗</a></figcaption></figure>
           <div class="project-links"><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption">Repository ↗</a><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption/blob/main/RESULTS.md">Measured results ↗</a><a href="https://github.com/Krnroyy/FPGA-AES128-CTR-Image-Encryption/blob/main/BUILD_AND_RUN.md">Build guide ↗</a></div>
         </div>
       </article>
@@ -59,6 +61,7 @@
           <p>A hierarchical static CMOS full adder in Cadence Virtuoso, simulated with Spectre. The documentation includes all eight input combinations, waveforms, and output-load characterization.</p>
           <ul class="facts"><li>180 nm generic process</li><li>1.8 V nominal supply</li><li>Schematic-level simulation</li></ul>
           <p class="scope">Scope: schematic simulation and characterization. Physical layout, DRC, and LVS are outside this project.</p>
+          <figure class="project-evidence"><a class="evidence-image" href="assets/full-adder-schematic.png" target="_blank" rel="noopener" aria-label="Open full-size circuit design evidence"><img src="assets/full-adder-schematic.png" alt="Cadence Virtuoso screenshot of the hierarchical CMOS full-adder schematic." width="961" height="1038" loading="lazy" decoding="async"></a><figcaption><span>Circuit design evidence</span>Hierarchical full-adder schematic in Virtuoso. Schematic-level work; no layout, DRC, or LVS result is implied. <a href="https://github.com/Krnroyy/cadence-cmos-full-adder">Read the source evidence ↗</a></figcaption></figure>
           <div class="project-links"><a href="https://github.com/Krnroyy/cadence-cmos-full-adder">Repository &amp; results ↗</a></div>
         </div>
       </article>
@@ -67,8 +70,8 @@
       <p class="eyebrow">HOW I APPROACH THE WORK</p><h2 id="approach-title">Make the claim inspectable.</h2>
       <div class="approach-grid"><div><span class="step">01</span><h3>Define the contract</h3><p>State transfer rules, reset behaviour, supported parameters, and the assumptions around the design.</p></div><div><span class="step">02</span><h3>Challenge the behaviour</h3><p>Exercise boundary conditions, stalls, and resets. Compare outputs with a separate reference model.</p></div><div><span class="step">03</span><h3>Keep the evidence</h3><p>Link results to test plans, configurations, and scripts so readers can inspect and reproduce the checks.</p></div></div>
     </div></section>
-    <section class="about wrap section" id="about" aria-labelledby="about-title"><div><p class="eyebrow">ABOUT ME</p><h2 id="about-title">Building depth in<br>digital hardware.</h2><p>My interests span RTL design, functional and formal verification, FPGA acceleration, and secure digital systems. My projects connect digital logic fundamentals with practical tool flows.</p><p class="opportunity">Open to internships, entry-level opportunities, and engineering collaboration.</p><a class="text-link" href="https://github.com/Krnroyy">Find my code on GitHub ↗</a></div><div class="toolbox"><h3>Project toolkit</h3><dl><dt>RTL &amp; verification</dt><dd>SystemVerilog, Verilog, Icarus Verilog, Yosys/SMTBMC, Z3</dd><dt>FPGA development</dt><dd>Vivado, Vitis, AXI4-Stream, AXI4-Lite, AXI DMA</dd><dt>Circuits &amp; software</dt><dd>Cadence Virtuoso, Spectre, Python, C/C++</dd></dl><p>Tools used in the linked projects; project documentation defines the tested scope.</p></div></section>
+    <section class="about wrap section" id="about" aria-labelledby="about-title"><div><p class="eyebrow">ABOUT ME</p><h2 id="about-title">Building depth in<br>digital hardware.</h2><p>My interests span RTL design, functional and formal verification, FPGA acceleration, and secure digital systems. My projects connect digital logic fundamentals with practical tool flows.</p><p class="opportunity">Open to internships, entry-level opportunities, and engineering collaboration.</p><div class="contact-links"><a class="text-link" href="https://www.linkedin.com/in/krnroyy/">Connect on LinkedIn ↗</a><a class="text-link" href="https://github.com/Krnroyy">Explore GitHub ↗</a></div></div><div class="toolbox"><h3>Project toolkit</h3><dl><dt>RTL &amp; verification</dt><dd>SystemVerilog, Verilog, Icarus Verilog, Yosys/SMTBMC, Z3</dd><dt>FPGA development</dt><dd>Vivado, Vitis, AXI4-Stream, AXI4-Lite, AXI DMA</dd><dt>Circuits &amp; software</dt><dd>Cadence Virtuoso, Spectre, Python, C/C++</dd></dl><p>Tools used in the linked projects; project documentation defines the tested scope.</p></div></section>
   </main>
-  <footer class="wrap footer"><span>Karan Kumar <span aria-hidden="true">/</span> Engineering portfolio</span><a href="https://github.com/Krnroyy">github.com/Krnroyy ↗</a></footer>
+  <footer class="wrap footer"><span>Karan Kumar <span aria-hidden="true">/</span> Engineering portfolio</span><div class="footer-links"><a href="https://www.linkedin.com/in/krnroyy/">LinkedIn ↗</a><a href="https://github.com/Krnroyy">GitHub ↗</a></div></footer>
 </body>
 </html>
