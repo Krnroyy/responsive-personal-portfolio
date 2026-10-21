@@ -11,38 +11,115 @@
   try { var theme = localStorage.getItem('portfolio-theme'); document.documentElement.dataset.theme = theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (_) { document.documentElement.dataset.theme = 'light'; }
   </script>
   <link rel="stylesheet" href="style.css?v=timerlab-fix-2">
+  <link rel="stylesheet" href="silicon-explorer.css?v=1">
   <script src="handshake-model.js" defer></script>
   <script src="script.js?v=timerlab-fix-2" defer></script>
   <script src="crypto-demo.js" defer></script>
+  <script src="silicon-explorer.js?v=1" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header wrap">
     <a class="wordmark" href="#home" aria-label="Karan Kumar home">KK<span class="mark-dot"></span></a>
-    <nav id="main-nav" aria-label="Main navigation"><a href="#projects" data-section="projects">Projects</a><a href="#crypto-lab" data-section="crypto-lab">Live lab</a><a href="#approach" data-section="approach">Approach</a><a href="#about" data-section="about">About</a><a class="nav-github" href="https://github.com/Krnroyy">GitHub <span aria-hidden="true">↗</span></a></nav>
-    <div class="header-controls"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme" hidden><span class="theme-symbol" aria-hidden="true">◐</span><span id="theme-label">Theme</span></button><button class="menu-toggle" id="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false" hidden>Menu <span aria-hidden="true">☰</span></button></div>
+    <nav id="main-nav" aria-label="Main navigation"><a href="#projects" data-section="projects">Projects</a><a href="#crypto-lab" data-section="crypto-lab">Live lab</a><a href="#approach" data-section="approach">Approach</a><a href="#about" data-section="about">About</a><a class="nav-github" href="https://github.com/Krnroyy">GitHub <span aria-hidden="true">â†—</span></a></nav>
+    <div class="header-controls"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme" hidden><span class="theme-symbol" aria-hidden="true">â—</span><span id="theme-label">Theme</span></button><button class="menu-toggle" id="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false" hidden>Menu <span aria-hidden="true">â˜°</span></button></div>
   </header>
   <main id="main">
     <section class="hero wrap" id="home" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="status-dot"></span> RTL DESIGN · FPGA · VERIFICATION</p>
+        <p class="eyebrow"><span class="status-dot"></span> RTL DESIGN Â· FPGA Â· VERIFICATION</p>
         <h1 id="hero-title">Digital hardware.<br><em>Visible evidence.</em></h1>
         <p class="intro">I'm Karan Kumar, an ECE final-year student at IIIT Bhagalpur. I build digital hardware and investigate its behaviour through simulation, formal safety checks, and FPGA experiments.</p>
-        <div class="hero-actions"><a class="button" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a><a class="text-link" href="https://www.linkedin.com/in/krnroyy/">Connect on LinkedIn <span aria-hidden="true">↗</span></a></div>
+        <div class="hero-actions"><a class="button" href="#projects">Explore my projects <span aria-hidden="true">â†“</span></a><a class="text-link" href="https://www.linkedin.com/in/krnroyy/">Connect on LinkedIn <span aria-hidden="true">â†—</span></a></div>
       </div>
       <aside class="design-note demo-card" aria-labelledby="demo-title">
         <div class="note-heading"><span>TRY THE HANDSHAKE</span><span class="live-label">VALID = 1</span></div>
         <h2 id="demo-title">Pause the receiver.<br>Step the clock.</h2>
         <div class="demo-data"><div><span class="demo-label">CURRENT BEAT</span><output id="demo-byte">0xA1</output></div><div class="demo-count"><span class="demo-label">ACCEPTED</span><output id="demo-count">0</output></div></div>
         <div class="demo-pipeline" aria-hidden="true"><span>Source</span><i class="demo-wire"><b></b></i><span id="receiver-indicator">Receiver stalled</span></div>
-        <div class="demo-controls" hidden><button id="ready-toggle" class="demo-toggle" type="button" aria-pressed="false">READY <span id="ready-value">0</span></button><button id="clock-step" class="demo-step" type="button">Step clock <span aria-hidden="true">↗</span></button><button id="demo-reset" class="demo-reset" type="button">Reset</button></div>
+        <div class="demo-controls" hidden><button id="ready-toggle" class="demo-toggle" type="button" aria-pressed="false">READY <span id="ready-value">0</span></button><button id="clock-step" class="demo-step" type="button">Step clock <span aria-hidden="true">â†—</span></button><button id="demo-reset" class="demo-reset" type="button">Reset</button></div>
         <p id="demo-status" class="demo-status" role="status" aria-live="polite">A transfer needs VALID and READY high at a rising clock edge. During a stall, the output beat remains stable.</p>
-        <div class="demo-meta"><span>Clock edges: <output id="demo-edges">0</output></span><a href="https://github.com/Krnroyy/axi4-stream-fifo#design-contract">Explore the RTL ↗</a></div>
-        <div class="note-footer">Interactive illustration · not an RTL simulation or proof.</div>
+        <div class="demo-meta"><span>Clock edges: <output id="demo-edges">0</output></span><a href="https://github.com/Krnroyy/axi4-stream-fifo#design-contract">Explore the RTL â†—</a></div>
+        <div class="note-footer">Interactive illustration Â· not an RTL simulation or proof.</div>
       </aside>
     </section>
     <div class="discipline-strip"><div class="wrap"><span>SystemVerilog / Verilog</span><span>Simulation + formal</span><span>FPGA integration</span><span>CMOS fundamentals</span></div></div>
+    <section class="silicon-explorer wrap section" id="silicon-explorer" aria-labelledby="silicon-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">INTERACTIVE SILICON EXPLORER</p>
+          <h2 id="silicon-title">Follow a signal through the silicon.</h2>
+        </div>
+        <p>Tap a stage, change the inputs, and see how a simple logic idea connects to a complete hardware system.</p>
+      </div>
+
+      <div class="sx-shell">
+        <div class="sx-tabs" role="group" aria-label="Choose a hardware stage">
+          <button type="button" data-sx-stage="inverter" aria-pressed="true">01&nbsp; CMOS inverter</button>
+          <button type="button" data-sx-stage="adder" aria-pressed="false">02&nbsp; Full adder</button>
+          <button type="button" data-sx-stage="axi" aria-pressed="false">03&nbsp; AXI timer</button>
+        </div>
+
+        <div class="sx-content">
+          <div class="sx-main">
+            <p class="sx-kicker" data-sx-kicker>TRANSISTOR-LEVEL IDEA</p>
+            <h3 data-sx-title>CMOS inverter</h3>
+            <p class="sx-description" data-sx-description>
+              Toggle the input. A simplified PMOS/NMOS model shows why the output changes in the opposite direction.
+            </p>
+
+            <div class="sx-route" data-sx-route aria-label="Interactive signal path">
+              <div class="sx-node is-active" data-sx-node="source">
+                <span data-sx-source-label>INPUT A</span>
+                <strong data-sx-source-value>0</strong>
+              </div>
+              <span class="sx-wire" aria-hidden="true"><i></i></span>
+              <div class="sx-node" data-sx-node="logic">
+                <span data-sx-logic-label>CMOS PAIR</span>
+                <strong data-sx-logic-value>INVERT</strong>
+              </div>
+              <span class="sx-wire" aria-hidden="true"><i></i></span>
+              <div class="sx-node" data-sx-node="output">
+                <span data-sx-output-label>OUTPUT Y</span>
+                <strong data-sx-output-value>1</strong>
+              </div>
+            </div>
+
+            <div class="sx-controls" data-sx-controls="inverter">
+              <button type="button" class="sx-control" data-sx-bit="a">
+                Toggle input A <span>A = <output data-sx-bit-value="a">0</output></span>
+              </button>
+            </div>
+
+            <div class="sx-controls" data-sx-controls="adder" hidden>
+              <button type="button" class="sx-control" data-sx-bit="a">Toggle A <span>A = <output data-sx-bit-value="a">0</output></span></button>
+              <button type="button" class="sx-control" data-sx-bit="b">Toggle B <span>B = <output data-sx-bit-value="b">0</output></span></button>
+              <button type="button" class="sx-control" data-sx-bit="cin">Toggle Cin <span>Cin = <output data-sx-bit-value="cin">0</output></span></button>
+            </div>
+
+            <div class="sx-controls sx-axi-controls" data-sx-controls="axi" hidden>
+              <label for="sx-reload">RELOAD value <span>(1–12)</span></label>
+              <input id="sx-reload" type="number" min="1" max="12" value="5" data-sx-reload>
+              <button type="button" class="sx-control sx-trace-button" data-sx-trace>Trace a register write <span aria-hidden="true">↗</span></button>
+              <a class="sx-text-link" href="#timer-lab">Try the timer model ↓</a>
+            </div>
+
+            <p class="sx-status" data-sx-status role="status" aria-live="polite">Input A is low, so the output is high.</p>
+          </div>
+
+          <aside class="sx-info">
+            <span class="sx-info-label">WHAT YOU’RE SEEING</span>
+            <p data-sx-info>
+              A CMOS inverter pairs PMOS and NMOS transistors. This is a learning illustration, not a transistor-level circuit simulation.
+            </p>
+            <span class="sx-info-label">CONNECTED PROJECT</span>
+            <a data-sx-project-link href="https://github.com/Krnroyy/cadence-cmos-full-adder">CMOS full-adder project ↗</a>
+            <p class="sx-note">The diagrams are browser-side models. Your linked project evidence and testbench results describe the actual work.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
     <section class="projects wrap section" id="projects" aria-labelledby="projects-title">
       <div class="section-head"><div><p class="eyebrow">SELECTED ENGINEERING WORK</p><h2 id="projects-title">Four projects. Different layers.</h2></div><p>From transistor-level simulation to RTL verification and a complete FPGA system.</p></div>
       <div class="project-filter" role="group" aria-label="Filter projects" hidden><button type="button" data-filter="all" aria-pressed="true">All projects <span>04</span></button><button type="button" data-filter="verification" aria-pressed="false">Verification</button><button type="button" data-filter="fpga" aria-pressed="false">FPGA systems</button><button type="button" data-filter="cmos" aria-pressed="false">CMOS design</button></div>
@@ -53,17 +130,17 @@
           <p>A parameterized beat FIFO that preserves data, TKEEP, and TLAST. Verification combines an independent scoreboard, directed and random stimulus, and formal safety checks.</p>
           <div class="evidence-grid"><div><strong>12 runs</strong><span>Simulation regression<br>across four depths</span></div><div><strong>15 assertions</strong><span>Checked with 3 assumptions<br>at 8-bit width, depth 4</span></div><div><strong>Bug injection</strong><span>Pop-without-ready caught<br>by simulation and formal</span></div></div>
           <p class="scope">Formal scope: the documented configuration and harness assumptions; not every parameter value or full AXI conformance.</p>
-          <figure class="project-evidence"><a class="evidence-image" data-lightbox href="assets/fifo-backpressure.png" target="_blank" rel="noopener" aria-label="Enlarge simulation evidence"><img src="assets/fifo-backpressure.png" alt="GTKWave capture showing FIFO output payload held stable during receiver backpressure." width="1919" height="358" loading="lazy" decoding="async"></a><figcaption><span>Simulation evidence</span>Depth 16, seed 1. Output held through a receiver stall, then accepted at the rising clock edge. <a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/BUG_CASE_STUDY.md">Read the source evidence ↗</a></figcaption></figure><details class="evidence-notes"><summary>Read the waveform</summary><p>Between 25,570 and 25,620 ns, <code>mr=0</code> while <code>mv=1</code>. The payload stays at <code>md=BE750F8E</code>, <code>mk=F</code>, <code>ml=1</code>. READY rises at 25,620 ns; acceptance occurs at the rising edge at 25,625 ns. This is one observed interval, not a proof of all behaviour.</p><p>The signal-list values refer to an old cursor outside this window; the traces show the selected interval.</p></details>
-          <div class="project-links"><a href="https://github.com/Krnroyy/axi4-stream-fifo">Repository ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/TEST_PLAN.md">Test plan ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/BUG_CASE_STUDY.md">Bug case study ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/actions/workflows/verify.yml">Live CI ↗</a></div>
+          <figure class="project-evidence"><a class="evidence-image" data-lightbox href="assets/fifo-backpressure.png" target="_blank" rel="noopener" aria-label="Enlarge simulation evidence"><img src="assets/fifo-backpressure.png" alt="GTKWave capture showing FIFO output payload held stable during receiver backpressure." width="1919" height="358" loading="lazy" decoding="async"></a><figcaption><span>Simulation evidence</span>Depth 16, seed 1. Output held through a receiver stall, then accepted at the rising clock edge. <a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/BUG_CASE_STUDY.md">Read the source evidence â†—</a></figcaption></figure><details class="evidence-notes"><summary>Read the waveform</summary><p>Between 25,570 and 25,620 ns, <code>mr=0</code> while <code>mv=1</code>. The payload stays at <code>md=BE750F8E</code>, <code>mk=F</code>, <code>ml=1</code>. READY rises at 25,620 ns; acceptance occurs at the rising edge at 25,625 ns. This is one observed interval, not a proof of all behaviour.</p><p>The signal-list values refer to an old cursor outside this window; the traces show the selected interval.</p></details>
+          <div class="project-links"><a href="https://github.com/Krnroyy/axi4-stream-fifo">Repository â†—</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/TEST_PLAN.md">Test plan â†—</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/BUG_CASE_STUDY.md">Bug case study â†—</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/actions/workflows/verify.yml">Live CI â†—</a></div>
         </div>
       </article>
       <article class="project" data-category="verification">
         <div class="project-number">02 / RTL + UVM</div>
-        <div class="project-body"><div class="project-title-row"><h3>AXI4-Lite Countdown Timer</h3><span class="project-tag">SystemVerilog · UVM 1.2</span></div>
+        <div class="project-body"><div class="project-title-row"><h3>AXI4-Lite Countdown Timer</h3><span class="project-tag">SystemVerilog Â· UVM 1.2</span></div>
           <p>A memory-mapped countdown timer with CONTROL, RELOAD, COUNT, and STATUS registers. A UVM testbench drives AXI4-Lite transactions, monitors completed transfers, and checks expected register and timer behaviour in a scoreboard.</p>
           <div class="evidence-grid"><div><strong>Reset recovery</strong><span>Incomplete write cancelled<br>and normal traffic resumed</span></div><div><strong>Timer behavior</strong><span>Countdown, busy state,<br>interrupt and clear checks</span></div><div><strong>Clean regression</strong><span>120 UVM info messages<br>0 warnings, errors or fatals</span></div></div>
           <p class="scope">Simulation-based verification. This regression is not a formal proof or a complete AXI compliance certification.</p>
-          <div class="project-links"><a href="https://github.com/Krnroyy/axi-lite-timer">Repository ↗</a><a href="https://github.com/Krnroyy/axi-lite-timer/blob/main/README.md">Design &amp; test details ↗</a></div>
+          <div class="project-links"><a href="https://github.com/Krnroyy/axi-lite-timer">Repository â†—</a><a href="https://github.com/Krnroyy/axi-lite-timer/blob/main/README.md">Design &amp; test details â†—</a></div>
 <section class="timer-lab" id="timer-lab" aria-labelledby="timer-lab-title">
   <div class="timer-lab-heading">
     <div>
@@ -74,7 +151,7 @@
   </div>
 
   <div class="timer-lab-controls">
-    <label for="timer-lab-reload">Reload value <span>(1–12 ticks)</span></label>
+    <label for="timer-lab-reload">Reload value <span>(1â€“12 ticks)</span></label>
     <div class="timer-lab-actions">
       <input id="timer-lab-reload" data-reload type="number" min="1" max="12" value="5">
       <button type="button" data-start>Start timer</button>
@@ -110,8 +187,8 @@
           <p>A Verilog accelerator integrated with AXI4-Stream, AXI DMA, and Cortex-A53 software. The project checks FPGA ciphertext and authentication tags against Python AESGCM and tests modified-ciphertext rejection.</p>
           <ul class="facts"><li>Hardware/software co-design</li><li>Independent reference checks</li><li>Documented timing and resource results</li></ul>
           <p class="scope">An engineering research prototype. Results and limitations are documented separately for its baseline and protected-chunk architectures.</p>
-          <figure class="project-evidence"><a class="evidence-image" data-lightbox href="assets/aes-dma-throughput.png" target="_blank" rel="noopener" aria-label="Enlarge measured fpga results"><img src="assets/aes-dma-throughput.png" alt="Measured encryption and decryption throughput comparison of the CTR-DMA and GCM-DMA architectures." width="2130" height="1285" loading="lazy" decoding="async"></a><figcaption><span>Measured FPGA results</span>Preserved CTR-DMA and GCM-DMA throughput comparison. The results document explains measurement conditions. <a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption/blob/main/RESULTS.md">Read the source evidence ↗</a></figcaption></figure>
-          <div class="project-links"><a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption">Repository ↗</a><a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption/blob/main/RESULTS.md">Measured results ↗</a><a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption/blob/main/BUILD_AND_RUN.md">Build guide ↗</a><a href="#crypto-lab">Try the browser lab ↓</a></div>
+          <figure class="project-evidence"><a class="evidence-image" data-lightbox href="assets/aes-dma-throughput.png" target="_blank" rel="noopener" aria-label="Enlarge measured fpga results"><img src="assets/aes-dma-throughput.png" alt="Measured encryption and decryption throughput comparison of the CTR-DMA and GCM-DMA architectures." width="2130" height="1285" loading="lazy" decoding="async"></a><figcaption><span>Measured FPGA results</span>Preserved CTR-DMA and GCM-DMA throughput comparison. The results document explains measurement conditions. <a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption/blob/main/RESULTS.md">Read the source evidence â†—</a></figcaption></figure>
+          <div class="project-links"><a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption">Repository â†—</a><a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption/blob/main/RESULTS.md">Measured results â†—</a><a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption/blob/main/BUILD_AND_RUN.md">Build guide â†—</a><a href="#crypto-lab">Try the browser lab â†“</a></div>
         </div>
       </article>
       <article class="project" data-category="cmos">
@@ -120,20 +197,20 @@
           <p>A hierarchical static CMOS full adder in Cadence Virtuoso, simulated with Spectre. The documentation includes all eight input combinations, waveforms, and output-load characterization.</p>
           <ul class="facts"><li>180 nm generic process</li><li>1.8 V nominal supply</li><li>Schematic-level simulation</li></ul>
           <p class="scope">Scope: schematic simulation and characterization. Physical layout, DRC, and LVS are outside this project.</p>
-          <figure class="project-evidence"><a class="evidence-image" data-lightbox href="assets/full-adder-schematic.png" target="_blank" rel="noopener" aria-label="Enlarge circuit design evidence"><img src="assets/full-adder-schematic.png" alt="Cadence Virtuoso screenshot of the hierarchical CMOS full-adder schematic." width="961" height="1038" loading="lazy" decoding="async"></a><figcaption><span>Circuit design evidence</span>Hierarchical full-adder schematic in Virtuoso. Schematic-level work; no layout, DRC, or LVS result is implied. <a href="https://github.com/Krnroyy/cadence-cmos-full-adder">Read the source evidence ↗</a></figcaption></figure>
-          <div class="project-links"><a href="https://github.com/Krnroyy/cadence-cmos-full-adder">Repository &amp; results ↗</a></div>
+          <figure class="project-evidence"><a class="evidence-image" data-lightbox href="assets/full-adder-schematic.png" target="_blank" rel="noopener" aria-label="Enlarge circuit design evidence"><img src="assets/full-adder-schematic.png" alt="Cadence Virtuoso screenshot of the hierarchical CMOS full-adder schematic." width="961" height="1038" loading="lazy" decoding="async"></a><figcaption><span>Circuit design evidence</span>Hierarchical full-adder schematic in Virtuoso. Schematic-level work; no layout, DRC, or LVS result is implied. <a href="https://github.com/Krnroyy/cadence-cmos-full-adder">Read the source evidence â†—</a></figcaption></figure>
+          <div class="project-links"><a href="https://github.com/Krnroyy/cadence-cmos-full-adder">Repository &amp; results â†—</a></div>
         </div>
       </article>
     </section>
     <section class="crypto-lab wrap section" id="crypto-lab" aria-labelledby="lab-title">
       <div class="section-head"><div><p class="eyebrow">EXPLORE THE IDEA</p><h2 id="lab-title">An image. A key. One changed byte.</h2></div><p>Try authenticated encryption, then challenge it. This browser lab is separate from the FPGA implementation and its measurements.</p></div>
       <div class="lab-shell">
-        <div class="lab-topline"><span class="lab-badge">AES-128-GCM</span><span>Local browser processing · no image upload</span></div>
+        <div class="lab-topline"><span class="lab-badge">AES-128-GCM</span><span>Local browser processing Â· no image upload</span></div>
         <p class="lab-intro">Choose an image or use the sample. Encrypt its file bytes, recover the original, and flip one ciphertext bit to test authentication.</p>
         <div id="lab-controls" class="lab-controls" hidden>
           <label class="lab-file" for="lab-file">Choose image<input id="lab-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
           <button id="lab-sample" type="button">Use sample</button>
-          <span class="lab-limit">PNG, JPEG or WebP · up to 3 MiB</span>
+          <span class="lab-limit">PNG, JPEG or WebP Â· up to 3 MiB</span>
         </div>
         <div class="lab-panes">
           <div class="lab-pane"><h3><span>01</span> Original</h3><div class="lab-image-slot"><img id="lab-original" alt="Selected original image" hidden><p id="lab-original-empty">Your image starts here.</p></div><p id="lab-file-info" class="lab-pane-note">Nothing selected</p></div>
@@ -149,10 +226,10 @@
       <p class="eyebrow">HOW I APPROACH THE WORK</p><h2 id="approach-title">Make the claim inspectable.</h2>
       <div class="approach-grid"><div><span class="step">01</span><h3>Define the contract</h3><p>State transfer rules, reset behaviour, supported parameters, and the assumptions around the design.</p></div><div><span class="step">02</span><h3>Challenge the behaviour</h3><p>Exercise boundary conditions, stalls, and resets. Compare outputs with a separate reference model.</p></div><div><span class="step">03</span><h3>Keep the evidence</h3><p>Link results to test plans, configurations, and scripts so readers can inspect and reproduce the checks.</p></div></div>
     </div></section>
-    <section class="about wrap section" id="about" aria-labelledby="about-title"><div><p class="eyebrow">ABOUT ME</p><h2 id="about-title">Building depth in<br>digital hardware.</h2><p>My interests span RTL design, functional and formal verification, FPGA acceleration, and secure digital systems. My projects connect digital logic fundamentals with practical tool flows.</p><p class="opportunity">Open to internships, entry-level opportunities, and engineering collaboration.</p><div class="contact-links"><a class="text-link" href="https://www.linkedin.com/in/krnroyy/">Connect on LinkedIn ↗</a><a class="text-link" href="https://github.com/Krnroyy">Explore GitHub ↗</a></div></div><div class="toolbox"><h3>Project toolkit</h3><dl><dt>RTL &amp; verification</dt><dd>SystemVerilog, Verilog, Icarus Verilog, Yosys/SMTBMC, Z3</dd><dt>FPGA development</dt><dd>Vivado, Vitis, AXI4-Stream, AXI4-Lite, AXI DMA</dd><dt>Circuits &amp; software</dt><dd>Cadence Virtuoso, Spectre, Python, C/C++</dd></dl><p>Tools used in the linked projects; project documentation defines the tested scope.</p></div></section>
+    <section class="about wrap section" id="about" aria-labelledby="about-title"><div><p class="eyebrow">ABOUT ME</p><h2 id="about-title">Building depth in<br>digital hardware.</h2><p>My interests span RTL design, functional and formal verification, FPGA acceleration, and secure digital systems. My projects connect digital logic fundamentals with practical tool flows.</p><p class="opportunity">Open to internships, entry-level opportunities, and engineering collaboration.</p><div class="contact-links"><a class="text-link" href="https://www.linkedin.com/in/krnroyy/">Connect on LinkedIn â†—</a><a class="text-link" href="https://github.com/Krnroyy">Explore GitHub â†—</a></div></div><div class="toolbox"><h3>Project toolkit</h3><dl><dt>RTL &amp; verification</dt><dd>SystemVerilog, Verilog, Icarus Verilog, Yosys/SMTBMC, Z3</dd><dt>FPGA development</dt><dd>Vivado, Vitis, AXI4-Stream, AXI4-Lite, AXI DMA</dd><dt>Circuits &amp; software</dt><dd>Cadence Virtuoso, Spectre, Python, C/C++</dd></dl><p>Tools used in the linked projects; project documentation defines the tested scope.</p></div></section>
   </main>
-  <footer class="wrap footer"><span>Karan Kumar <span aria-hidden="true">/</span> Engineering portfolio</span><div class="footer-links"><a href="https://www.linkedin.com/in/krnroyy/">LinkedIn ↗</a><a href="https://github.com/Krnroyy">GitHub ↗</a></div></footer>
-<button id="back-top" class="back-top" type="button" aria-label="Back to top" hidden>↑</button>
-  <dialog id="image-dialog" class="image-dialog" aria-labelledby="image-dialog-title"><div class="image-dialog-toolbar"><span id="image-dialog-title">Project evidence</span><button id="image-close" type="button" aria-label="Close image viewer">Close ×</button></div><img id="image-dialog-image" alt=""><p id="image-dialog-caption"></p><div class="image-dialog-actions"><button id="image-prev" type="button" aria-label="Previous image">← Previous</button><span id="image-position"></span><button id="image-next" type="button" aria-label="Next image">Next →</button></div></dialog>
+  <footer class="wrap footer"><span>Karan Kumar <span aria-hidden="true">/</span> Engineering portfolio</span><div class="footer-links"><a href="https://www.linkedin.com/in/krnroyy/">LinkedIn â†—</a><a href="https://github.com/Krnroyy">GitHub â†—</a></div></footer>
+<button id="back-top" class="back-top" type="button" aria-label="Back to top" hidden>â†‘</button>
+  <dialog id="image-dialog" class="image-dialog" aria-labelledby="image-dialog-title"><div class="image-dialog-toolbar"><span id="image-dialog-title">Project evidence</span><button id="image-close" type="button" aria-label="Close image viewer">Close Ã—</button></div><img id="image-dialog-image" alt=""><p id="image-dialog-caption"></p><div class="image-dialog-actions"><button id="image-prev" type="button" aria-label="Previous image">â† Previous</button><span id="image-position"></span><button id="image-next" type="button" aria-label="Next image">Next â†’</button></div></dialog>
 </body>
 </html>
