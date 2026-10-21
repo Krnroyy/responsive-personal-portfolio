@@ -64,6 +64,44 @@
           <div class="evidence-grid"><div><strong>Reset recovery</strong><span>Incomplete write cancelled<br>and normal traffic resumed</span></div><div><strong>Timer behavior</strong><span>Countdown, busy state,<br>interrupt and clear checks</span></div><div><strong>Clean regression</strong><span>120 UVM info messages<br>0 warnings, errors or fatals</span></div></div>
           <p class="scope">Simulation-based verification. This regression is not a formal proof or a complete AXI compliance certification.</p>
           <div class="project-links"><a href="https://github.com/Krnroyy/axi-lite-timer">Repository ↗</a><a href="https://github.com/Krnroyy/axi-lite-timer/blob/main/README.md">Design &amp; test details ↗</a></div>
+<section class="timer-lab" id="timer-lab" aria-labelledby="timer-lab-title">
+  <div class="timer-lab-heading">
+    <div>
+      <h4 id="timer-lab-title">Try the timer</h4>
+      <p>Set a short reload value, start the countdown, and watch the status and interrupt.</p>
+    </div>
+    <span class="timer-lab-badge">Interactive demo</span>
+  </div>
+
+  <div class="timer-lab-controls">
+    <label for="timer-lab-reload">Reload value <span>(1–12 ticks)</span></label>
+    <div class="timer-lab-actions">
+      <input id="timer-lab-reload" data-reload type="number" min="1" max="12" value="5">
+      <button type="button" data-start>Start timer</button>
+      <button type="button" data-reset class="timer-lab-secondary">Reset</button>
+    </div>
+  </div>
+
+  <div class="timer-lab-readouts" aria-live="polite">
+    <div><span>COUNT</span><strong data-count>0</strong></div>
+    <div><span>STATUS</span><strong data-status>IDLE</strong></div>
+    <div><span>IRQ</span><strong data-irq>LOW</strong></div>
+  </div>
+
+  <button type="button" data-clear class="timer-lab-clear" disabled>Clear interrupt</button>
+  <p class="timer-lab-message" data-message aria-live="polite">Ready. Choose a reload value and start.</p>
+
+  <details class="timer-lab-trace">
+    <summary>Show UVM-inspired activity trace</summary>
+    <ol data-log aria-live="polite" aria-label="Timer activity trace">
+      <li>Ready: waiting for a timer start.</li>
+    </ol>
+  </details>
+
+  <p class="timer-lab-disclaimer">
+    Browser-side JavaScript model for learning. It does not run the SystemVerilog RTL or Vivado UVM testbench.
+  </p>
+</section>
         </div>
       </article>
       <article class="project" data-category="fpga">
