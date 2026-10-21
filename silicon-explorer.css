@@ -38,3 +38,15 @@
 @media(prefers-reduced-motion:reduce){.sx-node,.sx-wire i{transition:none;animation:none!important}.sx-route.is-pulsing .sx-wire i{display:none}}
 
 :root[data-theme="dark"] .sx-shell{--sx-highlight:#19313a}
+
+/* Wider explorer layout for desktop monitors */
+#silicon-explorer.wrap {
+  width: min(1680px, calc(100% - clamp(40px, 5vw, 96px)));
+  max-width: none;
+}
+
+@media (max-width: 760px) {
+  #silicon-explorer.wrap {
+    width: calc(100% - 40px);
+  }
+}
