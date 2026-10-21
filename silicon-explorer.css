@@ -50,3 +50,50 @@
     width: calc(100% - 40px);
   }
 }
+
+/* Dark-mode Explorer controls and undistorted evidence images */
+html[data-theme="dark"] #silicon-explorer .sx-content,
+html[data-theme="dark"] #silicon-explorer .sx-info {
+  color: #e9f0f4;
+}
+
+html[data-theme="dark"] #silicon-explorer .sx-node {
+  background: #0d1820;
+  color: #e9f0f4;
+  border-color: #2c414c;
+}
+
+html[data-theme="dark"] #silicon-explorer .sx-node.is-active,
+html[data-theme="dark"] #silicon-explorer .sx-node:hover {
+  background: #19313a;
+  color: #bcf46b;
+  border-color: #7bd5bf;
+}
+
+html[data-theme="dark"] #silicon-explorer .sx-trace-button {
+  background: #19313a;
+  color: #e9f0f4;
+  border-color: #2c414c;
+}
+
+html[data-theme="dark"] #silicon-explorer .sx-trace-button:hover,
+html[data-theme="dark"] #silicon-explorer .sx-trace-button:focus-visible {
+  background: #244550;
+  color: #bcf46b;
+  border-color: #7bd5bf;
+}
+
+html[data-theme="dark"] #silicon-explorer .sx-info a {
+  color: #7bd5bf;
+}
+
+/* Scale evidence without changing its original width-to-height ratio. */
+.evidence-image img {
+  display: block;
+  width: auto;
+  max-width: min(100%, 820px);
+  height: auto;
+  max-height: 460px;
+  object-fit: contain;
+  margin-inline: auto;
+}
