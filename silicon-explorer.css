@@ -97,3 +97,33 @@ html[data-theme="dark"] #silicon-explorer .sx-info a {
   object-fit: contain;
   margin-inline: auto;
 }
+
+/* Match Explorer width and dark input-toggle states */
+#silicon-explorer.wrap {
+  width: min(1160px, calc(100% - 40px));
+  max-width: none;
+}
+
+html[data-theme="dark"] #silicon-explorer .sx-control {
+  background: #0d1820;
+  color: #e9f0f4;
+  border-color: #2c414c;
+}
+
+html[data-theme="dark"] #silicon-explorer .sx-control:hover,
+html[data-theme="dark"] #silicon-explorer .sx-control:focus-visible,
+html[data-theme="dark"] #silicon-explorer .sx-control:active {
+  background: #19313a;
+  color: #bcf46b;
+  border-color: #7bd5bf;
+}
+
+html[data-theme="dark"] #silicon-explorer .sx-control span {
+  color: #7bd5bf;
+}
+
+@media (max-width: 760px) {
+  #silicon-explorer.wrap {
+    width: calc(100% - 40px);
+  }
+}
