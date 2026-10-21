@@ -44,8 +44,8 @@
     </section>
     <div class="discipline-strip"><div class="wrap"><span>SystemVerilog / Verilog</span><span>Simulation + formal</span><span>FPGA integration</span><span>CMOS fundamentals</span></div></div>
     <section class="projects wrap section" id="projects" aria-labelledby="projects-title">
-      <div class="section-head"><div><p class="eyebrow">SELECTED ENGINEERING WORK</p><h2 id="projects-title">Three projects. Different layers.</h2></div><p>From transistor-level simulation to RTL verification and a complete FPGA system.</p></div>
-      <div class="project-filter" role="group" aria-label="Filter projects" hidden><button type="button" data-filter="all" aria-pressed="true">All projects <span>03</span></button><button type="button" data-filter="verification" aria-pressed="false">Verification</button><button type="button" data-filter="fpga" aria-pressed="false">FPGA systems</button><button type="button" data-filter="cmos" aria-pressed="false">CMOS design</button></div>
+      <div class="section-head"><div><p class="eyebrow">SELECTED ENGINEERING WORK</p><h2 id="projects-title">Four projects. Different layers.</h2></div><p>From transistor-level simulation to RTL verification and a complete FPGA system.</p></div>
+      <div class="project-filter" role="group" aria-label="Filter projects" hidden><button type="button" data-filter="all" aria-pressed="true">All projects <span>04</span></button><button type="button" data-filter="verification" aria-pressed="false">Verification</button><button type="button" data-filter="fpga" aria-pressed="false">FPGA systems</button><button type="button" data-filter="cmos" aria-pressed="false">CMOS design</button></div>
       <p id="filter-status" class="sr-only" aria-live="polite"></p>
       <article class="project project-featured" data-category="verification">
         <div class="project-number">01 / RTL + VERIFICATION</div>
@@ -57,8 +57,17 @@
           <div class="project-links"><a href="https://github.com/Krnroyy/axi4-stream-fifo">Repository ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/TEST_PLAN.md">Test plan ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/BUG_CASE_STUDY.md">Bug case study ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/actions/workflows/verify.yml">Live CI ↗</a></div>
         </div>
       </article>
+      <article class="project" data-category="verification">
+        <div class="project-number">02 / RTL + UVM</div>
+        <div class="project-body"><div class="project-title-row"><h3>AXI4-Lite Countdown Timer</h3><span class="project-tag">SystemVerilog · UVM 1.2</span></div>
+          <p>A memory-mapped countdown timer with CONTROL, RELOAD, COUNT, and STATUS registers. A UVM testbench drives AXI4-Lite transactions, monitors completed transfers, and checks expected register and timer behaviour in a scoreboard.</p>
+          <div class="evidence-grid"><div><strong>Reset recovery</strong><span>Incomplete write cancelled<br>and normal traffic resumed</span></div><div><strong>Timer behavior</strong><span>Countdown, busy state,<br>interrupt and clear checks</span></div><div><strong>Clean regression</strong><span>120 UVM info messages<br>0 warnings, errors or fatals</span></div></div>
+          <p class="scope">Simulation-based verification. This regression is not a formal proof or a complete AXI compliance certification.</p>
+          <div class="project-links"><a href="https://github.com/Krnroyy/axi-lite-timer">Repository ↗</a><a href="https://github.com/Krnroyy/axi-lite-timer/blob/main/README.md">Design &amp; test details ↗</a></div>
+        </div>
+      </article>
       <article class="project" data-category="fpga">
-        <div class="project-number">02 / FPGA SYSTEMS</div>
+        <div class="project-number">03 / FPGA SYSTEMS</div>
         <div class="project-body"><div class="project-title-row"><h3>AES-128-GCM image security</h3><span class="project-tag">ZCU104</span></div>
           <p>A Verilog accelerator integrated with AXI4-Stream, AXI DMA, and Cortex-A53 software. The project checks FPGA ciphertext and authentication tags against Python AESGCM and tests modified-ciphertext rejection.</p>
           <ul class="facts"><li>Hardware/software co-design</li><li>Independent reference checks</li><li>Documented timing and resource results</li></ul>
@@ -68,7 +77,7 @@
         </div>
       </article>
       <article class="project" data-category="cmos">
-        <div class="project-number">03 / CMOS DESIGN</div>
+        <div class="project-number">04 / CMOS DESIGN</div>
         <div class="project-body"><div class="project-title-row"><h3>CMOS 1-bit full adder</h3><span class="project-tag">gpdk180</span></div>
           <p>A hierarchical static CMOS full adder in Cadence Virtuoso, simulated with Spectre. The documentation includes all eight input combinations, waveforms, and output-load characterization.</p>
           <ul class="facts"><li>180 nm generic process</li><li>1.8 V nominal supply</li><li>Schematic-level simulation</li></ul>
