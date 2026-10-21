@@ -306,3 +306,124 @@
   backTop.addEventListener('click', () => scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' }));
   updateScroll();
 })();
+
+// TIMER LAB FUNCTIONAL FIX
+(() => {
+  const root = document.querySelector("#timer-lab");
+  if (!root || root.dataset.timerLabFixed === "true") return;
+  root.dataset.timerLabFixed = "true";
+
+  const reloadInput = root.querySelector("[data-reload]");
+  const startButton = root.querySelector("[data-start]");
+  const resetButton = root.querySelector("[data-reset]");
+  const clearButton = root.querySelector("[data-clear]");
+  const countDisplay = root.querySelector("[data-count]");
+  const statusDisplay = root.querySelector("[data-status]");
+  const irqDisplay = root.querySelector("[data-irq]");
+  const message = root.querySelector("[data-message]");
+  const log = root.querySelector("[data-log]");
+
+  if (!reloadInput || !startButton || !resetButton || !clearButton ||
+      !countDisplay || !statusDisplay || !irqDisplay || !message || !log) {
+    console.error("Timer Lab is missing a required control.");
+    return;
+  }
+
+  let count = 0;
+  let busy = false;
+  let irq = false;
+  let intervalId = null;
+
+  function addTrace(text) {
+    const item = document.createElement("li");
+    item.textContent = text;
+    log.appendChild(item);
+
+    while (log.children.length > 8) {
+      log.removeChild(log.firstElementChild);
+    }
+  }
+
+  function render() {
+    countDisplay.textContent = String(count);
+    statusDisplay.textContent = busy ? "BUSY" : (irq ? "IRQ PENDING" : "IDLE");
+    irqDisplay.textContent = irq ? "HIGH" : "LOW";
+    startButton.disabled = busy;
+    reloadInput.disabled = busy;
+    clearButton.disabled = !irq;
+  }
+
+  startButton.addEventListener("click", () => {
+    if (busy) return;
+
+    if (!reloadInput.checkValidity()) {
+      message.textContent = "Enter a whole number from 1 to 12.";
+      reloadInput.reportValidity();
+      return;
+    }
+
+    const reload = Number(reloadInput.value);
+    if (!Number.isInteger(reload) || reload < 1 || reload > 12) {
+      message.textContent = "Enter a whole number from 1 to 12.";
+      reloadInput.focus();
+      return;
+    }
+
+    count = reload;
+    busy = true;
+    irq = false;
+
+    addTrace(`Sequence: program RELOAD = ${reload}.`);
+    addTrace("Driver: write CONTROL.START = 1.");
+    addTrace(`Monitor: COUNT = ${count}, STATUS = BUSY.`);
+    addTrace(`Scoreboard: expecting ${reload} countdown ticks.`);
+
+    message.textContent = "Timer started. One model tick is one countdown step.";
+    render();
+
+    intervalId = window.setInterval(() => {
+      count -= 1;
+
+      if (count === 0) {
+        busy = false;
+        irq = true;
+        window.clearInterval(intervalId);
+        intervalId = null;
+
+        addTrace("Monitor: COUNT = 0, interrupt is pending.");
+        addTrace("Scoreboard: timer completion matched — PASS.");
+        message.textContent = "Timer completed. Clear the interrupt to run it again.";
+      } else {
+        addTrace(`Monitor: COUNT = ${count}, STATUS = BUSY.`);
+      }
+
+      render();
+    }, 700);
+  });
+
+  clearButton.addEventListener("click", () => {
+    if (!irq) return;
+
+    irq = false;
+    addTrace("Driver: write CONTROL.CLEAR_IRQ = 1.");
+    addTrace("Scoreboard: interrupt cleared — PASS.");
+    message.textContent = "Interrupt cleared. The timer is ready to start again.";
+    render();
+  });
+
+  resetButton.addEventListener("click", () => {
+    if (intervalId !== null) {
+      window.clearInterval(intervalId);
+      intervalId = null;
+    }
+
+    count = 0;
+    busy = false;
+    irq = false;
+    addTrace("Reset: count, busy state, and interrupt returned to zero.");
+    message.textContent = "Model reset. Choose a reload value and start.";
+    render();
+  });
+
+  render();
+})();
