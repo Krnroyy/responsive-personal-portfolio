@@ -10,9 +10,9 @@
   document.documentElement.classList.add('js');
   try { var theme = localStorage.getItem('portfolio-theme'); document.documentElement.dataset.theme = theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (_) { document.documentElement.dataset.theme = 'light'; }
   </script>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=timerlab-fix-2">
   <script src="handshake-model.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="script.js?v=timerlab-fix-2" defer></script>
   <script src="crypto-demo.js" defer></script>
 </head>
 <body>
