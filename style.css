@@ -19,6 +19,20 @@
 .evidence-notes code{font-size:11px}
 @media(max-width:760px){.project-evidence{margin-top:18px}.evidence-image{max-height:240px;padding:6px}.evidence-image img{max-height:228px}.hero-actions{gap:16px}.contact-links{gap:15px}}
 
+/* A small puppet-string invitation around the collaboration link. */
+.puppet-cta-wrap{position:relative;display:inline-flex;align-items:center;isolation:isolate}
+.puppet-cta{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid var(--line);background:var(--paper);color:var(--ink);text-decoration:none;transition:transform .22s ease,border-color .22s ease,background-color .22s ease,color .22s ease}
+.puppet-cta:hover,.puppet-cta:focus-visible{background:var(--ink);border-color:var(--ink);color:var(--paper);transform:translateY(-2px)}
+.puppet-strings{position:absolute;z-index:2;right:-44px;top:-48px;width:184px;height:76px;overflow:visible;opacity:0;pointer-events:none;transition:opacity .2s ease}
+.puppet-strings path{fill:none;stroke:var(--teal);stroke-width:1.4;stroke-linecap:round;stroke-dasharray:90;stroke-dashoffset:90;transition:stroke-dashoffset .45s ease}
+.puppet-strings .puppet-hand{stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
+.puppet-cta-wrap:hover .puppet-strings,.puppet-cta-wrap:focus-within .puppet-strings{opacity:1}
+.puppet-cta-wrap:hover .puppet-strings path,.puppet-cta-wrap:focus-within .puppet-strings path{stroke-dashoffset:0}
+.puppet-cta-wrap:hover .puppet-strings .puppet-hand,.puppet-cta-wrap:focus-within .puppet-strings .puppet-hand{animation:puppet-hand-tug .65s ease-in-out infinite alternate;transform-origin:185px 27px}
+@keyframes puppet-hand-tug{to{transform:translate(-2px,2px) rotate(-2deg)}}
+@media(max-width:760px){.puppet-strings{display:none}.puppet-cta{padding:9px 11px}}
+@media(prefers-reduced-motion:reduce){.puppet-cta,.puppet-strings path{transition:none}.puppet-cta-wrap:hover .puppet-strings .puppet-hand,.puppet-cta-wrap:focus-within .puppet-strings .puppet-hand{animation:none}}
+
 /* Readable typography and restrained engineering palette */
 :root{--ink:#142f38;--muted:#4b5e65;--teal:#1d6556;--line:#d4dcd6}
 body{font-size:16px;line-height:1.75}

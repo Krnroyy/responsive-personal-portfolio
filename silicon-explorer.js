@@ -4,6 +4,38 @@
   if (!root || root.dataset.ready === "true") return;
   root.dataset.ready = "true";
 
+  // On desktop, show a small creature where the user's pointer already is.
+  // It never receives pointer events, so browser clicks still reach real controls.
+  const creature = document.querySelector("[data-sx-creature]");
+  const desktopPointer = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 761px)");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (creature && desktopPointer.matches && !reducedMotion.matches) {
+    const hideCreature = () => {
+      root.classList.remove("sx-creature-active");
+      creature.classList.remove("is-visible", "is-clicking");
+    };
+    root.addEventListener("pointerenter", (event) => {
+      if (event.pointerType !== "mouse") return;
+      root.classList.add("sx-creature-active");
+      creature.classList.add("is-visible");
+    });
+    root.addEventListener("pointermove", (event) => {
+      if (event.pointerType !== "mouse") return;
+      root.classList.add("sx-creature-active");
+      creature.classList.add("is-visible");
+      creature.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-30%, -30%)`;
+    });
+    root.addEventListener("pointerleave", hideCreature);
+    root.addEventListener("pointerdown", () => creature.classList.add("is-clicking"));
+    window.addEventListener("pointerup", () => creature.classList.remove("is-clicking"));
+    root.addEventListener("keydown", (event) => {
+      if (event.key === "Tab") hideCreature();
+    });
+    reducedMotion.addEventListener?.("change", (event) => {
+      if (event.matches) hideCreature();
+    });
+  }
+
   const $ = (selector) => root.querySelector(selector);
   const stageButtons = [...root.querySelectorAll("[data-sx-stage]")];
   const bits = { a: 0, b: 0, cin: 0 };
