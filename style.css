@@ -19,19 +19,23 @@
 .evidence-notes code{font-size:11px}
 @media(max-width:760px){.project-evidence{margin-top:18px}.evidence-image{max-height:240px;padding:6px}.evidence-image img{max-height:228px}.hero-actions{gap:16px}.contact-links{gap:15px}}
 
-/* A small puppet-string invitation around the collaboration link. */
-.puppet-cta-wrap{position:relative;display:inline-flex;align-items:center;isolation:isolate}
-.puppet-cta{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid var(--line);background:var(--paper);color:var(--ink);text-decoration:none;transition:transform .22s ease,border-color .22s ease,background-color .22s ease,color .22s ease}
-.puppet-cta:hover,.puppet-cta:focus-visible{background:var(--ink);border-color:var(--ink);color:var(--paper);transform:translateY(-2px)}
-.puppet-strings{position:absolute;z-index:2;right:-44px;top:-48px;width:184px;height:76px;overflow:visible;opacity:0;pointer-events:none;transition:opacity .2s ease}
-.puppet-strings path{fill:none;stroke:var(--teal);stroke-width:1.4;stroke-linecap:round;stroke-dasharray:90;stroke-dashoffset:90;transition:stroke-dashoffset .45s ease}
-.puppet-strings .puppet-hand{stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
-.puppet-cta-wrap:hover .puppet-strings,.puppet-cta-wrap:focus-within .puppet-strings{opacity:1}
-.puppet-cta-wrap:hover .puppet-strings path,.puppet-cta-wrap:focus-within .puppet-strings path{stroke-dashoffset:0}
-.puppet-cta-wrap:hover .puppet-strings .puppet-hand,.puppet-cta-wrap:focus-within .puppet-strings .puppet-hand{animation:puppet-hand-tug .65s ease-in-out infinite alternate;transform-origin:185px 27px}
-@keyframes puppet-hand-tug{to{transform:translate(-2px,2px) rotate(-2deg)}}
-@media(max-width:760px){.puppet-strings{display:none}.puppet-cta{padding:9px 11px}}
-@media(prefers-reduced-motion:reduce){.puppet-cta,.puppet-strings path{transition:none}.puppet-cta-wrap:hover .puppet-strings .puppet-hand,.puppet-cta-wrap:focus-within .puppet-strings .puppet-hand{animation:none}}
+/* Glossy collaboration capsule; proximity pull is driven by the live pointer. */
+.puppet-cta-wrap{position:relative;display:inline-flex;align-items:center;isolation:isolate;--pull-x:0px;--pull-y:0px;--pull-scale:1}
+.puppet-cta{position:relative;z-index:1;display:inline-flex;align-items:center;gap:10px;padding:12px 19px;border:1px solid #05080b;border-radius:999px;background:linear-gradient(155deg,#24313a 0%,#05080b 45%,#111a20 100%);color:#f3f5f4;text-decoration:none;font-weight:700;box-shadow:inset 0 1px 1px rgb(255 255 255 / .17),0 6px 16px rgb(4 10 14 / .24);transform:translate3d(var(--pull-x),var(--pull-y),0) scale(var(--pull-scale));transition:transform .16s ease-out,box-shadow .2s ease,border-color .2s ease}
+.puppet-cta::before{content:"";position:absolute;inset:2px 16% auto;height:1px;border-radius:50%;background:rgb(255 255 255 / .25);pointer-events:none}
+.puppet-cta:hover,.puppet-cta:focus-visible{color:#fff;border-color:#527b76;box-shadow:inset 0 1px 2px rgb(255 255 255 / .2),0 0 0 3px rgb(123 213 191 / .15),0 8px 20px rgb(4 10 14 / .32)}
+.puppet-cta:focus-visible{outline:3px solid var(--teal);outline-offset:5px}
+.venom-layer{position:fixed;inset:0;z-index:1001;width:100vw;height:100vh;overflow:visible;pointer-events:none;visibility:hidden;opacity:0;transition:opacity .12s linear}
+.venom-layer.is-active{visibility:visible;opacity:1}
+.venom-thread{fill:none;stroke:#05070a;stroke-linecap:round;stroke-linejoin:round;stroke-width:var(--thread-width,1px);opacity:var(--thread-opacity,.2);filter:drop-shadow(0 0 2px rgb(6 11 13 / .52));stroke-dasharray:12 8;animation:venom-flow .42s linear infinite}
+.venom-thread-main{--thread-width:4px;--thread-opacity:.82}
+.venom-thread-mid{--thread-width:2.6px;--thread-opacity:.7}
+.venom-thread-fine{--thread-width:1.4px;--thread-opacity:.65}
+.venom-thread-glint{stroke:#6bbba6;--thread-width:1px;--thread-opacity:.62;filter:drop-shadow(0 0 3px rgb(123 213 191 / .6))}
+.venom-core{fill:#05070a;filter:drop-shadow(0 0 4px rgb(3 8 10 / .65))}
+@keyframes venom-flow{to{stroke-dashoffset:-20}}
+@media(max-width:760px){.venom-layer{display:none}.puppet-cta{padding:10px 15px}}
+@media(prefers-reduced-motion:reduce){.venom-layer,.puppet-cta{transition:none}.venom-thread{animation:none}}
 
 /* Readable typography and restrained engineering palette */
 :root{--ink:#142f38;--muted:#4b5e65;--teal:#1d6556;--line:#d4dcd6}

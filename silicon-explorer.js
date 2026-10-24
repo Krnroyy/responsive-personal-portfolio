@@ -4,11 +4,81 @@
   if (!root || root.dataset.ready === "true") return;
   root.dataset.ready = "true";
 
-  // On desktop, show a small creature where the user's pointer already is.
-  // It never receives pointer events, so browser clicks still reach real controls.
+  // Pointer proximity pulls living-looking threads from the pointer into the CTA.
+  const cta = document.querySelector("[data-puppet-wrap]");
+  const venomLayer = document.querySelector("[data-venom-layer]");
+  const venomCore = document.querySelector("[data-venom-core]");
+  const venomThreads = [...document.querySelectorAll("[data-venom-thread]")];
   const creature = document.querySelector("[data-sx-creature]");
   const desktopPointer = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 761px)");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (cta && venomLayer && venomCore && desktopPointer.matches && !reducedMotion.matches) {
+    const maxReach = 230;
+    const clamp = (value, low, high) => Math.max(low, Math.min(value, high));
+    const clearOoze = () => {
+      venomLayer.classList.remove("is-active");
+      cta.classList.remove("is-drawn");
+      cta.style.setProperty("--pull-x", "0px");
+      cta.style.setProperty("--pull-y", "0px");
+      cta.style.setProperty("--pull-scale", "1");
+    };
+    const drawOoze = (event) => {
+      if (event.pointerType && event.pointerType !== "mouse") return clearOoze();
+      const rect = cta.getBoundingClientRect();
+      const x = event.clientX;
+      const y = event.clientY;
+      const nearX = clamp(x, rect.left, rect.right);
+      const nearY = clamp(y, rect.top, rect.bottom);
+      const distance = Math.hypot(x - nearX, y - nearY);
+      if (distance >= maxReach) return clearOoze();
+
+      const proximity = 1 - distance / maxReach;
+      const intensity = proximity * proximity * (3 - 2 * proximity);
+      venomLayer.classList.add("is-active");
+      venomCore.setAttribute("cx", x);
+      venomCore.setAttribute("cy", y);
+      venomCore.setAttribute("r", String(2 + intensity * 7));
+
+      const anchors = [
+        { x: rect.left + rect.width * .12, y: rect.top + rect.height * .48 },
+        { x: rect.left + rect.width * .39, y: rect.top + 3 },
+        { x: rect.right - 4, y: rect.top + rect.height * .55 },
+        { x: rect.left + rect.width * .7, y: rect.bottom - 3 }
+      ];
+      venomThreads.forEach((path, index) => {
+        const target = anchors[index % anchors.length];
+        const dx = target.x - x;
+        const dy = target.y - y;
+        const length = Math.max(1, Math.hypot(dx, dy));
+        const bend = (index % 2 ? 1 : -1) * (8 + 22 * (1 - intensity));
+        const px = -dy / length * bend;
+        const py = dx / length * bend;
+        path.setAttribute("d", `M ${x} ${y} C ${x + dx * .26 + px} ${y + dy * .2 + py}, ${x + dx * .72 - px * .55} ${y + dy * .66 - py * .55}, ${target.x} ${target.y}`);
+        const baseWidth = [2, 1.5, .8, .55][index];
+        path.style.setProperty("--thread-width", `${baseWidth + intensity * (index === 0 ? 4 : 2)}px`);
+        path.style.setProperty("--thread-opacity", String(.08 + intensity * (index === 0 ? .86 : .7)));
+      });
+
+      const pullX = x - rect.left - rect.width / 2;
+      const pullY = y - rect.top - rect.height / 2;
+      const pullLength = Math.max(1, Math.hypot(pullX, pullY));
+      const pull = Math.min(6, intensity * 6);
+      cta.style.setProperty("--pull-x", `${pullX / pullLength * pull}px`);
+      cta.style.setProperty("--pull-y", `${pullY / pullLength * pull}px`);
+      cta.style.setProperty("--pull-scale", String(1 + intensity * .018));
+      cta.classList.add("is-drawn");
+    };
+    window.addEventListener("pointermove", drawOoze, { passive: true });
+    window.addEventListener("blur", clearOoze);
+    document.addEventListener("mouseleave", clearOoze);
+    reducedMotion.addEventListener?.("change", (event) => {
+      if (event.matches) clearOoze();
+    });
+  }
+
+  // The tiny chip-and-wand sprite is only a visual cursor. Pointer events pass
+  // through it, and the clicked control gets a short gold energy sweep.
   if (creature && desktopPointer.matches && !reducedMotion.matches) {
     const hideCreature = () => {
       root.classList.remove("sx-creature-active");
@@ -23,7 +93,7 @@
       if (event.pointerType !== "mouse") return;
       root.classList.add("sx-creature-active");
       creature.classList.add("is-visible");
-      creature.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-30%, -30%)`;
+      creature.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-28px, -3px)`;
     });
     root.addEventListener("pointerleave", hideCreature);
     root.addEventListener("pointerdown", () => creature.classList.add("is-clicking"));
@@ -33,6 +103,20 @@
     });
     reducedMotion.addEventListener?.("change", (event) => {
       if (event.matches) hideCreature();
+    });
+    const sweepTimers = new WeakMap();
+    root.addEventListener("click", (event) => {
+      const target = event.target.closest("button, a, input, [role='button']");
+      if (!target || !root.contains(target)) return;
+      const oldTimer = sweepTimers.get(target);
+      if (oldTimer) window.clearTimeout(oldTimer);
+      target.classList.remove("sx-magic-hit");
+      void target.offsetWidth;
+      target.classList.add("sx-magic-hit");
+      sweepTimers.set(target, window.setTimeout(() => {
+        target.classList.remove("sx-magic-hit");
+        sweepTimers.delete(target);
+      }, 800));
     });
   }
 
