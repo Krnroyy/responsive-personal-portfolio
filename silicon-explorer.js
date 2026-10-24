@@ -134,10 +134,11 @@
   const bits = { a: 0, b: 0, cin: 0 };
   const stages = {
     inverter: {
-      kicker: "TRANSISTOR-LEVEL IDEA",
+      kicker: "CMOS LOGIC · LEARNING MODEL",
       title: "CMOS inverter",
-      description: "Toggle the input. A simplified PMOS/NMOS model shows why the output changes in the opposite direction.",
+      description: "Toggle input A and trace its logic value through the inverter. This simplified diagram teaches the NOT function; it is not a transistor-level simulation.",
       info: "A CMOS inverter pairs PMOS and NMOS transistors. This is a learning illustration, not a transistor-level circuit simulation.",
+      tipDefault: "Hover or focus a pin, gate, or output to learn what it does.",
       project: "CMOS full-adder project ↗",
       url: "https://github.com/Krnroyy/cadence-cmos-full-adder",
       sourceLabel: "INPUT A",
@@ -146,10 +147,11 @@
       outputLabel: "OUTPUT Y"
     },
     adder: {
-      kicker: "CMOS LOGIC · SPECTRE SIMULATION",
+      kicker: "CMOS LOGIC · LEARNING MODEL",
       title: "1-bit full adder",
       description: "Change A, B, or Cin. The Sum and Carry outputs update from the full-adder equations.",
       info: "Sum = A XOR B XOR Cin. Carry = (A AND B) OR (Cin AND (A XOR B)). The project documents all eight input combinations.",
+      tipDefault: "Follow A, B, and Cin through the adder equations to Sum and Carry.",
       project: "CMOS full-adder project ↗",
       url: "https://github.com/Krnroyy/cadence-cmos-full-adder",
       sourceLabel: "INPUTS",
@@ -173,6 +175,7 @@
 
   let stage = "inverter";
   let traceTimers = [];
+  let svgPulseTimer;
 
   function pulseRoute() {
     const route = $("[data-sx-route]");
@@ -180,6 +183,85 @@
     void route.offsetWidth;
     route.classList.add("is-pulsing");
   }
+
+  function pulseSvg() {
+    const svg = root.querySelector(`[data-sx-svg="${stage}"]`);
+    if (!svg || svg.hidden) return;
+    const wires = [...svg.querySelectorAll("[data-sx-svg-wire]")];
+    wires.forEach((wire) => wire.classList.remove("is-flowing"));
+    void svg.offsetWidth;
+    wires.forEach((wire) => wire.classList.add("is-flowing"));
+    window.clearTimeout(svgPulseTimer);
+    svgPulseTimer = window.setTimeout(() => {
+      wires.forEach((wire) => wire.classList.remove("is-flowing"));
+    }, 1250);
+  }
+
+  function setDiagramNode(svg, name, value, level = value) {
+    const node = svg.querySelector(`[data-sx-svg-node="${name}"]`);
+    if (!node) return;
+    node.dataset.level = String(level);
+    const readout = node.querySelector(`[data-sx-svg-value="${name}"]`);
+    if (readout) readout.textContent = String(value);
+  }
+
+  function renderDiagrams() {
+    const schematic = root.querySelector("[data-sx-schematic]");
+    const route = root.querySelector("[data-sx-route]");
+    schematic.hidden = stage === "axi";
+    route.hidden = stage !== "axi";
+    root.querySelectorAll("[data-sx-svg]").forEach((svg) => {
+      svg.hidden = svg.dataset.sxSvg !== stage;
+    });
+
+    if (stage === "inverter") {
+      const svg = root.querySelector('[data-sx-svg="inverter"]');
+      const y = 1 - bits.a;
+      setDiagramNode(svg, "a", `A = ${bits.a}`, bits.a);
+      setDiagramNode(svg, "y", `Y = ${y}`, y);
+      svg.querySelector('[data-sx-svg-node="gate"]').dataset.level = String(y);
+      svg.querySelectorAll("[data-sx-svg-wire]").forEach((wire) => {
+        wire.dataset.level = String(wire.dataset.sxSvgWire === "a" ? bits.a : y);
+      });
+    } else if (stage === "adder") {
+      const svg = root.querySelector('[data-sx-svg="adder"]');
+      const sum = bits.a ^ bits.b ^ bits.cin;
+      const carry = (bits.a & bits.b) | (bits.cin & (bits.a ^ bits.b));
+      setDiagramNode(svg, "a", bits.a);
+      setDiagramNode(svg, "b", bits.b);
+      setDiagramNode(svg, "cin", bits.cin);
+      setDiagramNode(svg, "sum", sum);
+      setDiagramNode(svg, "carry", carry);
+      svg.querySelector('[data-sx-svg-node="adder"]').dataset.level = String(sum | carry);
+      svg.querySelectorAll("[data-sx-svg-wire]").forEach((wire) => {
+        const signal = wire.dataset.sxSvgWire;
+        wire.dataset.level = String(signal === "sum" ? sum : signal === "carry" ? carry : bits[signal]);
+      });
+    }
+
+    const tip = root.querySelector("[data-sx-diagram-tip]");
+    if (tip) tip.textContent = stages[stage].tipDefault || "Choose the AXI timer stage to trace a register write.";
+  }
+
+  function explainDiagramPart(event) {
+    const part = event.target.closest?.("[data-sx-explain]");
+    if (!part || !root.contains(part)) return;
+    const schematic = part.closest("[data-sx-schematic]");
+    if (!schematic || schematic.hidden) return;
+    root.querySelector("[data-sx-diagram-tip]").textContent = part.dataset.sxExplain;
+  }
+
+  function resetDiagramTip(event) {
+    const part = event.target.closest?.("[data-sx-explain]");
+    if (!part || (event.relatedTarget && part.contains(event.relatedTarget))) return;
+    if (event.relatedTarget?.closest?.("[data-sx-explain]")) return;
+    root.querySelector("[data-sx-diagram-tip]").textContent = stages[stage].tipDefault || "Choose the AXI timer stage to trace a register write.";
+  }
+
+  root.addEventListener("pointerover", explainDiagramPart);
+  root.addEventListener("pointerout", resetDiagramTip);
+  root.addEventListener("focusin", explainDiagramPart);
+  root.addEventListener("focusout", resetDiagramTip);
 
   function render() {
     const config = stages[stage];
@@ -201,6 +283,7 @@
     $("[data-sx-logic-label]").textContent = config.logicLabel;
     $("[data-sx-logic-value]").textContent = config.logicValue;
     $("[data-sx-output-label]").textContent = config.outputLabel;
+    renderDiagrams();
 
     root.querySelectorAll("[data-sx-node]").forEach((node) => node.classList.remove("is-active"));
 
@@ -239,6 +322,7 @@
     stage = button.dataset.sxStage;
     render();
     pulseRoute();
+    pulseSvg();
   }));
 
   root.querySelectorAll("[data-sx-bit]").forEach((button) => button.addEventListener("click", () => {
@@ -246,6 +330,7 @@
     bits[bit] = 1 - bits[bit];
     render();
     pulseRoute();
+    pulseSvg();
   }));
 
   $("[data-sx-reload]").addEventListener("input", (event) => {

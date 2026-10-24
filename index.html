@@ -14,7 +14,7 @@
   <script src="handshake-model.js" defer></script>
   <script src="script.js?v=timerlab-fix-2" defer></script>
   <script src="crypto-demo.js" defer></script>
-  <link rel="stylesheet" href="silicon-explorer.css?v=gold-sweep-8">
+  <link rel="stylesheet" href="silicon-explorer.css?v=svg-signal-9">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -68,7 +68,7 @@
               Toggle the input. A simplified PMOS/NMOS model shows why the output changes in the opposite direction.
             </p>
 
-            <div class="sx-route" data-sx-route aria-label="Interactive signal path">
+            <div class="sx-route" data-sx-route aria-label="AXI timer signal path" hidden>
               <div class="sx-node is-active" data-sx-node="source">
                 <span data-sx-source-label>INPUT A</span>
                 <strong data-sx-source-value>0</strong>
@@ -83,6 +83,63 @@
                 <span data-sx-output-label>OUTPUT Y</span>
                 <strong data-sx-output-value>1</strong>
               </div>
+            </div>
+
+            <div class="sx-schematic" data-sx-schematic aria-label="Interactive logic diagrams">
+              <svg class="sx-diagram-svg" data-sx-svg="inverter" viewBox="0 0 720 190" role="group" aria-label="CMOS inverter logic model">
+                <title>CMOS inverter: input A passes through a NOT function to output Y</title>
+                <desc>A simplified logic-level diagram. It explains inversion and is not a transistor-level simulation.</desc>
+                <path class="sx-svg-wire" data-sx-svg-wire="a" d="M165 95H285"/>
+                <path class="sx-svg-wire" data-sx-svg-wire="y" d="M435 95H555"/>
+                <g class="sx-svg-part sx-svg-node" data-sx-svg-node="a" data-sx-explain="Input A is the binary value entering the inverter. Try the input button below to switch it between 0 and 1." tabindex="0" role="group" aria-label="Input A, binary signal">
+                  <rect x="25" y="58" width="140" height="74" rx="3"/>
+                  <text class="sx-svg-label" x="95" y="84" text-anchor="middle">INPUT A</text>
+                  <text class="sx-svg-value" data-sx-svg-value="a" x="95" y="111" text-anchor="middle">A = 0</text>
+                </g>
+                <g class="sx-svg-part sx-svg-gate" data-sx-svg-node="gate" data-sx-explain="The inverter performs NOT: it changes 0 to 1 and 1 to 0. The triangle and output bubble are the standard logic symbol." tabindex="0" role="group" aria-label="NOT logic gate, inverter function">
+                  <path class="sx-svg-gate-shape" d="M285 49 413 95 285 141Z"/>
+                  <circle class="sx-svg-bubble" cx="425" cy="95" r="9"/>
+                  <text class="sx-svg-gate-label" x="335" y="99" text-anchor="middle">NOT</text>
+                </g>
+                <g class="sx-svg-part sx-svg-node" data-sx-svg-node="y" data-sx-explain="Output Y is the opposite binary value from input A: Y = NOT A." tabindex="0" role="group" aria-label="Output Y, inverted signal">
+                  <rect x="555" y="58" width="140" height="74" rx="3"/>
+                  <text class="sx-svg-label" x="625" y="84" text-anchor="middle">OUTPUT Y</text>
+                  <text class="sx-svg-value" data-sx-svg-value="y" x="625" y="111" text-anchor="middle">Y = 1</text>
+                </g>
+              </svg>
+
+              <svg class="sx-diagram-svg" data-sx-svg="adder" viewBox="0 0 800 260" role="group" aria-label="One-bit full adder logic model" hidden>
+                <title>Full adder: three input bits produce Sum and Carry</title>
+                <desc>The diagram shows the full-adder equations. Change A, B, or Cin to update the values and trace animation.</desc>
+                <path class="sx-svg-wire" data-sx-svg-wire="a" d="M155 55H235V92H280"/>
+                <path class="sx-svg-wire" data-sx-svg-wire="b" d="M155 130H280"/>
+                <path class="sx-svg-wire" data-sx-svg-wire="cin" d="M155 205H235V168H280"/>
+                <path class="sx-svg-wire" data-sx-svg-wire="sum" d="M560 92H640"/>
+                <path class="sx-svg-wire" data-sx-svg-wire="carry" d="M560 168H640"/>
+                <g class="sx-svg-part sx-svg-node" data-sx-svg-node="a" data-sx-explain="A is the first one-bit input to the adder." tabindex="0" role="group" aria-label="Full-adder input A">
+                  <rect x="25" y="32" width="130" height="46" rx="3"/><text class="sx-svg-label" x="50" y="60">A</text><text class="sx-svg-value" data-sx-svg-value="a" x="127" y="60" text-anchor="end">0</text>
+                </g>
+                <g class="sx-svg-part sx-svg-node" data-sx-svg-node="b" data-sx-explain="B is the second one-bit input. A and B contribute to both the sum and carry calculations." tabindex="0" role="group" aria-label="Full-adder input B">
+                  <rect x="25" y="107" width="130" height="46" rx="3"/><text class="sx-svg-label" x="50" y="135">B</text><text class="sx-svg-value" data-sx-svg-value="b" x="127" y="135" text-anchor="end">0</text>
+                </g>
+                <g class="sx-svg-part sx-svg-node" data-sx-svg-node="cin" data-sx-explain="Cin is the carry input from the previous bit position, so this one-bit adder can be chained into a wider adder." tabindex="0" role="group" aria-label="Full-adder carry input Cin">
+                  <rect x="25" y="182" width="130" height="46" rx="3"/><text class="sx-svg-label" x="50" y="210">Cin</text><text class="sx-svg-value" data-sx-svg-value="cin" x="127" y="210" text-anchor="end">0</text>
+                </g>
+                <g class="sx-svg-part sx-svg-logicbox" data-sx-svg-node="adder" data-sx-explain="The adder calculates Sum = A XOR B XOR Cin and Carry = (A AND B) OR (Cin AND (A XOR B))." tabindex="0" role="group" aria-label="Full-adder logic and equations">
+                  <rect class="sx-svg-logic-shape" x="280" y="50" width="280" height="160" rx="4"/>
+                  <text class="sx-svg-title" x="420" y="88" text-anchor="middle">1-BIT FULL ADDER</text>
+                  <text class="sx-svg-equation" x="420" y="125" text-anchor="middle">S = A XOR B XOR Cin</text>
+                  <text class="sx-svg-equation" x="420" y="151" text-anchor="middle">C = (A AND B) OR</text>
+                  <text class="sx-svg-equation" x="420" y="171" text-anchor="middle">(Cin AND (A XOR B))</text>
+                </g>
+                <g class="sx-svg-part sx-svg-node" data-sx-svg-node="sum" data-sx-explain="Sum is the result bit for this position. It is 1 when an odd number of A, B, and Cin are 1." tabindex="0" role="group" aria-label="Full-adder Sum output">
+                  <rect x="640" y="69" width="135" height="46" rx="3"/><text class="sx-svg-label" x="663" y="97">SUM</text><text class="sx-svg-value" data-sx-svg-value="sum" x="750" y="97" text-anchor="end">0</text>
+                </g>
+                <g class="sx-svg-part sx-svg-node" data-sx-svg-node="carry" data-sx-explain="Carry is the bit passed to the next position. It becomes 1 when at least two of the three inputs are 1." tabindex="0" role="group" aria-label="Full-adder Carry output">
+                  <rect x="640" y="145" width="135" height="46" rx="3"/><text class="sx-svg-label" x="663" y="173">CARRY</text><text class="sx-svg-value" data-sx-svg-value="carry" x="750" y="173" text-anchor="end">0</text>
+                </g>
+              </svg>
+              <p class="sx-diagram-tip" data-sx-diagram-tip data-sx-tip-default="Hover or focus a pin, gate, or output to learn what it does." role="status" aria-live="polite">Hover or focus a pin, gate, or output to learn what it does.</p>
             </div>
 
             <div class="sx-controls" data-sx-controls="inverter">
@@ -233,6 +290,6 @@
 <div class="sx-creature-cursor" data-sx-creature aria-hidden="true"><svg viewBox="0 0 48 48"><path class="sx-chip-pins" d="M14 8V4m7 4V3m7 5V3m7 5V4M14 40v4m7-4v5m7-5v5m7-5v4M8 14H4m4 7H3m5 7H3m5 7H4m36-21h4m-4 7h5m-5 7h5m-5 7h4"/><rect class="sx-chip-body" x="9" y="9" width="30" height="30" rx="5"/><path class="sx-chip-face" d="M17 23h1m12 0h1m-10 7q4 3 8 0"/><path class="sx-chip-eyes" d="M17.5 18v2m13-2v2"/></svg></div>
 <svg class="venom-layer" data-venom-layer aria-hidden="true"><circle class="venom-core" data-venom-core r="3"/><path class="venom-thread venom-thread-main" data-venom-thread/><path class="venom-thread venom-thread-mid" data-venom-thread/><path class="venom-thread venom-thread-fine" data-venom-thread/><path class="venom-thread venom-thread-fine" data-venom-thread/><path class="venom-thread venom-thread-fine" data-venom-thread/><path class="venom-thread venom-thread-fine" data-venom-thread/><path class="venom-thread venom-thread-glint" data-venom-thread/><path class="venom-thread venom-thread-glint" data-venom-thread/></svg>
   <dialog id="image-dialog" class="image-dialog" aria-labelledby="image-dialog-title"><div class="image-dialog-toolbar"><span id="image-dialog-title">Project evidence</span><button id="image-close" type="button" aria-label="Close image viewer">Close ×</button></div><img id="image-dialog-image" alt=""><p id="image-dialog-caption"></p><div class="image-dialog-actions"><button id="image-prev" type="button" aria-label="Previous image">← Previous</button><span id="image-position"></span><button id="image-next" type="button" aria-label="Next image">Next →</button></div></dialog>
-  <script src="silicon-explorer.js?v=venom-silicon-3" defer></script>
+  <script src="silicon-explorer.js?v=svg-signal-9" defer></script>
 </body>
 </html>
