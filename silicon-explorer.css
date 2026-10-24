@@ -39,10 +39,12 @@
 .sx-diagram-svg{display:block;width:100%;height:auto;max-width:760px;margin:0 auto;overflow:visible;font-family:var(--mono)}
 .sx-schematic{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain}
 .sx-adder-svg,.sx-axi-svg{min-width:650px}
-.sx-svg-wire{fill:none;stroke:var(--line);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s ease}
+.sx-svg-wire{fill:none;stroke:var(--line);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .32s ease,stroke-width .32s ease}
 .sx-svg-wire[data-level="1"]{stroke:var(--teal)}
-.sx-svg-wire.is-flowing{stroke:var(--teal);stroke-width:3;stroke-dasharray:.04 .96;stroke-dashoffset:1;animation:sx-svg-flow 1.15s ease-in-out 1}
+.sx-svg-wire.is-flowing{stroke:var(--teal);stroke-width:3;stroke-dasharray:.07 .93;stroke-dashoffset:1;animation:sx-svg-flow .6s cubic-bezier(.35,.02,.2,1) 1}
+.sx-svg-wire.is-flowing[data-level="0"]{stroke:var(--line);stroke-width:2.5;opacity:.58}
 @keyframes sx-svg-flow{to{stroke-dashoffset:-.04}}
+@keyframes sx-gate-settle{from{filter:drop-shadow(0 0 1px rgb(39 104 90 / .12))}to{filter:drop-shadow(0 0 6px rgb(39 104 90 / .34))}}
 .sx-svg-node,.sx-svg-gate,.sx-svg-logicbox{cursor:help;outline:none}
 .sx-svg-node rect,.sx-svg-logic-shape{fill:var(--paper);stroke:var(--line);stroke-width:1.5;transition:fill .18s ease,stroke .18s ease,filter .18s ease}
 .sx-svg-node[data-level="1"] rect,.sx-svg-logicbox[data-level="1"] .sx-svg-logic-shape{fill:var(--sx-highlight);stroke:var(--teal)}
@@ -51,6 +53,7 @@
 .sx-svg-value{fill:var(--ink);font-size:16px;font-weight:700}
 .sx-svg-gate-shape{fill:var(--paper);stroke:var(--teal);stroke-width:2}
 .sx-svg-gate[data-level="1"] .sx-svg-gate-shape{fill:var(--sx-highlight)}
+.sx-svg-part.is-settling rect,.sx-svg-part.is-settling .sx-svg-gate-shape{stroke:var(--teal);animation:sx-gate-settle .46s ease-in-out infinite alternate}
 .sx-svg-bubble{fill:var(--paper);stroke:var(--teal);stroke-width:2}
 .sx-svg-gate-label{fill:var(--ink);font-size:11px;font-weight:700}
 .sx-svg-title{fill:var(--teal);font-size:13px;font-weight:700;letter-spacing:.5px}
@@ -60,7 +63,7 @@
 .sx-svg-part:focus-visible rect,.sx-svg-part:focus-visible .sx-svg-gate-shape,.sx-svg-part:focus-visible .sx-svg-logic-shape{stroke:var(--teal);stroke-width:3}
 @media(max-width:760px){.sx-content{grid-template-columns:1fr;gap:20px;padding:21px}.sx-info{border-left:0;border-top:1px solid var(--line);padding:20px 0 0}.sx-info p{margin-bottom:15px}.sx-tabs button{padding:13px 10px;font-size:9px}.sx-route{grid-template-columns:minmax(60px,1fr) 20px minmax(74px,1fr) 20px minmax(60px,1fr);gap:0}.sx-node{min-height:74px;padding:8px 5px}.sx-node span{font-size:8px}.sx-node strong{font-size:11px}.sx-axi-controls{align-items:stretch}.sx-axi-controls label{width:100%}}
 @media(max-width:760px){.sx-svg-label{font-size:19px}.sx-svg-value{font-size:24px}.sx-svg-gate-label{font-size:19px}.sx-svg-title{font-size:19px}.sx-svg-equation{font-size:17px}}
-@media(prefers-reduced-motion:reduce){.sx-node,.sx-wire i,.sx-svg-wire,.sx-svg-node rect,.sx-svg-logic-shape{transition:none;animation:none!important}.sx-route.is-pulsing .sx-wire i{display:none}}
+@media(prefers-reduced-motion:reduce){.sx-node,.sx-wire i,.sx-svg-wire,.sx-svg-node rect,.sx-svg-logic-shape{transition:none;animation:none!important}.sx-svg-part.is-settling rect,.sx-svg-part.is-settling .sx-svg-gate-shape{animation:none!important}.sx-route.is-pulsing .sx-wire i{display:none}}
 
 :root[data-theme="dark"] .sx-shell{--sx-highlight:#19313a}
 
