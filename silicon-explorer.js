@@ -14,7 +14,7 @@
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   if (cta && venomLayer && venomCore && desktopPointer.matches && !reducedMotion.matches) {
-    const maxReach = 230;
+    const maxReach = 260;
     const clamp = (value, low, high) => Math.max(low, Math.min(value, high));
     const clearOoze = () => {
       venomLayer.classList.remove("is-active");
@@ -41,11 +41,16 @@
       venomCore.setAttribute("r", String(2 + intensity * 7));
 
       const anchors = [
-        { x: rect.left + rect.width * .12, y: rect.top + rect.height * .48 },
-        { x: rect.left + rect.width * .39, y: rect.top + 3 },
-        { x: rect.right - 4, y: rect.top + rect.height * .55 },
-        { x: rect.left + rect.width * .7, y: rect.bottom - 3 }
+        { x: rect.left + rect.width * .08, y: rect.top + rect.height * .5 },
+        { x: rect.left + rect.width * .22, y: rect.top + 2 },
+        { x: rect.left + rect.width * .39, y: rect.top + 2 },
+        { x: rect.left + rect.width * .57, y: rect.bottom - 2 },
+        { x: rect.left + rect.width * .72, y: rect.top + 2 },
+        { x: rect.left + rect.width * .88, y: rect.bottom - 2 },
+        { x: rect.right - 2, y: rect.top + rect.height * .37 },
+        { x: rect.right - 2, y: rect.top + rect.height * .68 }
       ];
+      const fixedWidths = [1.5, 1.1, .85, .85, .85, .85, .7, .7];
       venomThreads.forEach((path, index) => {
         const target = anchors[index % anchors.length];
         const dx = target.x - x;
@@ -55,9 +60,10 @@
         const px = -dy / length * bend;
         const py = dx / length * bend;
         path.setAttribute("d", `M ${x} ${y} C ${x + dx * .26 + px} ${y + dy * .2 + py}, ${x + dx * .72 - px * .55} ${y + dy * .66 - py * .55}, ${target.x} ${target.y}`);
-        const baseWidth = [2, 1.5, .8, .55][index];
-        path.style.setProperty("--thread-width", `${baseWidth + intensity * (index === 0 ? 4 : 2)}px`);
-        path.style.setProperty("--thread-opacity", String(.08 + intensity * (index === 0 ? .86 : .7)));
+        const threshold = index === 0 ? 0 : .12 + (index - 1) * .095;
+        const strandIntensity = index === 0 ? intensity : clamp((intensity - threshold) / (1 - threshold), 0, 1);
+        path.style.setProperty("--thread-width", `${fixedWidths[index]}px`);
+        path.style.setProperty("--thread-opacity", String(index === 0 ? .12 + strandIntensity * .68 : strandIntensity * .82));
       });
 
       const pullX = x - rect.left - rect.width / 2;
@@ -77,8 +83,25 @@
     });
   }
 
-  // The tiny chip-and-wand sprite is only a visual cursor. Pointer events pass
-  // through it, and the clicked control gets a short gold energy sweep.
+  // The small silicon chip is only a visual cursor; it never captures clicks.
+  // The gold sweep works with mouse, keyboard, and touch in either theme.
+  if (!reducedMotion.matches) {
+    const sweepTimers = new WeakMap();
+    root.addEventListener("click", (event) => {
+      const target = event.target.closest("button, a, input, [role='button']");
+      if (!target || !root.contains(target)) return;
+      const oldTimer = sweepTimers.get(target);
+      if (oldTimer) window.clearTimeout(oldTimer);
+      target.classList.remove("sx-magic-hit");
+      void target.offsetWidth;
+      target.classList.add("sx-magic-hit");
+      sweepTimers.set(target, window.setTimeout(() => {
+        target.classList.remove("sx-magic-hit");
+        sweepTimers.delete(target);
+      }, 1950));
+    });
+  }
+
   if (creature && desktopPointer.matches && !reducedMotion.matches) {
     const hideCreature = () => {
       root.classList.remove("sx-creature-active");
@@ -93,7 +116,7 @@
       if (event.pointerType !== "mouse") return;
       root.classList.add("sx-creature-active");
       creature.classList.add("is-visible");
-      creature.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-28px, -3px)`;
+      creature.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-14px, -14px)`;
     });
     root.addEventListener("pointerleave", hideCreature);
     root.addEventListener("pointerdown", () => creature.classList.add("is-clicking"));
@@ -103,20 +126,6 @@
     });
     reducedMotion.addEventListener?.("change", (event) => {
       if (event.matches) hideCreature();
-    });
-    const sweepTimers = new WeakMap();
-    root.addEventListener("click", (event) => {
-      const target = event.target.closest("button, a, input, [role='button']");
-      if (!target || !root.contains(target)) return;
-      const oldTimer = sweepTimers.get(target);
-      if (oldTimer) window.clearTimeout(oldTimer);
-      target.classList.remove("sx-magic-hit");
-      void target.offsetWidth;
-      target.classList.add("sx-magic-hit");
-      sweepTimers.set(target, window.setTimeout(() => {
-        target.classList.remove("sx-magic-hit");
-        sweepTimers.delete(target);
-      }, 800));
     });
   }
 

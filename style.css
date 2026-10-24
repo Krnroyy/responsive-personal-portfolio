@@ -19,23 +19,28 @@
 .evidence-notes code{font-size:11px}
 @media(max-width:760px){.project-evidence{margin-top:18px}.evidence-image{max-height:240px;padding:6px}.evidence-image img{max-height:228px}.hero-actions{gap:16px}.contact-links{gap:15px}}
 
-/* Glossy collaboration capsule; proximity pull is driven by the live pointer. */
+/* The two hero actions share one palette and button shape in both themes. */
+.hero-actions .button{min-height:48px;padding:12px 17px;display:inline-flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid var(--ink);border-radius:3px;background:var(--ink);color:var(--paper);font-size:13px;font-weight:700;text-decoration:none;transition:transform .18s ease,background-color .18s ease,border-color .18s ease,box-shadow .18s ease}
+.hero-actions .button:hover,.hero-actions .button:focus-visible{background:var(--teal);border-color:var(--teal);color:var(--paper);transform:translateY(-2px);box-shadow:0 5px 14px rgb(10 32 38 / .16)}
+.hero-actions .button:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
+html[data-theme="dark"] .hero-actions .button{background:#19313a;border-color:#3b5964;color:#e9f0f4}
+html[data-theme="dark"] .hero-actions .button:hover,html[data-theme="dark"] .hero-actions .button:focus-visible{background:#244550;border-color:#7bd5bf;color:#bcf46b}
 .puppet-cta-wrap{position:relative;display:inline-flex;align-items:center;isolation:isolate;--pull-x:0px;--pull-y:0px;--pull-scale:1}
-.puppet-cta{position:relative;z-index:1;display:inline-flex;align-items:center;gap:10px;padding:12px 19px;border:1px solid #05080b;border-radius:999px;background:linear-gradient(155deg,#24313a 0%,#05080b 45%,#111a20 100%);color:#f3f5f4;text-decoration:none;font-weight:700;box-shadow:inset 0 1px 1px rgb(255 255 255 / .17),0 6px 16px rgb(4 10 14 / .24);transform:translate3d(var(--pull-x),var(--pull-y),0) scale(var(--pull-scale));transition:transform .16s ease-out,box-shadow .2s ease,border-color .2s ease}
-.puppet-cta::before{content:"";position:absolute;inset:2px 16% auto;height:1px;border-radius:50%;background:rgb(255 255 255 / .25);pointer-events:none}
-.puppet-cta:hover,.puppet-cta:focus-visible{color:#fff;border-color:#527b76;box-shadow:inset 0 1px 2px rgb(255 255 255 / .2),0 0 0 3px rgb(123 213 191 / .15),0 8px 20px rgb(4 10 14 / .32)}
-.puppet-cta:focus-visible{outline:3px solid var(--teal);outline-offset:5px}
+.puppet-cta{transform:translate3d(var(--pull-x),var(--pull-y),0) scale(var(--pull-scale));transition:transform .16s ease-out,background-color .18s ease,border-color .18s ease,box-shadow .18s ease}
+.puppet-cta:hover,.puppet-cta:focus-visible{transform:translate3d(var(--pull-x),var(--pull-y),0) translateY(-2px) scale(var(--pull-scale))}
 .venom-layer{position:fixed;inset:0;z-index:1001;width:100vw;height:100vh;overflow:visible;pointer-events:none;visibility:hidden;opacity:0;transition:opacity .12s linear}
 .venom-layer.is-active{visibility:visible;opacity:1}
-.venom-thread{fill:none;stroke:#05070a;stroke-linecap:round;stroke-linejoin:round;stroke-width:var(--thread-width,1px);opacity:var(--thread-opacity,.2);filter:drop-shadow(0 0 2px rgb(6 11 13 / .52));stroke-dasharray:12 8;animation:venom-flow .42s linear infinite}
-.venom-thread-main{--thread-width:4px;--thread-opacity:.82}
-.venom-thread-mid{--thread-width:2.6px;--thread-opacity:.7}
-.venom-thread-fine{--thread-width:1.4px;--thread-opacity:.65}
-.venom-thread-glint{stroke:#6bbba6;--thread-width:1px;--thread-opacity:.62;filter:drop-shadow(0 0 3px rgb(123 213 191 / .6))}
+.venom-thread{fill:none;stroke:#05070a;stroke-linecap:round;stroke-linejoin:round;stroke-width:1px;opacity:var(--thread-opacity,0);filter:drop-shadow(0 0 2px rgb(6 11 13 / .52));stroke-dasharray:12 8;animation:venom-flow .42s linear infinite}
+.venom-thread-main{stroke-width:1.5px}
+.venom-thread-mid{stroke-width:1.1px}
+.venom-thread-fine{stroke-width:.85px}
+.venom-thread-glint{stroke:#6bbba6;stroke-width:.7px;filter:drop-shadow(0 0 3px rgb(123 213 191 / .6))}
+html[data-theme="dark"] .venom-thread{stroke:#a7ddcf;filter:drop-shadow(0 0 3px rgb(123 213 191 / .48))}
+html[data-theme="dark"] .venom-thread-glint{stroke:#bcf46b;filter:drop-shadow(0 0 4px rgb(188 244 107 / .75))}
 .venom-core{fill:#05070a;filter:drop-shadow(0 0 4px rgb(3 8 10 / .65))}
 @keyframes venom-flow{to{stroke-dashoffset:-20}}
-@media(max-width:760px){.venom-layer{display:none}.puppet-cta{padding:10px 15px}}
-@media(prefers-reduced-motion:reduce){.venom-layer,.puppet-cta{transition:none}.venom-thread{animation:none}}
+@media(max-width:760px){.venom-layer{display:none}.hero-actions .button{min-height:44px;padding:10px 13px;gap:12px}}
+@media(prefers-reduced-motion:reduce){.venom-layer,.hero-actions .button{transition:none}.venom-thread{animation:none}}
 
 /* Readable typography and restrained engineering palette */
 :root{--ink:#142f38;--muted:#4b5e65;--teal:#1d6556;--line:#d4dcd6}

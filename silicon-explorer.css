@@ -1,7 +1,7 @@
 .silicon-explorer .section-head{margin-bottom:30px}
 .sx-shell{--sx-highlight:#e9eee4;border:1px solid var(--line);background:var(--paper)}
-.sx-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto}
-.sx-tabs button{flex:1;min-width:150px;border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted);padding:15px 18px;font:10px/1.5 var(--mono);text-align:left;cursor:pointer}
+.sx-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-bottom:1px solid var(--line);overflow:hidden}
+.sx-tabs button{min-width:0;width:100%;border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted);padding:15px 18px;font:10px/1.5 var(--mono);text-align:left;overflow-wrap:anywhere;cursor:pointer}
 .sx-tabs button:last-child{border-right:0}
 .sx-tabs button[aria-pressed=true]{background:#102c36;color:var(--accent)}
 .sx-tabs button:focus-visible,.sx-control:focus-visible,.sx-axi-controls input:focus-visible{outline:3px solid var(--teal);outline-offset:3px;position:relative;z-index:1}
@@ -34,7 +34,7 @@
 .sx-info p{margin:0 0 22px}
 .sx-info a{font-size:12px;font-weight:650}
 .sx-info .sx-note{margin:22px 0 0;padding-top:15px;border-top:1px solid var(--line);font-size:10px}
-@media(max-width:760px){.sx-content{grid-template-columns:1fr;gap:20px;padding:21px}.sx-info{border-left:0;border-top:1px solid var(--line);padding:20px 0 0}.sx-info p{margin-bottom:15px}.sx-tabs button{min-width:132px;padding:13px 12px}.sx-route{grid-template-columns:minmax(60px,1fr) 20px minmax(74px,1fr) 20px minmax(60px,1fr);gap:0}.sx-node{min-height:74px;padding:8px 5px}.sx-node span{font-size:8px}.sx-node strong{font-size:11px}.sx-axi-controls{align-items:stretch}.sx-axi-controls label{width:100%}}
+@media(max-width:760px){.sx-content{grid-template-columns:1fr;gap:20px;padding:21px}.sx-info{border-left:0;border-top:1px solid var(--line);padding:20px 0 0}.sx-info p{margin-bottom:15px}.sx-tabs button{padding:13px 10px;font-size:9px}.sx-route{grid-template-columns:minmax(60px,1fr) 20px minmax(74px,1fr) 20px minmax(60px,1fr);gap:0}.sx-node{min-height:74px;padding:8px 5px}.sx-node span{font-size:8px}.sx-node strong{font-size:11px}.sx-axi-controls{align-items:stretch}.sx-axi-controls label{width:100%}}
 @media(prefers-reduced-motion:reduce){.sx-node,.sx-wire i{transition:none;animation:none!important}.sx-route.is-pulsing .sx-wire i{display:none}}
 
 :root[data-theme="dark"] .sx-shell{--sx-highlight:#19313a}
@@ -51,28 +51,22 @@
   }
 }
 
-/* Tiny silicon sprite cursor: chip body, pins, and a golden probe wand. */
-.sx-creature-cursor{position:fixed;z-index:1002;left:0;top:0;width:31px;height:31px;display:grid;place-items:center;opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(-80px,-80px,0) translate(-28px,-3px);will-change:transform,opacity}
+/* Small silicon-chip cursor. */
+.sx-creature-cursor{position:fixed;z-index:1002;left:0;top:0;width:28px;height:28px;display:grid;place-items:center;opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(-80px,-80px,0) translate(-14px,-14px);will-change:transform,opacity}
 .sx-creature-cursor svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 2px 3px rgb(0 0 0 / .3));transition:transform .12s ease}
 .sx-chip-pins{fill:none;stroke:#79d9bc;stroke-width:2;stroke-linecap:round}
 .sx-chip-body{fill:#142f38;stroke:#bcf46b;stroke-width:2}
 .sx-chip-face{fill:none;stroke:#f3f5f4;stroke-width:1.5;stroke-linecap:round}
 .sx-chip-eyes{fill:none;stroke:#bcf46b;stroke-width:2.4;stroke-linecap:round}
-.sx-wand{transform-origin:34px 15px;transition:transform .12s ease}
-.sx-wand>path:first-child{fill:none;stroke:#d9a93e;stroke-width:2.5;stroke-linecap:round}
-.sx-wand-glow{fill:none;stroke:#ffe29a;stroke-width:1.7;stroke-linecap:round;opacity:.85}
 #silicon-explorer.sx-creature-active,#silicon-explorer.sx-creature-active *{cursor:none!important}
 .sx-creature-cursor.is-visible{opacity:1;visibility:visible}
 .sx-creature-cursor.is-clicking svg{transform:scale(.92) rotate(-4deg)}
-.sx-creature-cursor.is-clicking .sx-wand{transform:rotate(24deg) translate(1px,1px)}
-.sx-creature-cursor.is-clicking .sx-wand-glow{animation:sx-wand-flash .42s ease-out}
-@keyframes sx-wand-flash{0%{opacity:.2;transform:scale(.5)}45%{opacity:1;transform:scale(1.8)}100%{opacity:.65;transform:scale(1)}}
-#silicon-explorer .sx-magic-hit{position:relative;isolation:isolate;animation:sx-gold-flash .72s ease-out}
-#silicon-explorer .sx-magic-hit::after{content:"";position:absolute;z-index:2;inset:-2px;pointer-events:none;border-radius:inherit;background:linear-gradient(105deg,transparent 12%,rgb(255 214 111 / 0) 34%,rgb(255 214 111 / .95) 49%,rgb(255 243 192 / .65) 53%,transparent 74%);background-size:240% 100%;animation:sx-gold-sweep .72s cubic-bezier(.2,.7,.2,1) both;mix-blend-mode:screen}
-@keyframes sx-gold-sweep{from{background-position:120% 0;opacity:0}18%{opacity:1}to{background-position:-100% 0;opacity:0}}
-@keyframes sx-gold-flash{0%,100%{filter:none;text-shadow:none}28%{filter:drop-shadow(0 0 6px rgb(255 210 105 / .85));text-shadow:0 0 8px rgb(255 218 130 / .65)}}
+#silicon-explorer .sx-magic-hit{position:relative;isolation:isolate;animation:sx-gold-flash 1.8s ease-out}
+#silicon-explorer .sx-magic-hit::after{content:"";position:absolute;z-index:2;inset:-2px;pointer-events:none;border-radius:inherit;background:linear-gradient(105deg,transparent 8%,rgb(209 145 34 / .08) 32%,rgb(238 176 49 / .96) 48%,rgb(255 226 142 / .88) 52%,rgb(188 126 20 / .22) 61%,transparent 78%);background-size:260% 100%;animation:sx-gold-sweep 1.8s cubic-bezier(.35,.05,.35,1) both}
+@keyframes sx-gold-sweep{from{background-position:140% 0;opacity:0}14%{opacity:1}84%{opacity:1}to{background-position:-120% 0;opacity:0}}
+@keyframes sx-gold-flash{0%,100%{filter:none;text-shadow:none}25%{filter:drop-shadow(0 0 7px rgb(215 151 31 / .65));text-shadow:0 0 8px rgb(232 169 48 / .38)}}
 @media(max-width:760px),(hover:none),(pointer:coarse){.sx-creature-cursor{display:none}#silicon-explorer.sx-creature-active,#silicon-explorer.sx-creature-active *{cursor:auto!important}}
-@media(prefers-reduced-motion:reduce){.sx-creature-cursor,.sx-creature-cursor svg,.sx-wand{transition:none!important}.sx-creature-cursor.is-clicking .sx-wand-glow{animation:none}.sx-magic-hit,.sx-magic-hit::after{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.sx-creature-cursor,.sx-creature-cursor svg{transition:none!important}.sx-magic-hit,.sx-magic-hit::after{animation:none!important}}
 
 /* Dark-mode Explorer controls and undistorted evidence images */
 html[data-theme="dark"] #silicon-explorer .sx-content,
