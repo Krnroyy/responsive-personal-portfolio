@@ -37,10 +37,12 @@
 .sx-schematic{margin:18px 0 12px}
 .sx-schematic[hidden],.sx-diagram-svg[hidden],.sx-route[hidden],.sx-controls[hidden]{display:none!important}
 .sx-diagram-svg{display:block;width:100%;height:auto;max-width:760px;margin:0 auto;overflow:visible;font-family:var(--mono)}
+.sx-schematic{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain}
+.sx-adder-svg,.sx-axi-svg{min-width:650px}
 .sx-svg-wire{fill:none;stroke:var(--line);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s ease}
 .sx-svg-wire[data-level="1"]{stroke:var(--teal)}
-.sx-svg-wire.is-flowing{stroke:var(--teal);stroke-width:3;stroke-dasharray:10 12;stroke-dashoffset:28;animation:sx-svg-flow 1.15s ease-in-out 1}
-@keyframes sx-svg-flow{to{stroke-dashoffset:-18}}
+.sx-svg-wire.is-flowing{stroke:var(--teal);stroke-width:3;stroke-dasharray:.04 .96;stroke-dashoffset:1;animation:sx-svg-flow 1.15s ease-in-out 1}
+@keyframes sx-svg-flow{to{stroke-dashoffset:-.04}}
 .sx-svg-node,.sx-svg-gate,.sx-svg-logicbox{cursor:help;outline:none}
 .sx-svg-node rect,.sx-svg-logic-shape{fill:var(--paper);stroke:var(--line);stroke-width:1.5;transition:fill .18s ease,stroke .18s ease,filter .18s ease}
 .sx-svg-node[data-level="1"] rect,.sx-svg-logicbox[data-level="1"] .sx-svg-logic-shape{fill:var(--sx-highlight);stroke:var(--teal)}
