@@ -180,7 +180,7 @@
 
   function pulseSvg(wireNames) {
     const svg = root.querySelector(`[data-sx-svg="${stage}"]`);
-    if (!svg || svg.hidden) return;
+    if (!svg || svg.hasAttribute("hidden")) return;
     window.clearTimeout(svgPulseTimer);
     activePulsedWires.forEach((wire) => wire.classList.remove("is-flowing"));
     const selector = Array.isArray(wireNames)
@@ -221,7 +221,7 @@
     schematic.hidden = false;
     route.hidden = true;
     root.querySelectorAll("[data-sx-svg]").forEach((svg) => {
-      svg.hidden = svg.dataset.sxSvg !== stage;
+      svg.toggleAttribute("hidden", svg.dataset.sxSvg !== stage);
       svg.querySelectorAll("[data-sx-svg-wire]").forEach((wire) => wire.setAttribute("pathLength", "1"));
     });
 
