@@ -16,17 +16,6 @@
       }
     });
   });
-  const copy = document.getElementById('pg-copy-link');
-  const output = document.getElementById('pg-copy-status');
-  if (copy && output && navigator.clipboard?.writeText && window.isSecureContext) {
-    copy.hidden = false;
-    copy.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText('https://krnroyy.github.io/responsive-personal-portfolio/');
-        output.textContent = 'Portfolio link copied.';
-      } catch (_) { output.textContent = 'Copy was unavailable. You can copy the portfolio URL from your address bar.'; }
-    });
-  }
 })();
 // At the document bottom, Contact is current even when it cannot reach the top.
 (() => {
