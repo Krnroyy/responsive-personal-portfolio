@@ -4,6 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Karan Kumar's engineering portfolio: RTL design, FPGA development, and simulation and formal verification.">
+  <meta property="og:title" content="Karan Kumar | RTL, Verification &amp; FPGA">
+  <meta property="og:description" content="Explore hardware projects, verification evidence, and hands-on browser labs.">
+  <meta property="og:url" content="https://krnroyy.github.io/responsive-personal-portfolio/">
+  <meta property="og:type" content="website">
   <meta name="theme-color" content="#102c36">
   <title>Karan Kumar | RTL &amp; FPGA Portfolio</title>
   <script>
@@ -15,13 +19,15 @@
   <script src="script.js?v=timerlab-fix-2" defer></script>
   <script src="crypto-demo.js" defer></script>
   <link rel="stylesheet" href="silicon-explorer.css?v=svg-signal-12">
+  <link rel="stylesheet" href="portfolio-guide.css?v=1">
+  <script src="portfolio-guide.js?v=1" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header wrap">
     <a class="wordmark" href="#home" aria-label="Karan Kumar home">KK<span class="mark-dot"></span></a>
-    <nav id="main-nav" aria-label="Main navigation"><a href="#projects" data-section="projects">Projects</a><a href="#crypto-lab" data-section="crypto-lab">Live lab</a><a href="#approach" data-section="approach">Approach</a><a href="#about" data-section="about">About</a><a class="nav-github" href="https://github.com/Krnroyy">GitHub <span aria-hidden="true">↗</span></a></nav>
+    <nav id="main-nav" aria-label="Main navigation"><a href="#labs" data-section="labs">Labs</a><a href="#projects" data-section="projects">Projects</a><a href="#about" data-section="about">About</a><a href="#contact" data-section="contact">Contact</a><a class="nav-github" href="https://github.com/Krnroyy">GitHub ↗</a></nav>
     <div class="header-controls"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme" hidden><span id="theme-label">Theme</span></button><button class="menu-toggle" id="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false" hidden>Menu <span aria-hidden="true">☰</span></button></div>
   </header>
   <main id="main">
@@ -29,8 +35,10 @@
       <div class="hero-copy">
         <p class="eyebrow"><span class="status-dot"></span> RTL DESIGN · FPGA · VERIFICATION</p>
         <h1 id="hero-title">Digital hardware.<br><em>Visible evidence.</em></h1>
-        <p class="intro">I'm Karan Kumar, an ECE final-year student at IIIT Bhagalpur. I build digital hardware and investigate its behaviour through simulation, formal safety checks, and FPGA experiments.</p>
-        <div class="hero-actions"><a class="button" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a><span class="puppet-cta-wrap" data-puppet-wrap><a class="button puppet-cta" href="#about">Let's collaborate <span aria-hidden="true">↗</span></a></span></div>
+        <p class="pg-identity">Karan Kumar <span>ECE · IIIT Bhagalpur</span></p>
+        <p class="intro">I’m a final-year ECE student building digital hardware and investigating its behaviour through simulation, formal safety checks, and FPGA experiments.</p>
+        <p class="pg-availability"><span aria-hidden="true"></span> Open to RTL, verification and FPGA opportunities</p>
+        <div class="hero-actions"><a class="button" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a><span class="puppet-cta-wrap" data-puppet-wrap><a class="button puppet-cta" href="#contact">Let's collaborate <span aria-hidden="true">↗</span></a></span></div>
       </div>
       <aside class="design-note demo-card" aria-labelledby="demo-title">
         <div class="note-heading"><span>TRY THE HANDSHAKE</span><span class="live-label">VALID = 1</span></div>
@@ -44,6 +52,15 @@
       </aside>
     </section>
     <div class="discipline-strip"><div class="wrap"><span>SystemVerilog / Verilog</span><span>Simulation + formal</span><span>FPGA integration</span><span>CMOS fundamentals</span></div></div>
+<section class="pg-labs wrap" id="labs" aria-labelledby="pg-labs-title">
+ <div class="pg-section-line"><div><p class="eyebrow">LEARN BY EXPLORING</p><h2 id="pg-labs-title">Choose a live lab.</h2></div><p>Small experiments connected to the engineering work below.</p></div>
+ <div class="pg-lab-grid">
+ <a href="#silicon-explorer"><span class="pg-card-kicker">01 / LOGIC</span><h3>Follow the signal <span aria-hidden="true">↗</span></h3><p>Toggle inputs through an inverter and a full adder.</p><span class="pg-pill">Learning model</span></a>
+ <a href="#demo-title"><span class="pg-card-kicker">02 / HANDSHAKES</span><h3>Step the clock <span aria-hidden="true">↗</span></h3><p>Stall a receiver and watch when a beat transfers.</p><span class="pg-pill">Learning model</span></a>
+ <a href="#timer-lab" data-reveal-project><span class="pg-card-kicker">03 / REGISTERS</span><h3>Run the timer <span aria-hidden="true">↗</span></h3><p>Start a countdown and inspect status and interrupt.</p><span class="pg-pill">Learning model</span></a>
+ <a href="#crypto-lab"><span class="pg-card-kicker">04 / SECURITY</span><h3>Challenge the image <span aria-hidden="true">↗</span></h3><p>Encrypt, recover and test changed ciphertext.</p><span class="pg-pill">Browser AES-GCM</span></a>
+ </div><p class="pg-model-note">The logic, handshake and timer labs are illustrations. The image lab uses browser cryptography. Project repositories contain the hardware designs and test evidence.</p>
+</section>
 <section class="silicon-explorer wrap section" id="silicon-explorer" aria-labelledby="silicon-title">
       <div class="section-head">
         <div>
@@ -192,22 +209,30 @@
 
     <section class="projects wrap section" id="projects" aria-labelledby="projects-title">
       <div class="section-head"><div><p class="eyebrow">SELECTED ENGINEERING WORK</p><h2 id="projects-title">Four projects. Different layers.</h2></div><p>From transistor-level simulation to RTL verification and a complete FPGA system.</p></div>
+<div class="pg-project-index" aria-label="Project quick links">
+ <a href="#project-fifo" data-reveal-project><span>RTL + formal</span><strong>Stream FIFO</strong><small>Scoreboard, safety properties, bug detection ↗</small></a>
+ <a href="#project-timer" data-reveal-project><span>RTL + UVM</span><strong>AXI-Lite timer</strong><small>Register transactions, reset recovery, scoreboard ↗</small></a>
+ <a href="#project-aes" data-reveal-project><span>FPGA system</span><strong>AES-GCM security</strong><small>Hardware/software integration, reference checks ↗</small></a>
+ <a href="#project-cmos" data-reveal-project><span>CMOS design</span><strong>Full adder</strong><small>Schematic simulation, input cases, load study ↗</small></a>
+</div>
       <div class="project-filter" role="group" aria-label="Filter projects" hidden><button type="button" data-filter="all" aria-pressed="true">All projects <span>04</span></button><button type="button" data-filter="verification" aria-pressed="false">Verification</button><button type="button" data-filter="fpga" aria-pressed="false">FPGA systems</button><button type="button" data-filter="cmos" aria-pressed="false">CMOS design</button></div>
       <p id="filter-status" class="sr-only" aria-live="polite"></p>
-      <article class="project project-featured" data-category="verification">
+      <article class="project project-featured" id="project-fifo" data-category="verification">
         <div class="project-number">01 / RTL + VERIFICATION</div>
         <div class="project-body"><div class="project-title-row"><h3>AXI4-Stream FIFO</h3><span class="project-tag">SystemVerilog</span></div>
-          <p>A parameterized beat FIFO that preserves data, TKEEP, and TLAST. Verification combines an independent scoreboard, directed and random stimulus, and formal safety checks.</p>
+          <p>The challenge: preserve data and packet metadata through backpressure, pointer wrap and reset.</p>
+          <p class="pg-contribution"><strong>My contribution</strong> Designed a parameterized stream buffer and checked transfers with a scoreboard and formal safety properties.</p>
           <div class="evidence-grid"><div><strong>12 runs</strong><span>Simulation regression<br>across four depths</span></div><div><strong>15 assertions</strong><span>Checked with 3 assumptions<br>at 8-bit width, depth 4</span></div><div><strong>Bug injection</strong><span>Pop-without-ready caught<br>by simulation and formal</span></div></div>
           <p class="scope">Formal scope: the documented configuration and harness assumptions; not every parameter value or full AXI conformance.</p>
           <figure class="project-evidence"><a class="evidence-image" data-lightbox href="assets/fifo-backpressure.png" target="_blank" rel="noopener" aria-label="Enlarge simulation evidence"><img src="assets/fifo-backpressure.png" alt="GTKWave capture showing FIFO output payload held stable during receiver backpressure." width="1919" height="358" loading="lazy" decoding="async"></a><figcaption><span>Simulation evidence</span>Depth 16, seed 1. Output held through a receiver stall, then accepted at the rising clock edge. <a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/BUG_CASE_STUDY.md">Read the source evidence ↗</a></figcaption></figure><details class="evidence-notes"><summary>Read the waveform</summary><p>Between 25,570 and 25,620 ns, <code>mr=0</code> while <code>mv=1</code>. The payload stays at <code>md=BE750F8E</code>, <code>mk=F</code>, <code>ml=1</code>. READY rises at 25,620 ns; acceptance occurs at the rising edge at 25,625 ns. This is one observed interval, not a proof of all behaviour.</p><p>The signal-list values refer to an old cursor outside this window; the traces show the selected interval.</p></details>
           <div class="project-links"><a href="https://github.com/Krnroyy/axi4-stream-fifo">Repository ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/TEST_PLAN.md">Test plan ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/BUG_CASE_STUDY.md">Bug case study ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/actions/workflows/verify.yml">Live CI ↗</a></div>
         </div>
       </article>
-      <article class="project" data-category="verification">
+      <article class="project" id="project-timer" data-category="verification">
         <div class="project-number">02 / RTL + UVM</div>
         <div class="project-body"><div class="project-title-row"><h3>AXI4-Lite Countdown Timer</h3><span class="project-tag">SystemVerilog · UVM 1.2</span></div>
-          <p>A memory-mapped countdown timer with CONTROL, RELOAD, COUNT, and STATUS registers. A UVM testbench drives AXI4-Lite transactions, monitors completed transfers, and checks expected register and timer behaviour in a scoreboard.</p>
+          <p>The challenge: keep register and countdown behaviour correct across independent AXI4-Lite channels and reset interruptions.</p>
+          <p class="pg-contribution"><strong>My contribution</strong> Built a memory-mapped countdown timer and a UVM testbench to check register and timer behaviour.</p>
           <div class="evidence-grid"><div><strong>Reset recovery</strong><span>Incomplete write cancelled<br>and normal traffic resumed</span></div><div><strong>Timer behavior</strong><span>Countdown, busy state,<br>interrupt and clear checks</span></div><div><strong>Clean regression</strong><span>120 UVM info messages<br>0 warnings, errors or fatals</span></div></div>
           <p class="scope">Simulation-based verification. This regression is not a formal proof or a complete AXI compliance certification.</p>
           <div class="project-links"><a href="https://github.com/Krnroyy/axi-lite-timer">Repository ↗</a><a href="https://github.com/Krnroyy/axi-lite-timer/blob/main/README.md">Design &amp; test details ↗</a></div>
@@ -251,20 +276,22 @@
 </section>
         </div>
       </article>
-      <article class="project" data-category="fpga">
+      <article class="project" id="project-aes" data-category="fpga">
         <div class="project-number">03 / FPGA SYSTEMS</div>
         <div class="project-body"><div class="project-title-row"><h3>AES-128-GCM image security</h3><span class="project-tag">ZCU104</span></div>
-          <p>A Verilog accelerator integrated with AXI4-Stream, AXI DMA, and Cortex-A53 software. The project checks FPGA ciphertext and authentication tags against Python AESGCM and tests modified-ciphertext rejection.</p>
+          <p>The challenge: integrate authenticated image encryption across streaming hardware, DMA and processor software.</p>
+          <p class="pg-contribution"><strong>My contribution</strong> Integrated custom Verilog with DMA and processor software, then compared outputs with Python AESGCM.</p>
           <ul class="facts"><li>Hardware/software co-design</li><li>Independent reference checks</li><li>Documented timing and resource results</li></ul>
           <p class="scope">An engineering research prototype. Results and limitations are documented separately for its baseline and protected-chunk architectures.</p>
           <figure class="project-evidence"><a class="evidence-image" data-lightbox href="assets/aes-dma-throughput.png" target="_blank" rel="noopener" aria-label="Enlarge measured fpga results"><img src="assets/aes-dma-throughput.png" alt="Measured encryption and decryption throughput comparison of the CTR-DMA and GCM-DMA architectures." width="2130" height="1285" loading="lazy" decoding="async"></a><figcaption><span>Measured FPGA results</span>Preserved CTR-DMA and GCM-DMA throughput comparison. The results document explains measurement conditions. <a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption/blob/main/RESULTS.md">Read the source evidence ↗</a></figcaption></figure>
           <div class="project-links"><a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption">Repository ↗</a><a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption/blob/main/RESULTS.md">Measured results ↗</a><a href="https://github.com/Krnroyy/fpga-aes128-gcm-image-encryption/blob/main/BUILD_AND_RUN.md">Build guide ↗</a><a href="#crypto-lab">Try the browser lab ↓</a></div>
         </div>
       </article>
-      <article class="project" data-category="cmos">
+      <article class="project" id="project-cmos" data-category="cmos">
         <div class="project-number">04 / CMOS DESIGN</div>
         <div class="project-body"><div class="project-title-row"><h3>CMOS 1-bit full adder</h3><span class="project-tag">gpdk180</span></div>
-          <p>A hierarchical static CMOS full adder in Cadence Virtuoso, simulated with Spectre. The documentation includes all eight input combinations, waveforms, and output-load characterization.</p>
+          <p>The challenge: map sum and carry functions into hierarchical static CMOS and check every input combination.</p>
+          <p class="pg-contribution"><strong>My contribution</strong> Designed a hierarchical CMOS adder and characterized its schematic-level behaviour with Spectre.</p>
           <ul class="facts"><li>180 nm generic process</li><li>1.8 V nominal supply</li><li>Schematic-level simulation</li></ul>
           <p class="scope">Scope: schematic simulation and characterization. Physical layout, DRC, and LVS are outside this project.</p>
           <figure class="project-evidence"><a class="evidence-image" data-lightbox href="assets/full-adder-schematic.png" target="_blank" rel="noopener" aria-label="Enlarge circuit design evidence"><img src="assets/full-adder-schematic.png" alt="Cadence Virtuoso screenshot of the hierarchical CMOS full-adder schematic." width="961" height="1038" loading="lazy" decoding="async"></a><figcaption><span>Circuit design evidence</span>Hierarchical full-adder schematic in Virtuoso. Schematic-level work; no layout, DRC, or LVS result is implied. <a href="https://github.com/Krnroyy/cadence-cmos-full-adder">Read the source evidence ↗</a></figcaption></figure>
@@ -296,7 +323,10 @@
       <p class="eyebrow">HOW I APPROACH THE WORK</p><h2 id="approach-title">Make the claim inspectable.</h2>
       <div class="approach-grid"><div><span class="step">01</span><h3>Define the contract</h3><p>State transfer rules, reset behaviour, supported parameters, and the assumptions around the design.</p></div><div><span class="step">02</span><h3>Challenge the behaviour</h3><p>Exercise boundary conditions, stalls, and resets. Compare outputs with a separate reference model.</p></div><div><span class="step">03</span><h3>Keep the evidence</h3><p>Link results to test plans, configurations, and scripts so readers can inspect and reproduce the checks.</p></div></div>
     </div></section>
-    <section class="about wrap section" id="about" aria-labelledby="about-title"><div><p class="eyebrow">ABOUT ME</p><h2 id="about-title">Building depth in<br>digital hardware.</h2><p>My interests span RTL design, functional and formal verification, FPGA acceleration, and secure digital systems. My projects connect digital logic fundamentals with practical tool flows.</p><p class="opportunity">Open to internships, entry-level opportunities, and engineering collaboration.</p><div class="contact-links"><a class="text-link" href="https://www.linkedin.com/in/krnroyy/">Connect on LinkedIn ↗</a><a class="text-link" href="https://github.com/Krnroyy">Explore GitHub ↗</a></div></div><div class="toolbox"><h3>Project toolkit</h3><dl><dt>RTL &amp; verification</dt><dd>SystemVerilog, Verilog, Icarus Verilog, Yosys/SMTBMC, Z3</dd><dt>FPGA development</dt><dd>Vivado, Vitis, AXI4-Stream, AXI4-Lite, AXI DMA</dd><dt>Circuits &amp; software</dt><dd>Cadence Virtuoso, Spectre, Python, C/C++</dd></dl><p>Tools used in the linked projects; project documentation defines the tested scope.</p></div></section>
+    <section class="about wrap section" id="about" aria-labelledby="about-title"><div><p class="eyebrow">ABOUT ME</p><h2 id="about-title">Building depth in<br>digital hardware.</h2><p>My interests span RTL design, functional and formal verification, FPGA acceleration, and secure digital systems. My projects connect digital logic fundamentals with practical tool flows.</p><div class="pg-education"><span class="pg-card-kicker">EDUCATION</span><h3>Electronics &amp; Communication Engineering</h3><p>Indian Institute of Information Technology Bhagalpur</p><span class="pg-pill">Final-year student</span><p class="pg-education-focus">Project focus: digital logic, RTL verification, FPGA systems and CMOS circuits.</p></div><p class="opportunity">Open to internships, entry-level opportunities, and engineering collaboration.</p><div class="contact-links"><a class="text-link" href="https://www.linkedin.com/in/krnroyy/">Connect on LinkedIn ↗</a><a class="text-link" href="https://github.com/Krnroyy">Explore GitHub ↗</a></div></div><div class="toolbox"><h3>Project toolkit</h3><dl><dt>RTL &amp; verification</dt><dd>SystemVerilog, Verilog, UVM 1.2, Icarus Verilog, Yosys/SMTBMC, Z3</dd><dt>FPGA development</dt><dd>Vivado, Vitis, AXI4-Stream, AXI4-Lite, AXI DMA</dd><dt>Circuits &amp; software</dt><dd>Cadence Virtuoso, Spectre, Python, C/C++</dd></dl><p>Tools used in the linked projects; project documentation defines the tested scope.</p></div></section>
+<section class="pg-contact wrap section" id="contact" aria-labelledby="pg-contact-title">
+ <div class="pg-contact-panel"><div><p class="eyebrow">LET’S CONNECT</p><h2 id="pg-contact-title">Have an RTL, verification <br>or FPGA opportunity?</h2><p>I’m open to internships, entry-level roles and engineering collaboration. Connect on LinkedIn to discuss the role, project or technical challenge.</p><div class="pg-contact-actions"><a class="button" href="https://www.linkedin.com/in/krnroyy/">Connect on LinkedIn ↗</a><a class="text-link" href="https://github.com/Krnroyy">Review my code ↗</a><button id="pg-copy-link" type="button" hidden>Copy portfolio link</button></div><p class="pg-copy-status" id="pg-copy-status" role="status" aria-live="polite"></p></div><div class="pg-contact-note"><span class="pg-card-kicker">START A CONVERSATION</span><h3>What are you building?</h3><p>Share the role or project, the hardware or verification problem, and the skills you’re looking for.</p><a href="#projects">Explore the engineering evidence ↑</a></div></div>
+</section>
   </main>
   <footer class="wrap footer"><span>Karan Kumar <span aria-hidden="true">/</span> Engineering portfolio</span><div class="footer-links"><a href="https://www.linkedin.com/in/krnroyy/">LinkedIn ↗</a><a href="https://github.com/Krnroyy">GitHub ↗</a></div></footer>
 <button id="back-top" class="back-top" type="button" aria-label="Back to top" hidden>↑</button>
