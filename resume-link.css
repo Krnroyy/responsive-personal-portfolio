@@ -1,0 +1,6 @@
+.hero-actions{flex-wrap:wrap;row-gap:14px}
+.pg-resume-link{display:inline-flex;align-items:center;gap:9px;min-height:44px;font-size:13px;font-weight:650;line-height:1.5;text-decoration:underline;text-underline-offset:5px;color:var(--ink);white-space:nowrap}
+.pg-resume-link span{font:10px/1.5 var(--mono);color:var(--teal);border:1px solid var(--line);border-radius:3px;padding:3px 6px}
+.pg-resume-link:hover{color:var(--teal)}
+.pg-resume-link:focus-visible{outline:2px solid var(--teal);outline-offset:5px}
+@media(max-width:600px){.hero-actions>.pg-resume-link{flex-basis:100%;justify-content:flex-start}.pg-contact-actions>.pg-resume-link{flex-basis:100%}}
