@@ -131,6 +131,7 @@
     document.documentElement.classList.add('motion-ready');
   }
   const backTop = $('#back-top');
+  const footer = $('.footer');
   const progress = $('.scroll-progress');
   let scrollPending = false;
   const sectionNav = $$('nav [data-section]');
@@ -138,6 +139,9 @@
     const available = document.documentElement.scrollHeight - innerHeight;
     progress.style.transform = `scaleX(${available > 0 ? Math.min(1, Math.max(0, scrollY / available)) : 0})`;
     backTop.hidden = scrollY < 650;
+    // Keep the fixed utility above the footer, including after filter/size changes.
+    const footerClearance = footer ? innerHeight - footer.getBoundingClientRect().top + 8 : 0;
+    backTop.style.bottom = `${Math.max(25, footerClearance)}px`;
     let active = '';
     let nearest = -Infinity;
     sectionNav.forEach(link => { const top = document.getElementById(link.dataset.section).getBoundingClientRect().top; if (top <= 180 && top > nearest) { nearest = top; active = link.dataset.section; } });
@@ -151,6 +155,7 @@
   }
   addEventListener('scroll', () => { if (!scrollPending) { scrollPending = true; requestAnimationFrame(updateScroll); } }, { passive: true });
   addEventListener('resize', updateScroll);
+  if ('ResizeObserver' in window) new ResizeObserver(updateScroll).observe(document.body);
   backTop.addEventListener('click', () => scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' }));
   updateScroll();
 })();

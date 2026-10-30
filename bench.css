@@ -19,3 +19,20 @@
 /* Constrain only the diagram viewport, so mobile descriptions and controls wrap normally. */
 .sx-main{min-width:0}.sx-schematic{min-width:0;max-width:100%;overflow:visible}.demo-svg-window{width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:var(--line) transparent}.demo-svg-window:focus-visible{outline:2px solid var(--teal);outline-offset:4px}.demo-diagram-scroll-hint{display:none}
 @media(max-width:760px){.sx-content{grid-template-columns:minmax(0,1fr)}.sx-axi-svg{min-width:760px}.sx-axi-svg .sx-svg-label{font-size:17px}.sx-axi-svg .sx-svg-value{font-size:20px}.demo-svg-window:has(.sx-adder-svg:not([hidden]),.sx-axi-svg:not([hidden]))+.demo-diagram-scroll-hint{display:block;font:11px/1.7 var(--mono);color:var(--muted);margin:10px 0 0}.sx-description{overflow-wrap:break-word}}
+
+/* Keep the AXI primary action readable in every interaction state.
+   Both foreground and background must override the generic sx-control hover. */
+html[data-theme="light"] #silicon-explorer .sx-axi-controls .sx-trace-button{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+html[data-theme="dark"] #silicon-explorer .sx-axi-controls .sx-trace-button{background:var(--surface);color:var(--ink);border-color:var(--line)}
+html[data-theme] #silicon-explorer .sx-axi-controls .sx-trace-button:is(:hover,:focus-visible,:active){background:var(--teal);color:var(--paper);border-color:var(--teal)}
+html[data-theme] #silicon-explorer .sx-axi-controls .sx-trace-button span{color:inherit}
+
+/* Contained mobile project filters, without detached row underlines. */
+@media(max-width:760px){
+ .projects .project-filter{gap:8px;align-items:stretch;border-bottom:0;padding:0;margin-bottom:26px}
+ .projects .project-filter button{min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--surface)!important;color:var(--muted);line-height:1.7}
+ .projects .project-filter button[aria-pressed="true"]{border-color:var(--teal);background:var(--soft)!important;color:var(--teal)}
+ .projects .project-filter button[aria-pressed="true"]::after{content:none}
+ .projects .project-filter button:hover{border-color:var(--teal);background:var(--soft)!important;color:var(--teal);transform:none;box-shadow:none}
+ .projects .project-filter button:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+}
