@@ -131,12 +131,16 @@
     isSettling = true;
     const svg = root.querySelector('[data-sx-svg="adder"]');
     const inputWires = bit === "cin" ? ["cin-sum", "cin-t"] : [`${bit}-p`, `${bit}-g`];
-    const inputGates = bit === "cin" ? ["xor2", "and2"] : ["xor1", "and1"];
+    // A previous A/B animation may have been cancelled by this click.
+    // Use the short Cin path only when its P/G dependencies are current.
+    const firstStageCurrent = circuit.p === (bits.a ^ bits.b) && circuit.g === (bits.a & bits.b);
+    const cinOnly = bit === "cin" && firstStageCurrent;
+    const inputGates = cinOnly ? ["xor2", "and2"] : ["xor1", "and1"];
     markSettling(svg, inputGates);
     render();
     pulseSvg(inputWires);
 
-    if (bit === "cin") {
+    if (cinOnly) {
       schedule(run, stageDelayMs, () => {
         circuit.t = circuit.p & bits.cin;
         circuit.sum = circuit.p ^ bits.cin;
@@ -182,10 +186,22 @@
     });
   }
 
+  function readReloadValue() {
+    const input = $("[data-sx-reload]");
+    const value = Number(input.value);
+    return input.value.trim() !== "" && Number.isInteger(value) && value >= 1 && value <= 12
+      ? value : null;
+  }
+
   function startAxiTrace() {
+    const value = readReloadValue();
+    if (value === null) {
+      $("[data-sx-status]").textContent = `Enter a whole number from 1 to 12. RELOAD remains ${peripheral.reload}.`;
+      $("[data-sx-reload]").reportValidity();
+      return;
+    }
     const run = clearTimeline();
     const svg = root.querySelector('[data-sx-svg="axi"]');
-    const value = Math.max(1, Math.min(12, Number($("[data-sx-reload]").value) || 1));
     const nodes = Object.fromEntries(["driver", "slave", "reload", "core", "monitor", "scoreboard"]
       .map((name) => [name, svg.querySelector(`[data-sx-svg-node="${name}"]`)]));
     // Deliberately slowed browser phases; these are not literal AXI clock periods.
@@ -197,7 +213,7 @@
       { after: phaseMs * 3, active: ["reload"], wires: ["reload"], slave: "Committed", reload: value, message: `After both handshakes, the register block commits ${value} to RELOAD. The timer core has not started.` },
       { after: phaseMs * 4, active: ["driver", "slave"], wires: ["bresp"], slave: "B response", message: "BVALID returns; BREADY completes the write-response handshake." },
       { after: phaseMs * 5, active: ["monitor"], wires: ["monitor"], message: "The monitor publishes the completed bus transaction to its analysis port." },
-      { after: phaseMs * 6, active: ["scoreboard"], wires: ["score"], message: "The scoreboard receives the observed write and checks its expected model. To run the timer, a separate CONTROL.START write loads RELOAD into the core." }
+      { after: phaseMs * 6, active: ["scoreboard"], wires: ["score"], message: "Illustrated scoreboard step: a UVM checker would compare the observed write with its expected model. This page does not run that checker. CONTROL.START is a separate write." }
     ];
 
     svg.querySelectorAll("[data-sx-svg-node]").forEach((node) => {
@@ -283,7 +299,8 @@
         node.dataset.level = "0";
       });
       setDiagramNode(svg, "reload", peripheral.reload, peripheral.reload ? 1 : 0);
-      setDiagramNode(svg, "driver", `write ${Number($("[data-sx-reload]").value) || 1}`, 0, "driver");
+      const pendingValue = readReloadValue();
+      setDiagramNode(svg, "driver", pendingValue === null ? "No write" : `write ${pendingValue}`, 0, "driver");
       setDiagramNode(svg, "slave", "Waiting", 0, "slave");
       svg.querySelectorAll("[data-sx-svg-wire]").forEach((wire) => { wire.dataset.level = "0"; });
     }
@@ -357,11 +374,13 @@
       $("[data-sx-node=logic]").classList.add("is-active");
       $("[data-sx-node=output]").classList.toggle("is-active", carry === 1 || sum === 1);
     } else {
-      const value = Number($("[data-sx-reload]").value) || 1;
+      const value = readReloadValue();
       $("[data-sx-source-value]").textContent = "WRITE";
       $("[data-sx-logic-value]").textContent = "AW + W + B";
       $("[data-sx-output-value]").textContent = `stored=${peripheral.reload}`;
-      $("[data-sx-status]").textContent = `RELOAD currently stores ${peripheral.reload}. Choose ${value} and trace its write; CONTROL.START is separate.`;
+      $("[data-sx-status]").textContent = value === null
+        ? `Enter a whole number from 1 to 12. RELOAD remains ${peripheral.reload}.`
+        : `RELOAD currently stores ${peripheral.reload}. Choose ${value} and trace its write; CONTROL.START is separate.`;
       $("[data-sx-node=source]").classList.add("is-active");
     }
 
@@ -388,8 +407,7 @@
 
   $("[data-sx-reload]").addEventListener("input", (event) => {
     clearTimeline();
-    const value = Math.max(1, Math.min(12, Number(event.target.value) || 1));
-    $("[data-sx-output-value]").textContent = `write ${value}`;
+    const value = readReloadValue();
     const svg = root.querySelector('[data-sx-svg="axi"]');
     svg.querySelectorAll("[data-sx-svg-node]").forEach((node) => {
       node.classList.remove("is-active");
@@ -397,11 +415,13 @@
     });
     svg.querySelectorAll("[data-sx-svg-wire]").forEach((wire) => { wire.dataset.level = "0"; });
     setDiagramNode(svg, "slave", "Waiting", 0, "slave");
-    setDiagramNode(svg, "driver", `write ${value}`, 0, "driver");
+    setDiagramNode(svg, "driver", value === null ? "No write" : `write ${value}`, 0, "driver");
     setDiagramNode(svg, "reload", peripheral.reload, peripheral.reload ? 1 : 0);
     if (stage === "axi") {
       $("[data-sx-output-value]").textContent = `stored=${peripheral.reload}`;
-      $("[data-sx-status]").textContent = `Write value set to ${value}; RELOAD still stores ${peripheral.reload}. Trace to commit it.`;
+      $("[data-sx-status]").textContent = value === null
+        ? `Enter a whole number from 1 to 12. RELOAD remains ${peripheral.reload}.`
+        : `Write value set to ${value}; RELOAD still stores ${peripheral.reload}. Trace to commit it.`;
     }
   });
 

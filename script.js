@@ -224,7 +224,7 @@
     addTrace(`Sequence: program RELOAD = ${reload}.`);
     addTrace("Driver: write CONTROL.START = 1.");
     addTrace(`Monitor: COUNT = ${count}, STATUS = BUSY.`);
-    addTrace(`Scoreboard: expecting ${reload} countdown ticks.`);
+    addTrace(`Illustration: ${reload} countdown ${reload === 1 ? "tick" : "ticks"} scheduled; not an independent check.`);
 
     message.textContent = "Timer started. One model tick is one countdown step.";
     render();
@@ -239,8 +239,8 @@
         intervalId = null;
 
         addTrace("Monitor: COUNT = 0, interrupt is pending.");
-        addTrace("Scoreboard: timer completion matched — PASS.");
-        message.textContent = "Timer completed. Clear the interrupt to run it again.";
+        addTrace("Model: countdown completed; interrupt is pending.");
+        message.textContent = "Timer completed. Clear the interrupt or start another countdown.";
       } else {
         addTrace(`Monitor: COUNT = ${count}, STATUS = BUSY.`);
       }
@@ -254,7 +254,7 @@
 
     irq = false;
     addTrace("Driver: write CONTROL.CLEAR_IRQ = 1.");
-    addTrace("Scoreboard: interrupt cleared — PASS.");
+    addTrace("Model: interrupt cleared.");
     message.textContent = "Interrupt cleared. The timer is ready to start again.";
     render();
   });
