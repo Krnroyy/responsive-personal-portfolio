@@ -10,7 +10,7 @@
     const dark = document.documentElement.dataset.theme === 'dark';
     $('#theme-label').textContent = dark ? 'Light' : 'Dark';
     themeButton.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
-    document.querySelector('meta[name="theme-color"]').content = dark ? '#0d1820' : '#f6f5ef';
+    document.querySelector('meta[name="theme-color"]').content = dark ? '#121419' : '#f4f5f8';
   }
   themeButton.hidden = false;
   syncThemeLabel();
@@ -139,7 +139,9 @@
     progress.style.transform = `scaleX(${available > 0 ? Math.min(1, Math.max(0, scrollY / available)) : 0})`;
     backTop.hidden = scrollY < 650;
     let active = '';
-    sectionNav.forEach(link => { const section = document.getElementById(link.dataset.section); if (section.getBoundingClientRect().top <= 180) active = link.dataset.section; });
+    let nearest = -Infinity;
+    sectionNav.forEach(link => { const top = document.getElementById(link.dataset.section).getBoundingClientRect().top; if (top <= 180 && top > nearest) { nearest = top; active = link.dataset.section; } });
+    ['handshake-lab','silicon-explorer','timer-lab','crypto-lab'].forEach(id => { const node = document.getElementById(id); if (!node || !node.getClientRects().length) return; const top = node.getBoundingClientRect().top; if (top <= 180 && top > nearest) { nearest = top; active = 'labs'; } });
     sectionNav.forEach(link => {
       const selected = link.dataset.section === active;
       link.classList.toggle('is-active', selected);

@@ -1,133 +1,10 @@
-﻿(() => {
+(() => {
   "use strict";
   const root = document.querySelector("#silicon-explorer");
   if (!root || root.dataset.ready === "true") return;
   root.dataset.ready = "true";
 
-  // Pointer proximity pulls living-looking threads from the pointer into the CTA.
-  const cta = document.querySelector("[data-puppet-wrap]");
-  const venomLayer = document.querySelector("[data-venom-layer]");
-  const venomCore = document.querySelector("[data-venom-core]");
-  const venomThreads = [...document.querySelectorAll("[data-venom-thread]")];
-  const creature = document.querySelector("[data-sx-creature]");
-  const desktopPointer = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 761px)");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-  if (cta && venomLayer && venomCore && desktopPointer.matches && !reducedMotion.matches) {
-    const maxReach = 260;
-    const clamp = (value, low, high) => Math.max(low, Math.min(value, high));
-    const clearOoze = () => {
-      venomLayer.classList.remove("is-active");
-      cta.classList.remove("is-drawn");
-      cta.style.setProperty("--pull-x", "0px");
-      cta.style.setProperty("--pull-y", "0px");
-      cta.style.setProperty("--pull-scale", "1");
-    };
-    const drawOoze = (event) => {
-      if (event.pointerType && event.pointerType !== "mouse") return clearOoze();
-      const rect = cta.getBoundingClientRect();
-      const x = event.clientX;
-      const y = event.clientY;
-      const nearX = clamp(x, rect.left, rect.right);
-      const nearY = clamp(y, rect.top, rect.bottom);
-      const distance = Math.hypot(x - nearX, y - nearY);
-      if (distance >= maxReach) return clearOoze();
-
-      const proximity = 1 - distance / maxReach;
-      const intensity = proximity * proximity * (3 - 2 * proximity);
-      venomLayer.classList.add("is-active");
-      venomCore.setAttribute("cx", x);
-      venomCore.setAttribute("cy", y);
-      venomCore.setAttribute("r", String(2 + intensity * 7));
-
-      const anchors = [
-        { x: rect.left + rect.width * .08, y: rect.top + rect.height * .5 },
-        { x: rect.left + rect.width * .22, y: rect.top + 2 },
-        { x: rect.left + rect.width * .39, y: rect.top + 2 },
-        { x: rect.left + rect.width * .57, y: rect.bottom - 2 },
-        { x: rect.left + rect.width * .72, y: rect.top + 2 },
-        { x: rect.left + rect.width * .88, y: rect.bottom - 2 },
-        { x: rect.right - 2, y: rect.top + rect.height * .37 },
-        { x: rect.right - 2, y: rect.top + rect.height * .68 }
-      ];
-      const fixedWidths = [1.5, 1.1, .85, .85, .85, .85, .7, .7];
-      venomThreads.forEach((path, index) => {
-        const target = anchors[index % anchors.length];
-        const dx = target.x - x;
-        const dy = target.y - y;
-        const length = Math.max(1, Math.hypot(dx, dy));
-        const bend = (index % 2 ? 1 : -1) * (8 + 22 * (1 - intensity));
-        const px = -dy / length * bend;
-        const py = dx / length * bend;
-        path.setAttribute("d", `M ${x} ${y} C ${x + dx * .26 + px} ${y + dy * .2 + py}, ${x + dx * .72 - px * .55} ${y + dy * .66 - py * .55}, ${target.x} ${target.y}`);
-        const threshold = index === 0 ? 0 : .12 + (index - 1) * .095;
-        const strandIntensity = index === 0 ? intensity : clamp((intensity - threshold) / (1 - threshold), 0, 1);
-        path.style.setProperty("--thread-width", `${fixedWidths[index]}px`);
-        path.style.setProperty("--thread-opacity", String(index === 0 ? .12 + strandIntensity * .68 : strandIntensity * .82));
-      });
-
-      const pullX = x - rect.left - rect.width / 2;
-      const pullY = y - rect.top - rect.height / 2;
-      const pullLength = Math.max(1, Math.hypot(pullX, pullY));
-      const pull = Math.min(6, intensity * 6);
-      cta.style.setProperty("--pull-x", `${pullX / pullLength * pull}px`);
-      cta.style.setProperty("--pull-y", `${pullY / pullLength * pull}px`);
-      cta.style.setProperty("--pull-scale", String(1 + intensity * .018));
-      cta.classList.add("is-drawn");
-    };
-    window.addEventListener("pointermove", drawOoze, { passive: true });
-    window.addEventListener("blur", clearOoze);
-    document.addEventListener("mouseleave", clearOoze);
-    reducedMotion.addEventListener?.("change", (event) => {
-      if (event.matches) clearOoze();
-    });
-  }
-
-  // The small silicon chip is only a visual cursor; it never captures clicks.
-  // The gold sweep works with mouse, keyboard, and touch in either theme.
-  if (!reducedMotion.matches) {
-    const sweepTimers = new WeakMap();
-    root.addEventListener("click", (event) => {
-      const target = event.target.closest("button, a, input, [role='button']");
-      if (!target || !root.contains(target)) return;
-      const oldTimer = sweepTimers.get(target);
-      if (oldTimer) window.clearTimeout(oldTimer);
-      target.classList.remove("sx-magic-hit");
-      void target.offsetWidth;
-      target.classList.add("sx-magic-hit");
-      sweepTimers.set(target, window.setTimeout(() => {
-        target.classList.remove("sx-magic-hit");
-        sweepTimers.delete(target);
-      }, 1950));
-    });
-  }
-
-  if (creature && desktopPointer.matches && !reducedMotion.matches) {
-    const hideCreature = () => {
-      root.classList.remove("sx-creature-active");
-      creature.classList.remove("is-visible", "is-clicking");
-    };
-    root.addEventListener("pointerenter", (event) => {
-      if (event.pointerType !== "mouse") return;
-      root.classList.add("sx-creature-active");
-      creature.classList.add("is-visible");
-    });
-    root.addEventListener("pointermove", (event) => {
-      if (event.pointerType !== "mouse") return;
-      root.classList.add("sx-creature-active");
-      creature.classList.add("is-visible");
-      creature.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-14px, -14px)`;
-    });
-    root.addEventListener("pointerleave", hideCreature);
-    root.addEventListener("pointerdown", () => creature.classList.add("is-clicking"));
-    window.addEventListener("pointerup", () => creature.classList.remove("is-clicking"));
-    root.addEventListener("keydown", (event) => {
-      if (event.key === "Tab") hideCreature();
-    });
-    reducedMotion.addEventListener?.("change", (event) => {
-      if (event.matches) hideCreature();
-    });
-  }
 
   const $ = (selector) => root.querySelector(selector);
   const stageButtons = [...root.querySelectorAll("[data-sx-stage]")];
@@ -316,8 +193,8 @@
     const steps = [
       { after: 0, active: ["driver"], wires: [], message: `Driver presents AWADDR=0x04 and WDATA=${value} with WSTRB=1111 on separate channels.` },
       { after: phaseMs, active: ["slave"], wires: ["aw"], slave: "AW captured", message: "Illustrative phase 1: AWVALID and AWREADY meet; the address is captured. This animation shows AW arriving first; real AXI allows either order." },
-      { after: phaseMs * 2, active: ["slave"], wires: ["w"], slave: "AW + W captured", message: "Illustrative phase 2: WVALID and WREADY meet; data and byte strobes are captured. Both write channels are now available." },
-      { after: phaseMs * 3, active: ["reload"], wires: ["reload"], slave: "write committed", reload: value, message: `After both handshakes, the register block commits ${value} to RELOAD. The timer core has not started.` },
+      { after: phaseMs * 2, active: ["slave"], wires: ["w"], slave: "AW + W", message: "Illustrative phase 2: WVALID and WREADY meet; data and byte strobes are captured. Both write channels are now available." },
+      { after: phaseMs * 3, active: ["reload"], wires: ["reload"], slave: "Committed", reload: value, message: `After both handshakes, the register block commits ${value} to RELOAD. The timer core has not started.` },
       { after: phaseMs * 4, active: ["driver", "slave"], wires: ["bresp"], slave: "B response", message: "BVALID returns; BREADY completes the write-response handshake." },
       { after: phaseMs * 5, active: ["monitor"], wires: ["monitor"], message: "The monitor publishes the completed bus transaction to its analysis port." },
       { after: phaseMs * 6, active: ["scoreboard"], wires: ["score"], message: "The scoreboard receives the observed write and checks its expected model. To run the timer, a separate CONTROL.START write loads RELOAD into the core." }
@@ -328,8 +205,8 @@
       node.dataset.level = "0";
     });
     svg.querySelectorAll("[data-sx-svg-wire]").forEach((wire) => { wire.dataset.level = "0"; });
-    setDiagramNode(svg, "slave", "AW + W pending", 0, "slave");
-    setDiagramNode(svg, "driver", `RELOAD=${value}`, 0, "driver");
+    setDiagramNode(svg, "slave", "Waiting", 0, "slave");
+    setDiagramNode(svg, "driver", `write ${value}`, 0, "driver");
     setDiagramNode(svg, "reload", peripheral.reload, peripheral.reload ? 1 : 0);
 
     steps.forEach((step) => schedule(run, step.after, () => {
@@ -406,8 +283,8 @@
         node.dataset.level = "0";
       });
       setDiagramNode(svg, "reload", peripheral.reload, peripheral.reload ? 1 : 0);
-      setDiagramNode(svg, "driver", `RELOAD=${Number($("[data-sx-reload]").value) || 1}`, 0, "driver");
-      setDiagramNode(svg, "slave", "AW + W pending", 0, "slave");
+      setDiagramNode(svg, "driver", `write ${Number($("[data-sx-reload]").value) || 1}`, 0, "driver");
+      setDiagramNode(svg, "slave", "Waiting", 0, "slave");
       svg.querySelectorAll("[data-sx-svg-wire]").forEach((wire) => { wire.dataset.level = "0"; });
     }
 
@@ -512,15 +389,15 @@
   $("[data-sx-reload]").addEventListener("input", (event) => {
     clearTimeline();
     const value = Math.max(1, Math.min(12, Number(event.target.value) || 1));
-    $("[data-sx-output-value]").textContent = `RELOAD=${value}`;
+    $("[data-sx-output-value]").textContent = `write ${value}`;
     const svg = root.querySelector('[data-sx-svg="axi"]');
     svg.querySelectorAll("[data-sx-svg-node]").forEach((node) => {
       node.classList.remove("is-active");
       node.dataset.level = "0";
     });
     svg.querySelectorAll("[data-sx-svg-wire]").forEach((wire) => { wire.dataset.level = "0"; });
-    setDiagramNode(svg, "slave", "AW + W pending", 0, "slave");
-    setDiagramNode(svg, "driver", `RELOAD=${value}`, 0, "driver");
+    setDiagramNode(svg, "slave", "Waiting", 0, "slave");
+    setDiagramNode(svg, "driver", `write ${value}`, 0, "driver");
     setDiagramNode(svg, "reload", peripheral.reload, peripheral.reload ? 1 : 0);
     if (stage === "axi") {
       $("[data-sx-output-value]").textContent = `stored=${peripheral.reload}`;
