@@ -63,3 +63,7 @@ Each encryption generates a fresh, non-extractable 128-bit AES key and a random 
 Requires JavaScript, Web Crypto, and a secure context (the HTTPS GitHub Pages deployment or localhost). Files are limited to 3 MiB and 25 million decoded pixels.
 
 References: [Web Crypto AES-GCM parameters](https://developer.mozilla.org/en-US/docs/Web/API/AesGcmParams), [SubtleCrypto.encrypt](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt).
+
+## ALU presentation consistency
+
+The ALU flow card uses the same pointer-driven depth interaction as the other evidence cards. The toolkit lists OpenROAD, ORFS and SKY130HD. The ALU notes state the shared ADD/SUB area/timing tradeoff and distinguish one-cycle from two-cycle candidate latency; all retain one-request-per-cycle throughput. The downloadable resume is maintained separately.
