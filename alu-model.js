@@ -45,9 +45,10 @@
       output: { valid: false, id: null, a: 0, b: 0, op: 0, result: 0, zero: 0, carry: 0, overflow: 0 } };
   }
   function step(state, request) {
-    // Validate even invalid-cycle input for a predictable public API.
-    evaluate(request.a, request.b, request.op);
     const accepted = request.valid === true;
+    // Input payload is sampled only for a valid request, exactly like the RTL.
+    // An invalid-cycle payload cannot block completion of the prior S1 request.
+    if (accepted) evaluate(request.a, request.b, request.op);
     const prior = state.stage;
     const output = prior.valid
       ? { ...prior, ...evaluate(prior.a, prior.b, prior.op), valid: true }

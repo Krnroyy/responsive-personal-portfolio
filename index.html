@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="portfolio-guide.css?v=1">
   <script src="portfolio-guide.js?v=2" defer></script>
   <link rel="stylesheet" href="resume-link.css?v=1">
-<link rel="stylesheet" href="studio.css?v=1"><script src="assets/vendor/motion.js" defer></script><script src="studio.js?v=1" defer></script><link rel="stylesheet" href="visibility.css?v=1"><script src="visibility.js?v=1" defer></script><link rel="stylesheet" href="depth.css?v=1"><script src="depth.js?v=trail-fade-2" defer></script><link rel="stylesheet" href="bench.css?v=complete-fix-1"><script src="bench.js?v=1" defer></script><link rel="stylesheet" href="alu-demo.css?v=1"><script src="alu-model.js?v=1" defer></script><script src="alu-demo.js?v=1" defer></script></head>
+<link rel="stylesheet" href="studio.css?v=1"><script src="assets/vendor/motion.js" defer></script><script src="studio.js?v=1" defer></script><link rel="stylesheet" href="visibility.css?v=1"><script src="visibility.js?v=1" defer></script><link rel="stylesheet" href="depth.css?v=1"><script src="depth.js?v=trail-fade-2" defer></script><link rel="stylesheet" href="bench.css?v=complete-fix-1"><script src="bench.js?v=1" defer></script><link rel="stylesheet" href="alu-demo.css?v=1"><script src="alu-model.js?v=valid-bubble-2" defer></script><script src="alu-demo.js?v=valid-bubble-2" defer></script></head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
@@ -257,7 +257,7 @@
       </form>
       <div class="alu-presets" role="group" aria-label="ALU example inputs"><button class="alu-button" type="button" data-alu-preset="overflow">Signed overflow</button><button class="alu-button" type="button" data-alu-preset="carry">Unsigned carry</button><button class="alu-button" type="button" data-alu-preset="borrow">Subtract &amp; borrow</button><button class="alu-button" type="button" data-alu-preset="shift">Shift out a bit</button></div>
       <div class="alu-actions"><button class="alu-button alu-valid" type="button" data-alu-valid aria-pressed="true">Input VALID <span data-alu-valid-value>1</span></button><button class="alu-button alu-primary" type="button" data-alu-step>Step clock ↗</button><button class="alu-button" type="button" data-alu-stream>Run 4-request stream</button><button class="alu-button alu-reset" type="button" data-alu-reset>Reset</button></div>
-      <p class="alu-helper">Inputs apply at the next edge. First click captures; second click produces that request’s result and can capture another. Set VALID to 0 to insert a bubble.</p>
+      <p class="alu-helper">Inputs apply at the next edge. First click captures; second click produces that request’s result and can capture another. Set VALID to 0 to insert a bubble; input fields are then ignored.</p>
       <div class="alu-pipeline" aria-label="Two registered stages separated by combinational logic">
         <div class="alu-stage" data-alu-stage data-valid="false"><div class="alu-stage-top"><span>S1 / CAPTURE</span><span class="alu-badge" data-alu-s1-valid>VALID 0</span></div><h3>Request register</h3><span class="alu-main-value" data-alu-s1-op>ADD</span><p data-alu-s1-data>A 0x00 · B 0x00</p><p data-alu-s1-id>No request captured</p></div>
         <div class="alu-wire" aria-hidden="true"><span>→</span></div>

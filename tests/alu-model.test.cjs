@@ -38,7 +38,7 @@ let count = 0;
 function random() { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed; }
 for (let i = 0; i < 10000; i++) {
   if (i % 97 === 0) { state = model.create(); pending = null; held = { result: 0, zero: 0, carry: 0, overflow: 0 }; count = 0; }
-  const req = { a: random() % 256, b: random() % 256, op: random() % 8, valid: random() % 5 !== 0 };
+  const req = { a: random() >>> 24, b: random() >>> 24, op: (random() >>> 24) % 8, valid: (random() >>> 24) % 5 !== 0 };
   const before = JSON.stringify(state), old = state;
   state = model.step(state, req);
   assert.equal(JSON.stringify(old), before, 'No input state mutation');
@@ -61,3 +61,45 @@ assert.equal(model.create().output.zero, 0, 'Reset Z differs from computed zero'
 for (const req of [[-1,0,0],[256,0,0],[1.5,0,0],[0,NaN,0],[0,0,8]]) assert.throws(() => model.evaluate(...req), RangeError);
 console.log(`PASS: ${combinations.toLocaleString()} operation/operand combinations; 10,000 pipeline cycles with bubbles and reset; directed flags, holds and invalid inputs.`);
 console.log('These are browser-model tests against an independent arithmetic oracle, not an HDL simulation.');
+
+// Regression: INVALID payload is not sampled and must not block the prior output.
+for (const invalid of [{a:NaN,b:undefined,op:99}, {a:-1,b:256,op:8}, {a:2.5,b:Infinity,op:-1}]) {
+  const pending = model.step(model.create(), {a:255,b:1,op:0,valid:true});
+  const drained = model.step(pending, {...invalid,valid:false});
+  assert.equal(drained.edge, 2); assert.equal(drained.output.valid,true);
+  assert.equal(drained.output.id,1); assert.equal(drained.output.result,0);
+  assert.equal(drained.output.zero,1); assert.equal(drained.output.carry,1);
+  assert.equal(drained.stage.valid,false); assert.equal(drained.stage.a,255);
+  const held = model.step(drained,{...invalid,valid:false});
+  assert.equal(held.output.valid,false); assert.equal(held.output.carry,1);
+}
+// Stream every legal request through the registered pipeline, including opcode boundaries.
+let streamed = model.create(), expected = null, streamCount = 0;
+for (let op=0;op<8;op++) for(let a=0;a<256;a++) for(let b=0;b<256;b++) {
+  streamed=model.step(streamed,{a,b,op,valid:true});
+  assert.equal(streamed.output.valid,expected!==null);
+  if(expected) {
+    for(const key of ['result','zero','carry','overflow']) assert.equal(streamed.output[key],expected[key]);
+    assert.equal(streamed.output.id,streamCount);
+  }
+  expected=oracle(a,b,op);streamCount++;
+}
+streamed=model.step(streamed,{valid:false});
+assert.equal(streamed.output.id,524288);assert.equal(streamed.output.valid,true);
+for(const key of ['result','zero','carry','overflow']) assert.equal(streamed.output[key],expected[key]);
+// Every opcode can precede/follow every other opcode, with or without a bubble or reset.
+let pairs=0;
+for(let first=0;first<8;first++) for(let second=0;second<8;second++) {
+ for(const a of [0,127,128,255]) for(const b of [0,1,128,255]) for(const gap of ['none','bubble','reset']) {
+  let st=model.step(model.create(),{a,b,op:first,valid:true});
+  if(gap==='bubble') st=model.step(st,{valid:false});
+  if(gap==='reset') st=model.create();
+  st=model.step(st,{a:b,b:a,op:second,valid:true});
+  assert.equal(st.output.valid,gap==='none');
+  if(gap==='none') for(const key of ['result','zero','carry','overflow']) assert.equal(st.output[key],oracle(a,b,first)[key]);
+  st=model.step(st,{valid:false});
+  for(const key of ['result','zero','carry','overflow']) assert.equal(st.output[key],oracle(b,a,second)[key]);
+  pairs++;
+ }
+}
+console.log(`PASS: ${streamCount.toLocaleString()} valid requests through the pipeline; ${pairs.toLocaleString()} directed opcode-pair/bubble/reset sequences; ignored invalid-cycle payload regression.`);

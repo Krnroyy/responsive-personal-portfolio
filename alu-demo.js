@@ -8,6 +8,8 @@
   const stepButton = $('[data-alu-step]'), streamButton = $('[data-alu-stream]');
   const validButton = $('[data-alu-valid]'), status = $('[data-alu-status]');
   const form = $('[data-alu-form]');
+  // Submit and the clock button share validation, conditional on input VALID.
+  form.noValidate = true;
   const history = [];
   let state = model.create(), valid = true, timeout = 0, running = false;
   const hex = n => '0x' + n.toString(16).toUpperCase().padStart(2, '0');
@@ -23,6 +25,9 @@
     'Reserved returns 0; Z=1, C=0 and V=0.'
   ];
   function readInputs() {
+    // A bubble never samples operands. Canonical placeholders allow an empty
+    // or malformed edit to remain on screen while the pipeline drains.
+    if (!valid) return { a: 0, b: 0, op: 0, valid: false };
     if (!form.checkValidity()) return null;
     const a = Number(aInput.value), b = Number(bInput.value), op = Number(opInput.value);
     return { a, b, op, valid };
@@ -107,13 +112,13 @@
     const wasRunning = running; running = false;
     root.querySelectorAll('[data-alu-form] input,[data-alu-form] select,[data-alu-preset],[data-alu-valid],[data-alu-step]').forEach(e => { e.disabled = false; });
     streamButton.textContent = 'Run 4-request stream';
-    if (wasRunning && announce) setStatus('Stream paused. Pipeline state is retained; step manually or reset.');
+    if (wasRunning && announce) setStatus('Stream stopped. Pipeline state is retained; step manually or reset.');
   }
   stepButton.addEventListener('click', () => clock());
   form.addEventListener('submit', event => { event.preventDefault(); if (!running) clock(); });
   form.addEventListener('input', () => {
     renderInputs();
-    setStatus(readInputs() ? 'Inputs prepared for the next rising edge. Registered values have not changed.'
+    setStatus(readInputs() ? (valid ? 'Inputs prepared for the next rising edge. Registered values have not changed.' : 'VALID is 0: input fields are not sampled. Step to drain a pending request or insert a bubble.')
       : 'Enter whole operands from 0 to 255. Registered values have not changed.', !readInputs());
   });
   validButton.addEventListener('click', () => {
@@ -128,7 +133,7 @@
   }));
   $('[data-alu-reset]').addEventListener('click', () => {
     const discarded = Number(state.stage.valid); stopStream(); state = model.create(); history.length = 0;
-    root.classList.remove('alu-flash'); valid = true; render();
+    root.classList.remove('alu-flash'); render();
     setStatus(`Reset asserted: registers and flags cleared${discarded ? '; the pending S1 request was discarded' : ''}. Inputs are retained for your next experiment.`);
   });
   streamButton.addEventListener('click', () => {
