@@ -67,3 +67,11 @@ References: [Web Crypto AES-GCM parameters](https://developer.mozilla.org/en-US/
 ## ALU presentation consistency
 
 The ALU flow card uses the same pointer-driven depth interaction as the other evidence cards. The toolkit lists OpenROAD, ORFS and SKY130HD. The ALU notes state the shared ADD/SUB area/timing tradeoff and distinguish one-cycle from two-cycle candidate latency; all retain one-request-per-cycle throughput. The downloadable resume is maintained separately.
+
+## Pipelined ALU browser lab
+
+Choose **Pipelined ALU** in the interactive bench or use the link on its project card. It models the baseline `rtl/alu8_pipeline.sv` at source commit `c140a3a429d74734fc7379b5488d85d32537f82d`. It supports all eight opcodes, two unsigned byte inputs, signed interpretation, Z/C/V flags, VALID bubbles, register hold behaviour, reset flushing, and a four-request stream. The first rising edge captures a request; the next registers its result. It has no READY/backpressure interface. Shifts use B[2:0]; SUB carry means no borrow. Reserved returns zero with Z=1, C=0, V=0. Reset clears every flag, including Z, regardless of reset result bits.
+
+The pure JavaScript state model lives in `alu-model.js`; `alu-demo.js` handles controls and `alu-demo.css` uses the shared theme tokens. The demo does not execute HDL, prove properties, measure hardware timing, or model the alternate three-stage variant.
+
+Run the browser-model arithmetic and pipeline regression with `node tests/alu-model.test.cjs`. It checks all 524,288 opcode/byte combinations against an independent arithmetic oracle, plus 10,000 state transitions. This is not a rerun of the RTL tests.
