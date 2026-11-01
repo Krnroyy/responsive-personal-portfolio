@@ -39,7 +39,7 @@
 </div></section>
     <div class="discipline-strip"><div class="wrap"><span>SystemVerilog / Verilog</span><span>Simulation + formal</span><span>FPGA integration</span><span>CMOS fundamentals</span></div></div>
 <section class="projects wrap section" id="projects" aria-labelledby="projects-title">
-      <div class="section-head"><div><p class="eyebrow">01 / ENGINEERING PROJECTS</p><h2 id="projects-title">Selected work.</h2></div><p>Four projects across RTL, verification, FPGA systems and transistor-level design.</p></div>
+      <div class="section-head"><div><p class="eyebrow">01 / ENGINEERING PROJECTS</p><h2 id="projects-title">Selected work.</h2></div><p>Five projects across RTL, verification, FPGA systems and transistor-level design.</p></div>
 <div class="project-filter" role="group" aria-label="Filter projects" hidden><button type="button" data-filter="all" aria-pressed="true">All projects </button><button type="button" data-filter="verification" aria-pressed="false">Verification</button><button type="button" data-filter="fpga" aria-pressed="false">FPGA systems</button><button type="button" data-filter="cmos" aria-pressed="false">CMOS design</button></div>
       <p id="filter-status" class="sr-only" aria-live="polite"></p>
       <article class="project project-featured" id="project-fifo" data-category="verification" data-tone="blue">
@@ -53,8 +53,20 @@
           </details><div class="project-links"><a href="https://github.com/Krnroyy/axi4-stream-fifo">Repository ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/TEST_PLAN.md">Test plan ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/BUG_CASE_STUDY.md">Bug case study ↗</a><a href="https://github.com/Krnroyy/axi4-stream-fifo/actions/workflows/verify.yml">Live CI ↗</a></div>
         </div><figure class="project-evidence dk-depth-card" data-depth=""><a class="evidence-image" data-lightbox href="assets/fifo-backpressure.png" target="_blank" rel="noopener" aria-label="Enlarge simulation evidence"><img src="assets/fifo-backpressure.png" alt="GTKWave capture showing FIFO output payload held stable during receiver backpressure." width="1919" height="358" loading="lazy" decoding="async"></a><figcaption><span>Simulation evidence</span>Depth 16, seed 1. Output held through a receiver stall, then accepted at the rising clock edge. <a href="https://github.com/Krnroyy/axi4-stream-fifo/blob/master/docs/BUG_CASE_STUDY.md">Read the source evidence ↗</a></figcaption></figure></div>
       </article>
-      <article class="project" id="project-timer" data-category="verification" data-tone="coral">
-        <div class="project-number">02 / RTL + UVM</div>
+            <article class="project" id="project-alu" data-category="verification" data-tone="blue">
+        <div class="project-number">02 / RTL + PHYSICAL DESIGN</div>
+        <div class="project-body"><div class="ed-project-copy"><div class="project-title-row"><h3>Pipelined 8-bit ALU</h3><span class="project-tag">SystemVerilog · SKY130HD</span></div>
+          <p>The challenge: compare ALU architectures across function, timing and routed cell area while preserving a one-request-per-cycle interface.</p>
+          <p class="pg-contribution"><strong>My contribution</strong> Built and verified five RTL variants, then ran an OpenROAD RTL-to-GDS flow using the SKY130HD standard-cell platform.</p>
+          <details class="ed-evidence-details"><summary>Physical flow &amp; verification results <span aria-hidden="true">+</span></summary><div class="evidence-grid"><div><strong>2.62M vectors</strong><span>Five variants × 524,288<br>exhaustive cases each</span></div><div><strong>43 points</strong><span>Yosys equivalence proof<br>for shared ADD/SUB</span></div><div><strong>3,401 µm²</strong><span>Shared ADD/SUB routed area<br>5.9% below baseline</span></div></div>
+          <p>The baseline UVM 1.2 test checked 121 responses, reset recovery, and all opcode/flag cross bins.</p>
+          <p>ORFS coordinates Yosys synthesis and OpenROAD physical-design steps. SKY130HD is the 130 nm high-density standard-cell platform: its cells and technology views are used for logic mapping, physical implementation, and area/timing estimates. The flow generated GDSII for this educational design.</p>
+          <p class="scope">The GDSII was not fabricated. Reported PPA values are flow estimates, not silicon measurements or production foundry signoff.</p>
+          </details><div class="project-links"><a href="https://github.com/Krnroyy/pipelined-8bit-alu">Repository ↗</a><a href="https://github.com/Krnroyy/pipelined-8bit-alu/blob/main/docs/PROJECT_COMPLETION.md">Design details ↗</a><a href="https://github.com/Krnroyy/pipelined-8bit-alu/releases/tag/v1.0.0">v1.0.0 release ↗</a><a href="https://github.com/Krnroyy/pipelined-8bit-alu/actions/workflows/alu-regression.yml">Live CI ↗</a></div>
+        </div><div class="ed-register-visual dk-depth-card" aria-label="ALU RTL-to-GDS implementation flow"><div class="ed-terminal-bar"><i></i><i></i><i></i><span>orfs / sky130hd</span></div><div class="ed-register-row"><code>RTL</code><span>SystemVerilog ALU</span></div><div class="ed-register-row"><code>SYNTH</code><span>Yosys maps standard cells</span></div><div class="ed-register-row"><code>PLACE + CTS</code><span>OpenROAD implementation</span></div><div class="ed-register-row"><code>ROUTE</code><span>Detailed routing</span></div><div class="ed-register-row"><code>GDSII</code><span>Final layout output</span></div><p>SKY130 · 130 nm high-density cells</p></div></div>
+      </article>
+<article class="project" id="project-timer" data-category="verification" data-tone="coral">
+        <div class="project-number">03 / RTL + UVM</div>
         <div class="project-body"><div class="ed-project-copy"><div class="project-title-row"><h3>AXI4-Lite Countdown Timer</h3><span class="project-tag">SystemVerilog · UVM 1.2</span></div>
           <p>The challenge: keep register and countdown behaviour correct across independent AXI4-Lite channels and reset interruptions.</p>
           <p class="pg-contribution"><strong>My contribution</strong> Built a memory-mapped countdown timer and a UVM testbench to check register and timer behaviour.</p>
@@ -64,7 +76,7 @@
 </div><div class="ed-register-visual dk-depth-card" aria-label="Countdown timer register overview" data-depth=""><div class="ed-terminal-bar"><i></i><i></i><i></i><span>axi_lite_timer / registers</span></div><div class="ed-register-row"><code>CONTROL</code><span>Start &amp; interrupt clear</span></div><div class="ed-register-row"><code>RELOAD</code><span>Countdown length</span></div><div class="ed-register-row"><code>COUNT</code><span>Current count</span></div><div class="ed-register-row"><code>STATUS</code><span>Timer state</span></div><p>SystemVerilog / UVM 1.2</p><a href="#timer-lab">Try the register model <span aria-hidden="true">↗</span></a></div></div>
       </article>
       <article class="project" id="project-aes" data-category="fpga" data-tone="violet">
-        <div class="project-number">03 / FPGA SYSTEMS</div>
+        <div class="project-number">04 / FPGA SYSTEMS</div>
         <div class="project-body"><div class="ed-project-copy"><div class="project-title-row"><h3>AES-128-GCM image security</h3><span class="project-tag">ZCU104</span></div>
           <p>The challenge: integrate authenticated image encryption across streaming hardware, DMA and processor software.</p>
           <p class="pg-contribution"><strong>My contribution</strong> Integrated custom Verilog with DMA and processor software, then compared outputs with Python AESGCM.</p>
@@ -75,7 +87,7 @@
           </div>
       </article>
       <article class="project" id="project-cmos" data-category="cmos" data-tone="blue">
-        <div class="project-number">04 / CMOS DESIGN</div>
+        <div class="project-number">05 / CMOS DESIGN</div>
         <div class="project-body"><div class="ed-project-copy"><div class="project-title-row"><h3>CMOS 1-bit full adder</h3><span class="project-tag">gpdk180</span></div>
           <p>The challenge: map sum and carry functions into hierarchical static CMOS and check every input combination.</p>
           <p class="pg-contribution"><strong>My contribution</strong> Designed a hierarchical CMOS adder and characterized its schematic-level behaviour with Spectre.</p>

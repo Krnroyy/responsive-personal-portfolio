@@ -14,6 +14,8 @@ locally or serve these files with GitHub Pages.
 - Mobile navigation, scroll progress, subtle section reveals, and back-to-top.
 - Reduced-motion support and no-JavaScript access to project content and links.
 
+The selected-work section also presents the pipelined 8-bit ALU RTL-to-GDS project, including its OpenROAD/ORFS implementation flow, SKY130HD platform, verification results, and release links. It distinguishes generated educational GDSII and estimated PPA from fabrication and signoff claims.
+
 The handshake illustration uses an always-valid deterministic source. Each
 clock step advances one rising edge; READY low holds the beat, READY high
 accepts exactly one beat and advances the data. Reset resets this illustration.
