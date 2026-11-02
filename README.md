@@ -75,3 +75,9 @@ Choose **Pipelined ALU** in the interactive bench or use the link on its project
 The pure JavaScript state model lives in `alu-model.js`; `alu-demo.js` handles controls and `alu-demo.css` uses the shared theme tokens. The demo does not execute HDL, prove properties, measure hardware timing, or model the alternate three-stage variant.
 
 Run the browser-model arithmetic and pipeline regression with `node tests/alu-model.test.cjs`. It checks all 524,288 opcode/byte combinations against an independent arithmetic oracle, plus 10,000 state transitions. This is not a rerun of the RTL tests.
+
+## RV32I subset processor showcase
+
+The selected-work section includes the five-stage 32-bit RV32I subset processor, with a pointer-depth evidence card containing the repository's ZCU104 board and LED photos. It links the verification plan, board results and portable CI. Six project cards are shown; the processor joins FIFO, ALU and timer under Verification. The evidence-image viewer includes both new photos.
+
+The card distinguishes three-seed UVM simulation from portable CI, 40-step bounded formal checks from an unbounded proof, and a fixed-ROM LED demonstration from full ISA compliance or measured FPGA performance. Reported 125 MHz is the wrapper clock target; routed timing figures are tool estimates with external I/O timing limitations. The downloaded resume is maintained separately.
