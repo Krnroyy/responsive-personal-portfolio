@@ -81,3 +81,11 @@ Run the browser-model arithmetic and pipeline regression with `node tests/alu-mo
 The selected-work section includes the five-stage 32-bit RV32I subset processor, with a pointer-depth evidence card containing the repository's ZCU104 board and LED photos. It links the verification plan, board results and portable CI. Six project cards are shown; the processor joins FIFO, ALU and timer under Verification. The evidence-image viewer includes both new photos.
 
 The card distinguishes three-seed UVM simulation from portable CI, 40-step bounded formal checks from an unbounded proof, and a fixed-ROM LED demonstration from full ISA compliance or measured FPGA performance. Reported 125 MHz is the wrapper clock target; routed timing figures are tool estimates with external I/O timing limitations. The downloaded resume is maintained separately.
+
+## RV32I pipeline teaching lab
+
+The RV32I pipeline filter and project-card shortcut open a JavaScript teaching model of five-stage instruction flow. Four built-in examples show the board ROM program, forwarding, a load-use stall and taken-branch flushing. It models ADDI, ADD, aligned LW/SW, BEQ and JAL only, not all 37 instructions or machine-code decoding. The board ROM example uses the eight instructions from `rtl/rv32i_demo_system.sv` at processor commit `72e700486d968786e4071e4973a4b7db8b5311b8`.
+
+Core reset clears registers, pipeline state and the LED-done proxy while retaining data RAM. Reloading/changing the example clears RAM too. Stores update RAM in MEM before retirement at WB. Counters are browser-model events, not workload CPI or measured hardware performance. The finite listings drain at their end; the board example pauses on its first retired final-loop JAL while the physical core continues looping. No HDL, UVM, privileged ISA, faults, byte/halfword accesses, variable-latency memory or live board connection is executed here.
+
+Run the model regression with `node tests/processor-model.test.cjs`.
