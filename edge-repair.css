@@ -1,34 +1,63 @@
-/* Close the existing blue sculpture without changing the portfolio layout. */
-.edge-art .edge-volume{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
-.edge-art .edge-wall{position:absolute;transform-style:preserve-3d;backface-visibility:visible;background:linear-gradient(180deg,color-mix(in srgb,var(--dk-board),var(--dk-edge) 24%),color-mix(in srgb,var(--dk-board),var(--dk-edge) 8%));border:0;outline:0}
-.edge-art .edge-chip-volume .edge-wall{background:linear-gradient(180deg,var(--dk-chip),color-mix(in srgb,var(--dk-chip),#0a111c 28%))}
-.edge-art .edge-chip-bottom{position:absolute;left:103px;top:103px;width:154px;height:154px;border-radius:9px;background:var(--dk-chip);transform:translateZ(3px);backface-visibility:visible}
-.edge-repaired .dk-board-mid{visibility:hidden}
-.edge-repaired .dk-chip-wall,.edge-repaired .dk-chip-pins{display:none}
-.edge-art .edge-leads{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none;--lead-top:#9bb0ce;--lead-side:#677e9e;--lead-bottom:#425771}
-html[data-theme=light] .edge-art .edge-leads{--lead-top:#8d9fb6;--lead-side:#5f748e;--lead-bottom:#465a73}
-.edge-art .edge-lead{position:absolute;width:6px;height:27px;transform-style:preserve-3d;transform-origin:3px 0;backface-visibility:visible}
-.edge-art .edge-lead-part{position:absolute;left:0;transform-style:preserve-3d;backface-visibility:visible;background:var(--lead-top)}
-.edge-art .edge-lead-shoulder{top:0;width:6px;height:9.2px;transform:translateZ(19px)}
-.edge-art .edge-lead-ramp{top:9px;width:6px;height:18.55px;transform-origin:top;transform:translateZ(19px) rotateX(-60.64deg);background:linear-gradient(var(--lead-top),var(--lead-side))}
-.edge-art .edge-lead-toe{top:18px;width:6px;height:9px;transform:translateZ(3px)}
-.edge-art .edge-lead-under-shoulder{top:0;width:6px;height:8px;transform:translateZ(17px);background:var(--lead-bottom)}
-.edge-art .edge-lead-under-ramp{top:8px;width:6px;height:18.55px;transform-origin:top;transform:translateZ(17px) rotateX(-60.64deg);background:var(--lead-bottom)}
-.edge-art .edge-lead-under-toe{top:17px;width:6px;height:10px;transform:translateZ(1px);background:var(--lead-bottom)}
-.edge-art .edge-lead-profile{position:absolute;left:0;top:0;width:27px;height:19px;color:var(--lead-side);overflow:visible;transform-origin:0 0;transform:translateZ(19px) rotateZ(90deg) rotateX(-90deg);backface-visibility:visible}
-.edge-art .edge-lead-profile.edge-profile-right{left:6px}
-.edge-art .edge-lead-cap{top:27px;width:6px;height:2px;transform-origin:top;transform:translateZ(3px) rotateX(-90deg);background:var(--lead-side)}
-.edge-art .edge-lead-solder{left:-1px;top:18px;width:8px;height:10px;transform:translateZ(.8px);background:var(--lead-bottom);border-radius:1px}
-.edge-art .dk-circuit{opacity:1}
-.edge-art .edge-route{stroke:var(--teal);stroke-width:.95;opacity:.46;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.edge-art .edge-route-flow{stroke:var(--teal);stroke-width:1.8;opacity:.9;fill:none;stroke-linecap:round;stroke-dasharray:3 47;animation:edge-signal 4s linear infinite;animation-delay:var(--edge-delay,0s)}
-.edge-art .edge-route-flow.edge-flow-coral{stroke:var(--coral);opacity:.8}
-.edge-art .edge-via{fill:var(--dk-board);stroke:var(--dk-edge);stroke-width:1.1}
-.edge-art .edge-land{fill:var(--dk-edge);opacity:.65}
-.edge-art .edge-flow-paused .edge-route-flow{animation-play-state:paused}
-@keyframes edge-signal{to{stroke-dashoffset:-100}}
-@media(max-width:760px){.edge-art .dk-sculpture{transform:translate(-50%,-50%) scale(var(--edge-mobile-scale,.6))}}
-@media(max-width:370px){.edge-art .dk-sculpture{transform:translate(-50%,-50%) scale(var(--edge-mobile-scale,.46))}}
-@media(prefers-reduced-motion:reduce){.edge-art .edge-route-flow{animation:none}}
+/* Crisp, closed package faces; the existing blue hero and page layout stay intact. */
+.signal-board .dk-board-top,.signal-board .dk-board-bottom{border-radius:0;border:0;clip-path:polygon(10px 0,350px 0,360px 10px,360px 350px,350px 360px,10px 360px,0 350px,0 10px)}
+.signal-board .dk-board-bottom{transform:translateZ(-16px);box-shadow:none;background:var(--dk-board)}
+.signal-board .dk-board-mid,.signal-board .dk-chip-wall,.signal-board .dk-chip-pins{display:none}
+.signal-board .dk-trails{display:none}
+.signal-board .dk-art-halo{opacity:.55;filter:none}
+.signal-board .dk-board-top{background:linear-gradient(130deg,rgba(var(--dk-blue-rgb),.11),transparent 65%),var(--dk-board)}
+.signal-board .dk-chip-top{border-radius:0;border:0;clip-path:polygon(5px 0,149px 0,154px 5px,154px 149px,149px 154px,5px 154px,0 149px,0 5px);transform:translateZ(32px);box-shadow:none;background:linear-gradient(120deg,rgba(var(--dk-blue-rgb),.22),transparent 75%),var(--dk-chip)}
+.signal-board .dk-chip-top i{box-shadow:none}
+.signal-board .edge-volume{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
+.signal-board .edge-wall{position:absolute;transform-style:preserve-3d;backface-visibility:visible;outline:0;border:0;background:linear-gradient(to bottom,color-mix(in srgb,var(--dk-board),var(--dk-edge) 30%) 0 1px,var(--dk-board) 1px 6px,#82929e 6px 6.6px,color-mix(in srgb,var(--dk-board),#0c121c 15%) 6.6px 14px,var(--dk-edge) 14px 16px)}
+.signal-board .edge-chip-volume .edge-wall{background:linear-gradient(to bottom,var(--dk-edge) 0 .7px,var(--dk-chip) .7px 24px,color-mix(in srgb,var(--dk-chip),#080e18 22%) 24px 30px)}
+.signal-board .edge-chip-bottom{position:absolute;left:103px;top:103px;width:154px;height:154px;clip-path:polygon(5px 0,149px 0,154px 5px,154px 149px,149px 154px,5px 154px,0 149px,0 5px);background:var(--dk-chip);transform:translateZ(3px)}
+.signal-board .edge-leads{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none;--lead-top:#b4c5dd;--lead-side:#7187a5;--lead-bottom:#4a5f7c}
+html[data-theme=light] .signal-board .edge-leads{--lead-top:#899db9;--lead-side:#5d748e;--lead-bottom:#3c536d}
+.signal-board .edge-lead{position:absolute;width:6px;height:27px;transform-style:preserve-3d;transform-origin:3px 0;backface-visibility:visible}
+.signal-board .edge-lead-part{position:absolute;left:0;transform-style:preserve-3d;backface-visibility:visible;background:var(--lead-top)}
+.signal-board .edge-lead-shoulder{top:0;width:6px;height:9.2px;transform:translateZ(19px)}
+.signal-board .edge-lead-ramp{top:9px;width:6px;height:18.55px;transform-origin:top;transform:translateZ(19px) rotateX(-60.64deg);background:var(--lead-side)}
+.signal-board .edge-lead-toe{top:18px;width:6px;height:9px;transform:translateZ(3px)}
+.signal-board .edge-lead-under-shoulder{top:0;width:6px;height:8px;transform:translateZ(17px);background:var(--lead-bottom)}
+.signal-board .edge-lead-under-ramp{top:8px;width:6px;height:18.55px;transform-origin:top;transform:translateZ(17px) rotateX(-60.64deg);background:var(--lead-bottom)}
+.signal-board .edge-lead-under-toe{top:17px;width:6px;height:10px;transform:translateZ(1px);background:var(--lead-bottom)}
+.signal-board .edge-lead-profile{position:absolute;left:0;top:0;width:27px;height:19px;color:var(--lead-side);overflow:visible;transform-origin:0 0;transform:translateZ(19px) rotateZ(90deg) rotateX(-90deg);backface-visibility:visible}
+.signal-board .edge-lead-profile.edge-profile-right{left:6px}
+.signal-board .edge-lead-cap{top:27px;width:6px;height:2px;transform-origin:top;transform:translateZ(3px) rotateX(-90deg);background:var(--lead-side)}
+.signal-board .edge-lead-solder{left:-1px;top:18px;width:8px;height:10px;transform:translateZ(.8px);background:var(--lead-bottom)}
+.signal-board .dk-circuit{opacity:1}
+.signal-board .signal-etch{fill:none;stroke:var(--dk-edge);stroke-width:.8;opacity:.9;stroke-linejoin:miter}
+.signal-board .signal-route{fill:none;stroke:var(--dk-edge);stroke-width:1.15;opacity:.55;stroke-linejoin:round;stroke-linecap:round}
+.signal-board .signal-high{fill:none;stroke:#86b8ff;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:butt;opacity:.82}
+.signal-board .signal-output{stroke:#f2aa91}
+html[data-theme=light] .signal-board .signal-high{stroke:#285eac}html[data-theme=light] .signal-board .signal-output{stroke:#9f4934}
+.signal-board .signal-front{fill:#e4f1ff;stroke:#79aaf0;stroke-width:.7}
+.signal-board .signal-front.signal-output{fill:#ffddcf;stroke:#d59178}
+.signal-board .signal-pad{fill:var(--dk-edge);opacity:.75}
+.signal-board .signal-via{fill:var(--dk-board);stroke:var(--dk-edge);stroke-width:1.2}
+.signal-board .signal-label{fill:var(--teal);font:7px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.4px}
+.signal-board .signal-power{fill:none;stroke:var(--dk-edge);stroke-width:1.65;opacity:.65}
+.signal-board .signal-chip-etch{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;color:var(--dk-edge)}
+.signal-board .signal-chip-etch polygon{fill:none;stroke:currentColor;stroke-width:.9}
+.signal-board .signal-capacitor{position:absolute;left:171px;top:39px;width:18px;height:8px;background:#263242;border:1px solid #94a7bc;transform:translateZ(4px);box-shadow:-4px 0 0 #8799b1,4px 0 0 #8799b1;pointer-events:none}
+.signal-board .dk-board-label{bottom:8px;left:28px;letter-spacing:.8px}
+.signal-board .signal-readout{display:block;max-width:calc(100% - 54px);font:10px/1.65 var(--mono);color:var(--ink)}
+.signal-board .signal-readout small{display:block;color:var(--muted);font:9px/1.6 var(--mono)}
+.signal-board .dk-art-caption .dk-live-dot{font-size:9px;letter-spacing:.2px}
+/* A restrained glass-like treatment belongs on controls, never on the opaque chip. */
+.signal-board .dk-art-bottom button,.theme-toggle{background:linear-gradient(130deg,#ffffff1c,#ffffff05),var(--header);border:1px solid var(--line);box-shadow:inset 0 1px 0 #ffffff52,0 4px 14px #00000015;backdrop-filter:blur(9px) saturate(120%);-webkit-backdrop-filter:blur(9px) saturate(120%);color:var(--ink)}
+.signal-board .dk-art-bottom button:hover,.theme-toggle:hover{border-color:var(--teal);background:var(--soft);color:var(--ink);box-shadow:inset 0 1px 0 #ffffff55,0 5px 14px #00000018}
+html[data-theme=light] .signal-board .dk-art-bottom button,html[data-theme=light] .theme-toggle{background:linear-gradient(130deg,#ffffffd9,#ffffff70);color:var(--ink)}
+@media(max-width:760px){.signal-board .dk-sculpture{transform:translate(-50%,-50%) scale(var(--edge-mobile-scale,.6))}.signal-board .signal-readout{font-size:9px}.signal-board .signal-readout small{font-size:8px}.signal-board .dk-art-caption .dk-live-dot{font-size:8px}}
+@media(max-width:370px){.signal-board .dk-sculpture{transform:translate(-50%,-50%) scale(var(--edge-mobile-scale,.46))}}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){.signal-board .dk-art-bottom button,.theme-toggle{background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}}
+.signal-board .dk-art-bottom{justify-content:space-between;align-items:center;gap:12px}
+.signal-board .signal-readout{font-size:12px;line-height:1.6}.signal-board .signal-readout small{font-size:10px;line-height:1.6}
+.signal-board .dk-art-bottom button.demo-motion-icon{width:44px;height:44px;min-height:44px;flex:0 0 44px;opacity:1;color:var(--ink);background:linear-gradient(130deg,#ffffff1c,#ffffff05),var(--header);border-color:var(--line)}
+.theme-toggle{border-radius:999px;padding-inline:14px}
+html[data-theme=light] .signal-board .dk-art-bottom button.demo-motion-icon{background:linear-gradient(130deg,#ffffffd9,#ffffff70);color:var(--ink)}
+@media(max-width:760px){.signal-board .signal-readout{font-size:11px}.signal-board .signal-readout small{font-size:10px}}
 
-.edge-art .dk-board-label{bottom:4px;left:28px}
+.signal-board .signal-lead-front{position:absolute;left:0;top:0;display:none;width:3px;height:3px;border-radius:50%;background:#dcecff;border:.5px solid #75aaff;pointer-events:none;backface-visibility:visible}.signal-board .signal-lead-output{background:#ffdccb;border-color:#d48e70}
+
+.signal-board .signal-capacitor{box-shadow:none;border:0;background:linear-gradient(120deg,#9e907a,#706658)}.signal-board .edge-cap-volume .edge-wall{background:#665e50}.signal-board .signal-cap-terminal{position:absolute;top:39px;width:6px;height:8px;background:#a2b0c2;transform:translateZ(4.3px);pointer-events:none}.signal-board .edge-cap-metal .edge-wall{background:#78889d}

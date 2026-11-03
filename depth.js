@@ -57,6 +57,7 @@
   function draw() {
     const drift = Math.sin(time*.35);
     assembly.style.transform = `translateY(${Math.sin(time*.7)*7}px) rotateX(${55+pitch+Math.sin(time*.45)*3-pointerY*2}deg) rotateZ(${-32+turn+Math.sin(time*.32)*5+pointerX*3}deg)`;
+    if (art.classList.contains('signal-board')) return;
     if (!ctx || width <= 0 || height <= 0) return;
     ctx.clearRect(0,0,width,height);
     ctx.globalCompositeOperation = 'source-over';
