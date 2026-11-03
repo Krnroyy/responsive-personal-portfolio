@@ -141,7 +141,8 @@
     backTop.hidden = scrollY < 650;
     // Keep the fixed utility above the footer, including after filter/size changes.
     const footerClearance = footer ? innerHeight - footer.getBoundingClientRect().top + 8 : 0;
-    backTop.style.bottom = `${Math.max(25, footerClearance)}px`;
+    const maxBottom = Math.max(25, innerHeight - backTop.offsetHeight - 16);
+    backTop.style.setProperty('--back-top-footer', `${Math.min(maxBottom, Math.max(25, footerClearance))}px`);
     let active = '';
     let nearest = -Infinity;
     sectionNav.forEach(link => { const top = document.getElementById(link.dataset.section).getBoundingClientRect().top; if (top <= 180 && top > nearest) { nearest = top; active = link.dataset.section; } });
