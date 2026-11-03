@@ -141,14 +141,17 @@ body{background:radial-gradient(ellipse at 90% 4%,var(--lg-blue-halo),transparen
 .liquid-glass .sx-creature-cursor{display:none!important}
 .liquid-glass #silicon-explorer.sx-creature-active{cursor:auto!important}
 .liquid-glass #silicon-explorer.sx-creature-active :is(button,a,[role="button"]){cursor:pointer!important}
-/* Circuit-route home symbol, shared geometry on desktop and mobile. */
+/* Silicon die with a simplified insulated-gate MOSFET, shared at every size. */
 .liquid-glass .wordmark{gap:13px;letter-spacing:0}
 .liquid-glass .lg-brand-mark{display:inline-grid;place-items:center;width:46px;height:46px;flex:0 0 46px;letter-spacing:0;transform:none!important;color:var(--blue)}
 .liquid-glass .lg-brand-mark svg{display:block;width:46px;height:46px;overflow:visible;filter:drop-shadow(0 2px 6px var(--lg-hover-shadow))}
 .liquid-glass .lg-brand-mark .brand-accent{stroke:var(--coral)}
-.liquid-glass .lg-brand-mark .brand-terminal{fill:var(--coral);stroke:none}
+.liquid-glass .lg-brand-mark .brand-terminal{fill:currentColor;stroke:none}
 .liquid-glass .lg-brand-mark::after{display:none!important}
-.liquid-glass .wordmark:is(:hover,:focus-visible) .lg-brand-mark{color:var(--teal)}
+.liquid-glass .wordmark:is(:hover,:focus-visible) .lg-brand-mark{color:var(--blue)}
+.liquid-glass .lg-brand-mark .brand-mosfet-gate{transition:filter .2s ease}
+.liquid-glass .wordmark:is(:hover,:focus-visible) .brand-mosfet-gate{filter:drop-shadow(0 0 2px var(--coral))}
+@media(prefers-reduced-motion:reduce){.liquid-glass .lg-brand-mark .brand-mosfet-gate{transition:none}}
 .liquid-glass .wordmark:is(:hover,:focus-visible) .lg-brand-mark svg{filter:drop-shadow(0 2px 8px var(--lg-hover-shadow))}
 @media(max-width:760px){.liquid-glass .lg-brand-mark,.liquid-glass .lg-brand-mark svg{width:40px;height:40px}.liquid-glass .lg-brand-mark{flex-basis:40px}}
 @media(prefers-contrast:more){.liquid-glass :is(button[aria-pressed="true"],.sx-tabs button[aria-pressed="true"]){outline:2px solid var(--teal);outline-offset:2px}}
