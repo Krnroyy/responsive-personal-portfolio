@@ -184,8 +184,25 @@
 
   let count = 0;
   let busy = false;
+  let paused = false;
   let irq = false;
   let intervalId = null;
+  const panel = root.closest('[data-demo-panel]') || root;
+  const isHidden = () => document.hidden || panel.hidden;
+
+  function stopTicks() {
+    if (intervalId !== null) window.clearInterval(intervalId);
+    intervalId = null;
+  }
+
+  function pauseIfHidden() {
+    if (!busy || paused || !isHidden()) return;
+    stopTicks();
+    paused = true;
+    addTrace(`Illustration paused at COUNT = ${count}; state retained.`);
+    message.textContent = 'Countdown paused while the demo is hidden. Count is retained; choose Resume timer to continue.';
+    render();
+  }
 
   function addTrace(text) {
     const item = document.createElement("li");
@@ -199,15 +216,48 @@
 
   function render() {
     countDisplay.textContent = String(count);
-    statusDisplay.textContent = busy ? "BUSY" : (irq ? "IRQ PENDING" : "IDLE");
+    statusDisplay.textContent = paused ? "PAUSED" : (busy ? "BUSY" : (irq ? "IRQ PENDING" : "IDLE"));
     irqDisplay.textContent = irq ? "HIGH" : "LOW";
-    startButton.disabled = busy;
+    startButton.disabled = busy && !paused;
+    startButton.textContent = paused ? 'Resume timer' : 'Start timer';
     reloadInput.disabled = busy;
     clearButton.disabled = !irq;
   }
 
+  function startTicks() {
+    stopTicks();
+    intervalId = window.setInterval(() => {
+      if (isHidden()) { pauseIfHidden(); return; }
+      count -= 1;
+
+      if (count === 0) {
+        busy = false;
+        irq = true;
+        stopTicks();
+
+        addTrace("Monitor: COUNT = 0, interrupt is pending.");
+        addTrace("Model: countdown completed; interrupt is pending.");
+        message.textContent = "Timer completed. Clear the interrupt or start another countdown.";
+      } else {
+        addTrace(`Monitor: COUNT = ${count}, STATUS = BUSY.`);
+      }
+
+      render();
+    }, 700);
+  }
+
   startButton.addEventListener("click", () => {
-    if (busy) return;
+    if (isHidden()) return;
+    if (busy) {
+      if (paused) {
+        paused = false;
+        addTrace(`Illustration resumed from COUNT = ${count}.`);
+        message.textContent = 'Timer resumed from the retained count. One model tick is one countdown step.';
+        startTicks();
+        render();
+      }
+      return;
+    }
 
     if (!reloadInput.checkValidity()) {
       message.textContent = "Enter a whole number from 1 to 12.";
@@ -224,6 +274,7 @@
 
     count = reload;
     busy = true;
+    paused = false;
     irq = false;
 
     addTrace(`Sequence: program RELOAD = ${reload}.`);
@@ -234,24 +285,7 @@
     message.textContent = "Timer started. One model tick is one countdown step.";
     render();
 
-    intervalId = window.setInterval(() => {
-      count -= 1;
-
-      if (count === 0) {
-        busy = false;
-        irq = true;
-        window.clearInterval(intervalId);
-        intervalId = null;
-
-        addTrace("Monitor: COUNT = 0, interrupt is pending.");
-        addTrace("Model: countdown completed; interrupt is pending.");
-        message.textContent = "Timer completed. Clear the interrupt or start another countdown.";
-      } else {
-        addTrace(`Monitor: COUNT = ${count}, STATUS = BUSY.`);
-      }
-
-      render();
-    }, 700);
+    startTicks();
   });
 
   clearButton.addEventListener("click", () => {
@@ -265,18 +299,18 @@
   });
 
   resetButton.addEventListener("click", () => {
-    if (intervalId !== null) {
-      window.clearInterval(intervalId);
-      intervalId = null;
-    }
+    stopTicks();
 
     count = 0;
     busy = false;
+    paused = false;
     irq = false;
     addTrace("Reset: count, busy state, and interrupt returned to zero.");
     message.textContent = "Model reset. Choose a reload value and start.";
     render();
   });
 
+  new MutationObserver(pauseIfHidden).observe(panel, { attributes: true, attributeFilter: ['hidden'] });
+  document.addEventListener('visibilitychange', pauseIfHidden);
   render();
 })();

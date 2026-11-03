@@ -52,8 +52,8 @@
 .orbit-demos .orbit-card-description{font-size:12px}
 .orbit-ready .demo-index .pg-model-note{margin-top:14px}
 .orbit-ready .demo-panel{scroll-margin-top:112px}
-.orbit-ready .demo-panel :is(h2,h3):focus{outline:none}
-.orbit-ready .demo-panel :is(h2,h3):focus-visible{outline:2px solid var(--blue);outline-offset:6px}
+.orbit-ready .demo-panel :is(h2,h3,h4,h5,h6):focus{outline:none}
+.orbit-ready .demo-panel :is(h2,h3,h4,h5,h6):focus-visible{outline:2px solid var(--blue);outline-offset:6px}
 .orbit-ready .is-dragging .orbit-card{transition:none!important;cursor:grabbing!important}
 .orbit-viewport:active{cursor:grabbing}
 @media(max-width:760px){
