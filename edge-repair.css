@@ -1,0 +1,34 @@
+/* Close the existing blue sculpture without changing the portfolio layout. */
+.edge-art .edge-volume{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
+.edge-art .edge-wall{position:absolute;transform-style:preserve-3d;backface-visibility:visible;background:linear-gradient(180deg,color-mix(in srgb,var(--dk-board),var(--dk-edge) 24%),color-mix(in srgb,var(--dk-board),var(--dk-edge) 8%));border:0;outline:0}
+.edge-art .edge-chip-volume .edge-wall{background:linear-gradient(180deg,var(--dk-chip),color-mix(in srgb,var(--dk-chip),#0a111c 28%))}
+.edge-art .edge-chip-bottom{position:absolute;left:103px;top:103px;width:154px;height:154px;border-radius:9px;background:var(--dk-chip);transform:translateZ(3px);backface-visibility:visible}
+.edge-repaired .dk-board-mid{visibility:hidden}
+.edge-repaired .dk-chip-wall,.edge-repaired .dk-chip-pins{display:none}
+.edge-art .edge-leads{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none;--lead-top:#9bb0ce;--lead-side:#677e9e;--lead-bottom:#425771}
+html[data-theme=light] .edge-art .edge-leads{--lead-top:#8d9fb6;--lead-side:#5f748e;--lead-bottom:#465a73}
+.edge-art .edge-lead{position:absolute;width:6px;height:27px;transform-style:preserve-3d;transform-origin:3px 0;backface-visibility:visible}
+.edge-art .edge-lead-part{position:absolute;left:0;transform-style:preserve-3d;backface-visibility:visible;background:var(--lead-top)}
+.edge-art .edge-lead-shoulder{top:0;width:6px;height:9.2px;transform:translateZ(19px)}
+.edge-art .edge-lead-ramp{top:9px;width:6px;height:18.55px;transform-origin:top;transform:translateZ(19px) rotateX(-60.64deg);background:linear-gradient(var(--lead-top),var(--lead-side))}
+.edge-art .edge-lead-toe{top:18px;width:6px;height:9px;transform:translateZ(3px)}
+.edge-art .edge-lead-under-shoulder{top:0;width:6px;height:8px;transform:translateZ(17px);background:var(--lead-bottom)}
+.edge-art .edge-lead-under-ramp{top:8px;width:6px;height:18.55px;transform-origin:top;transform:translateZ(17px) rotateX(-60.64deg);background:var(--lead-bottom)}
+.edge-art .edge-lead-under-toe{top:17px;width:6px;height:10px;transform:translateZ(1px);background:var(--lead-bottom)}
+.edge-art .edge-lead-profile{position:absolute;left:0;top:0;width:27px;height:19px;color:var(--lead-side);overflow:visible;transform-origin:0 0;transform:translateZ(19px) rotateZ(90deg) rotateX(-90deg);backface-visibility:visible}
+.edge-art .edge-lead-profile.edge-profile-right{left:6px}
+.edge-art .edge-lead-cap{top:27px;width:6px;height:2px;transform-origin:top;transform:translateZ(3px) rotateX(-90deg);background:var(--lead-side)}
+.edge-art .edge-lead-solder{left:-1px;top:18px;width:8px;height:10px;transform:translateZ(.8px);background:var(--lead-bottom);border-radius:1px}
+.edge-art .dk-circuit{opacity:1}
+.edge-art .edge-route{stroke:var(--teal);stroke-width:.95;opacity:.46;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.edge-art .edge-route-flow{stroke:var(--teal);stroke-width:1.8;opacity:.9;fill:none;stroke-linecap:round;stroke-dasharray:3 47;animation:edge-signal 4s linear infinite;animation-delay:var(--edge-delay,0s)}
+.edge-art .edge-route-flow.edge-flow-coral{stroke:var(--coral);opacity:.8}
+.edge-art .edge-via{fill:var(--dk-board);stroke:var(--dk-edge);stroke-width:1.1}
+.edge-art .edge-land{fill:var(--dk-edge);opacity:.65}
+.edge-art .edge-flow-paused .edge-route-flow{animation-play-state:paused}
+@keyframes edge-signal{to{stroke-dashoffset:-100}}
+@media(max-width:760px){.edge-art .dk-sculpture{transform:translate(-50%,-50%) scale(var(--edge-mobile-scale,.6))}}
+@media(max-width:370px){.edge-art .dk-sculpture{transform:translate(-50%,-50%) scale(var(--edge-mobile-scale,.46))}}
+@media(prefers-reduced-motion:reduce){.edge-art .edge-route-flow{animation:none}}
+
+.edge-art .dk-board-label{bottom:4px;left:28px}
