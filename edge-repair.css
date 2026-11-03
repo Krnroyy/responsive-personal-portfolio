@@ -61,3 +61,10 @@ html[data-theme=light] .signal-board .dk-art-bottom button.demo-motion-icon{back
 .signal-board .signal-lead-front{position:absolute;left:0;top:0;display:none;width:3px;height:3px;border-radius:50%;background:#dcecff;border:.5px solid #75aaff;pointer-events:none;backface-visibility:visible}.signal-board .signal-lead-output{background:#ffdccb;border-color:#d48e70}
 
 .signal-board .signal-capacitor{box-shadow:none;border:0;background:linear-gradient(120deg,#9e907a,#706658)}.signal-board .edge-cap-volume .edge-wall{background:#665e50}.signal-board .signal-cap-terminal{position:absolute;top:39px;width:6px;height:8px;background:#a2b0c2;transform:translateZ(4.3px);pointer-events:none}.signal-board .edge-cap-metal .edge-wall{background:#78889d}
+/* One shared projected mesh removes CSS compositor seams at moving corners. */
+.solid-board .dk-assembly{visibility:hidden;pointer-events:none}
+.solid-board .solid-chip-canvas{position:absolute;left:-120px;top:-120px;width:600px;height:600px;pointer-events:none}
+.signal-board .dk-trails{display:block}
+@media(max-width:1100px) and (min-width:761px){.solid-board .solid-chip-canvas{transform:scale(.89);transform-origin:120px 120px}}
+.solid-board .dk-sculpture:focus{outline:none}
+.solid-board .dk-sculpture:focus-visible::after{content:'';position:absolute;inset:0;border:1px solid var(--teal);border-radius:12px;pointer-events:none}
