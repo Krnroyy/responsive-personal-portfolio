@@ -38,7 +38,7 @@
     requestAnimationFrame(() => {
       home.classList.add('vf-home-click');
       if (window.Motion) {
-        Motion.animate(home.querySelector('.vf-home-monogram'), { rotate: [0, -9, 5, 0], scale: [1, .91, 1.08, 1] }, { duration: .55 });
+        Motion.animate(home.querySelector('.vf-home-monogram'), { opacity: [1, .76, 1] }, { duration: .24 });
       }
     });
   });

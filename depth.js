@@ -72,8 +72,8 @@
       gradient.addColorStop(.94,`rgba(${rgb},${opacity*pulse*.04})`);
       gradient.addColorStop(1,`rgba(${rgb},0)`);
       ctx.strokeStyle=gradient;ctx.lineWidth=i%5===0?2.5:.8;
-      ctx.beginPath();ctx.moveTo(-width*.1,height*.95+spread);
-      ctx.bezierCurveTo(width*.55,height*.8+spread+drift*24,width*.15,height*.3+spread-drift*28,width*.85+spread*.6,-height*.1);
+      ctx.beginPath();ctx.moveTo(-width*.14,height*.84+spread);
+      ctx.bezierCurveTo(width*.38,height*.95+spread+drift*18,width*.38,height*.1+spread-drift*20,width*.98+spread*.4,-height*.12);
       ctx.stroke();
       if (i%4===0) {
         ctx.save();ctx.setLineDash([2,46]);ctx.lineDashOffset=-time*24-i*7;
@@ -91,6 +91,15 @@
     edgeFade.addColorStop(.97, 'rgba(0,0,0,0)');
     edgeFade.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = edgeFade;
+    ctx.fillRect(0, 0, width, height);
+    // Multiply by a horizontal fade as well: both incoming and outgoing
+    // decorative trails reach zero alpha before their own card boundary.
+    const sideFade = ctx.createLinearGradient(0, 0, width, 0);
+    sideFade.addColorStop(0, 'rgba(0,0,0,0)');
+    sideFade.addColorStop(.16, 'rgba(0,0,0,1)');
+    sideFade.addColorStop(.78, 'rgba(0,0,0,1)');
+    sideFade.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = sideFade;
     ctx.fillRect(0, 0, width, height);
     ctx.restore();
   }
